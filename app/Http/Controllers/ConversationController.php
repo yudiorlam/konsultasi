@@ -76,4 +76,11 @@ class ConversationController extends Controller
             ]);
         }
     }
+    public function daftarKonsul(){
+        $daftarKonsul = Conversation :: join('topics', 'topics.id', '=' , 'conversations.topic_id' )
+        -> join('users', 'users.id', '=' , 'conversations.user_id')
+        ->get();
+        //dd($daftarKonsul);
+        return view ('admin.daftarKonsultasi' , compact('daftarKonsul'));
+    }
 }

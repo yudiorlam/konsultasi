@@ -91,7 +91,7 @@
 							</span>
 						</li>
 						<li class="menu-item" aria-haspopup="true">
-							<a href="layout/subheader/toolbar.html" class="menu-link">
+							<a href="{{ asset('/daftarKonsul') }}" class="menu-link">
 								<i class="menu-bullet menu-bullet-dot">
 									<span></span>
 								</i>

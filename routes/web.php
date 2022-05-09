@@ -40,6 +40,7 @@ Route::middleware(['admin'])->group(function () {
     Route::get('/topic', [TopicController::class, 'index']);
     Route::get('/addTopik', [TopicController::class, 'create']);
     Route::post('/addTopik', [TopicController::class, 'store']);
+    Route::get('/daftarKonsul', [ConversationController::class, 'daftarKonsul']);
 
 
     // Route::get('/color/{id}/edit', [TopicController::class, 'edit']);
