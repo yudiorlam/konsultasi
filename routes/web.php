@@ -11,6 +11,8 @@ use App\Http\Controllers\UserTopicController;
 use App\Http\Controllers\TopicController;
 
 use App\Http\Controllers\AJG;
+use App\Http\Controllers\PegawaiSyncController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,10 +35,10 @@ Route::middleware(['admin'])->group(function () {
     Route::get('/getAdminTopik', [UserTopicController::class, 'index']);
     Route::get('/addAdmin', [UserTopicController::class, 'create']);
     Route::post('/addAdmin', [UserTopicController::class, 'store']);
-        // Route::get('/getTopik', [TopicController::class, 'index']);
-        // Route::get('/addTopik', [TopicController::class, 'create']);
-        // Route::post('/addTopik', [TopicController::class, 'store']);
-    
+    // Route::get('/getTopik', [TopicController::class, 'index']);
+    // Route::get('/addTopik', [TopicController::class, 'create']);
+    // Route::post('/addTopik', [TopicController::class, 'store']);
+
     Route::get('/topic', [TopicController::class, 'index']);
     Route::get('/addTopik', [TopicController::class, 'create']);
     Route::post('/addTopik', [TopicController::class, 'store']);
@@ -45,6 +47,10 @@ Route::middleware(['admin'])->group(function () {
 
     // Route::get('/color/{id}/edit', [TopicController::class, 'edit']);
     // Route::post('/color/{id}', [TopicController::class, 'update']);
+
+    // DS
+    Route::get('/pegawai/sync', [PegawaiSyncController::class, 'sync']);
+    Route::get('/pegawai/sync/per-instansi', [PegawaiSyncController::class, 'per_instansi']);
 });
 
 
