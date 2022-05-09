@@ -79,7 +79,7 @@
 						</svg>
 						<!--end::Svg Icon-->
 					</span>
-					<span class="menu-text">Subheaders</span>
+					<span class="menu-text">Rangkuman</span>
 					<i class="menu-arrow"></i>
 				</a>
 				<div class="menu-submenu">
@@ -87,7 +87,7 @@
 					<ul class="menu-subnav">
 						<li class="menu-item menu-item-parent" aria-haspopup="true">
 							<span class="menu-link">
-								<span class="menu-text">Subheaders</span>
+								<span class="menu-text">Data Konsultasi</span>
 							</span>
 						</li>
 						<li class="menu-item" aria-haspopup="true">
@@ -95,7 +95,7 @@
 								<i class="menu-bullet menu-bullet-dot">
 									<span></span>
 								</i>
-								<span class="menu-text">Toolbar Nav</span>
+								<span class="menu-text">Data konsultasi</span>
 							</a>
 						</li>
 						<li class="menu-item" aria-haspopup="true">
@@ -103,31 +103,7 @@
 								<i class="menu-bullet menu-bullet-dot">
 									<span></span>
 								</i>
-								<span class="menu-text">Actions Buttons</span>
-							</a>
-						</li>
-						<li class="menu-item" aria-haspopup="true">
-							<a href="layout/subheader/tabbed.html" class="menu-link">
-								<i class="menu-bullet menu-bullet-dot">
-									<span></span>
-								</i>
-								<span class="menu-text">Tabbed Nav</span>
-							</a>
-						</li>
-						<li class="menu-item" aria-haspopup="true">
-							<a href="layout/subheader/classic.html" class="menu-link">
-								<i class="menu-bullet menu-bullet-dot">
-									<span></span>
-								</i>
-								<span class="menu-text">Classic</span>
-							</a>
-						</li>
-						<li class="menu-item" aria-haspopup="true">
-							<a href="layout/subheader/none.html" class="menu-link">
-								<i class="menu-bullet menu-bullet-dot">
-									<span></span>
-								</i>
-								<span class="menu-text">None</span>
+								<span class="menu-text">Cetak</span>
 							</a>
 						</li>
 					</ul>
