@@ -83,4 +83,20 @@ class ConversationController extends Controller
         //dd($daftarKonsul);
         return view ('admin.daftarKonsultasi' , compact('daftarKonsul'));
     }
+    public function edit()
+    {
+        // $rangkuman = Conversation::find($id);
+        return view('admin.rangkuman');
+    }
+
+    // public function update(Request $request, $id)
+    // {
+    //     $student = Student::find($id);
+    //     $student->name = $request->input('name');
+    //     $student->email = $request->input('email');
+    //     $student->course = $request->input('course');
+    //     $student->section = $request->input('section');
+    //     $student->update();
+    //     return redirect()->back()->with('status','Student Updated Successfully');
+    // }
 }

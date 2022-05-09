@@ -41,6 +41,7 @@ Route::middleware(['admin'])->group(function () {
     Route::get('/addTopik', [TopicController::class, 'create']);
     Route::post('/addTopik', [TopicController::class, 'store']);
     Route::get('/daftarKonsul', [ConversationController::class, 'daftarKonsul']);
+    Route::get('/rangkuman', [ConversationController::class, 'edit']);
 
 
     // Route::get('/color/{id}/edit', [TopicController::class, 'edit']);

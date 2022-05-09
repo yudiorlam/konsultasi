@@ -39,8 +39,8 @@ var KTDatatableHtmlTableDemo = function() {
                 'class': ' label-light-warning',
               },
               2: {
-                'title': 'Delivered',
-                'class': ' label-light-danger',
+                'title': 'Success',
+                'class': ' label-light-success',
               },
               3: {
                 'title': 'Canceled',
