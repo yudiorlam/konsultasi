@@ -30,18 +30,26 @@ Route::get('/', [LoginController::class, 'login'])->middleware('guest');
 Route::post('/actionlogout', [LoginController::class, 'actionlogout']);
 Route::post('/actionlogin', [LoginController::class, 'actionlogin'])->name('actionlogin');
 
-Route::middleware(['admin'])->group(function () {
-    Route::get('/dashboard', [PagesController::class, 'index']);
-    Route::get('/getAdminTopik', [UserTopicController::class, 'index']);
-    Route::get('/addAdmin', [UserTopicController::class, 'create']);
-    Route::post('/addAdmin', [UserTopicController::class, 'store']);
-    // Route::get('/getTopik', [TopicController::class, 'index']);
-    // Route::get('/addTopik', [TopicController::class, 'create']);
-    // Route::post('/addTopik', [TopicController::class, 'store']);
 
-    Route::get('/topic', [TopicController::class, 'index']);
-    Route::get('/addTopik', [TopicController::class, 'create']);
-    Route::post('/addTopik', [TopicController::class, 'store']);
+
+Route::middleware(['super_admin'])->group(
+    function () {
+        Route::get('/dashboard', [PagesController::class, 'index']);
+        Route::get('/getAdminTopik', [UserTopicController::class, 'index']);
+        Route::get('/addAdmin', [UserTopicController::class, 'create']);
+        Route::post('/addAdmin', [UserTopicController::class, 'store']);
+        Route::get('/topic', [TopicController::class, 'index']);
+        Route::get('/addTopik', [TopicController::class, 'create']);
+        Route::post('/addTopik', [TopicController::class, 'store']);
+
+        // Route::get('/getTopik', [TopicController::class, 'index']);
+        // Route::get('/addTopik', [TopicController::class, 'create']);
+        // Route::post('/addTopik', [TopicController::class, 'store']);
+
+    }
+);
+
+Route::middleware(['admin'])->group(function () {
     Route::get('/daftarKonsul', [ConversationController::class, 'daftarKonsul']);
     Route::get('/rangkuman/{id}', [ConversationController::class, 'edit'])->name('edit_rangkuman');
     Route::put('/rangkumanUpdate/{id}', [ConversationController::class, 'updateRangkuman']);
