@@ -30,6 +30,7 @@
 	<body id="kt_body " class="page-loading">
 		<div class="d-flex flex-column flex-root">
 			<div class="d-flex flex-row flex-column-fluid page">
+				
 				<div class="aside aside-left aside-fixed d-flex flex-column flex-row-auto" id="kt_aside">
 					@include('admin.layout.nav')
 
