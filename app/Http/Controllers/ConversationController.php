@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Conversation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -10,15 +11,16 @@ class ConversationController extends Controller
     public function ajax_create_conv(Request $request)
     {
         if ($request->ajax()) {
-            $conv = Conversation::where('nip' , auth()->user()->nip)->where('tiket_status' , 1)->first();
-            
+            $conv = Conversation::where('nip', auth()->user()->nip)->where('tiket_status', 1)->first();
+
             //cek status tiket
-            if ($conv){
+            if ($conv) {
                 $status = 'error';
                 $message = 'Harap mengakhiri konsultasi sebelumnya untuk memulai konsutasi baru!';
-            } else{
+            } else {
                 // buat room
-                $user_topik = DB::select("
+                $user_topik = DB::select(
+                    "
                 SELECT user_id as uid, 
                     (
                         SELECT COUNT(user_id)
@@ -46,41 +48,44 @@ class ConversationController extends Controller
                     return response()->json([
                         'status' => 'error',
                     ]);
-                    }
-        }
+                }
 
-            return response()->json([
-                'status' => $status,
-                'message' => $message,
-                'data' => $save,
-            ]);
+
+                return response()->json([
+                    'status' => $status,
+                    'message' => $message,
+                    'data' => $save,
+                ]);
+            }
         }
     }
 
-    public function update(Request $request){
+    public function update(Request $request)
+    {
         $request->validate([
             'id' => 'required',
         ]);
 
         $updateTiketStatus = Conversation::updateOrCreate(['id' => $request->id], ['tiket_status' => 2]);
 
-        if($updateTiketStatus){
+        if ($updateTiketStatus) {
             return response()->json([
-                'status' => 'success', 
+                'status' => 'success',
                 'message' => 'Status tiket berhasil diubah.',
             ], 200);
         } else {
             return response()->json([
-                'status' => 'error', 
+                'status' => 'error',
                 'message' => 'Status tiket gagal diubah.',
             ]);
         }
     }
-    public function daftarKonsul(){
-        $daftarKonsul = Conversation :: join('topics', 'topics.id', '=' , 'conversations.topic_id' )
-        -> join('users', 'users.id', '=' , 'conversations.user_id')
-        ->get();
+    public function daftarKonsul()
+    {
+        $daftarKonsul = Conversation::join('topics', 'topics.id', '=', 'conversations.topic_id')
+            ->join('users', 'users.id', '=', 'conversations.user_id')
+            ->get();
         //dd($daftarKonsul);
-        return view ('admin.daftarKonsultasi' , compact('daftarKonsul'));
+        return view('admin.daftarKonsultasi', compact('daftarKonsul'));
     }
 }

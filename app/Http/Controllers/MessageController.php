@@ -11,44 +11,47 @@ use App\Models\Conversation;
 
 class MessageController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $page_title = 'lineawesome';
         $page_description = 'This is lineawesome test page';
-        
-        
+
+
 
         $message = Message::join('users', 'users');
-        
-        return view('user.single-chat', compact('page_title', 'page_description'));  
+
+        return view('user.single-chat', compact('page_title', 'page_description'));
     }
 
-    public function chatUser(){
+    public function chatUser()
+    {
         $user_id = Auth::user()->id;
-        if(auth()->user()->role == 1){
+        if (auth()->user()->role == 1) {
             $conversations = Conversation::join('users', 'users.id', '=', 'conversations.user_id')
-            ->select('conversations.id as conv_id', 'users.id', 'users.name','users.user_image') 
-            ->get();
+                ->select('conversations.id as conv_id', 'users.id', 'users.name', 'users.user_image')
+                ->get();
             //  dd($conversations);
-        } else if(auth()->user()->role == 2){
+        } else if (auth()->user()->role == 2) {
             $conversations = Conversation::join('users', 'users.nip', '=', 'conversations.nip')
-            ->select('conversations.id as conv_id', 'conversations.user_id' , 'users.id', 'users.name', 'users.user_image', 'users.nip')
-            ->where('conversations.user_id', auth()->user()->id)
-            ->get();
+                ->select('conversations.id as conv_id', 'conversations.user_id', 'users.id', 'users.name', 'users.user_image', 'users.nip')
+                ->where('conversations.user_id', auth()->user()->id)
+                ->get();
             //  dd($conversations);
         } else {
             $conversations = Conversation::join('users', 'users.id', '=', 'conversations.user_id')
-            ->join('topics', 'topics.id', '=', 'conversations.topic_id')
-            ->select('conversations.id as conv_id', 'conversations.user_id', 'conversations.topic_id', 'topics.topic_name', 'conversations.nip' , 'users.id', 'users.name', 'users.user_image',)
-            ->where('conversations.nip', auth()->user()->nip)
-            ->get();
+                ->join('topics', 'topics.id', '=', 'conversations.topic_id')
+                ->select('conversations.id as conv_id', 'conversations.user_id', 'conversations.topic_id', 'topics.topic_name', 'conversations.nip', 'users.id', 'users.name', 'users.user_image',)
+                ->where('conversations.nip', auth()->user()->nip)
+                ->get();
             //  dd($conversations);
         }
-        
-        return view('user.single-chat', compact('conversations','user_id'));
+
+        return view('user.single-chat', compact('conversations', 'user_id'));
     }
 
 
-    public function ajax_fetch_chats(Request $request){
+    public function ajax_fetch_chats(Request $request)
+    {
         $id = $request->id;
         // $last_chat_id = $request->last_chat_id;
 
@@ -57,11 +60,11 @@ class MessageController extends Controller
             $conversation = Conversation::where('id', $id)->first();
 
             // if($last_chat_id == null){
-                $chats = Message::where('conv_id', $id)
-                    ->join('users', 'users.id' , '=' , 'messages.user_id')
-                    ->orderBy('messages.id', 'ASC')
-                    ->select('messages.*', 'users.id', 'users.name', 'users.user_image')
-                    ->get();
+            $chats = Message::where('conv_id', $id)
+                ->join('users', 'users.id', '=', 'messages.user_id')
+                ->orderBy('messages.id', 'ASC')
+                ->select('messages.*', 'users.id', 'users.name', 'users.user_image')
+                ->get();
             // } else {
             //     $chats = Message::where('conv_id', '>' , $last_chat_id)
             //         ->join('users', 'users.id' , '=' , 'messages.user_id')
@@ -71,7 +74,7 @@ class MessageController extends Controller
             // }
 
             // $last_chat = Message::orderBy('messages.id', 'DESC')->first();
-            
+
             $data = array();
             foreach ($chats as $u) {
                 $data[] = [
@@ -97,7 +100,8 @@ class MessageController extends Controller
         }
     }
 
-    public function send_message(Request $request){
+    public function send_message(Request $request)
+    {
         $data = $this->validate($request, [
             'body' => 'required',
             'conv_id' => 'required',
@@ -116,5 +120,4 @@ class MessageController extends Controller
             ]);
         }
     }
-
 }
