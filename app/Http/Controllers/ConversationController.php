@@ -80,18 +80,28 @@ class ConversationController extends Controller
             ]);
         }
     }
-    public function daftarKonsul(){
-        $daftarKonsul = Conversation :: join('topics', 'topics.id', '=' , 'conversations.topic_id' )
-        -> join('users', 'users.id', '=' , 'conversations.user_id')
-        ->select(['conversations.*', 'users.name' , 'topics.topic_name'])
-        ->get();
+    public function daftarKonsul()
+    {
+        if (auth()->user()->role == 1) {
+            $daftarKonsul = Conversation::join('topics', 'topics.id', '=', 'conversations.topic_id')
+                ->join('users', 'users.id', '=', 'conversations.user_id')
+                ->select(['conversations.*', 'users.name', 'topics.topic_name'])
+                ->get();
+        } else {
+            $daftarKonsul = Conversation::join('topics', 'topics.id', '=', 'conversations.topic_id')
+                ->join('users', 'users.id', '=', 'conversations.user_id')
+                ->where('conversations.user_id', auth()->user()->id)
+                ->select(['conversations.*', 'users.name', 'topics.topic_name'])
+                ->get();
+        }
         // dd($daftarKonsul);
-        return view ('admin.daftarKonsultasi' , compact('daftarKonsul'));
+        return view('admin.daftarKonsultasi', compact('daftarKonsul'));
     }
+
     public function edit($id)
     {
         $rangkuman = Conversation::find($id);
-        return view('admin.rangkuman' , compact('rangkuman'));
+        return view('admin.rangkuman', compact('rangkuman'));
     }
 
     public function updateRangkuman(Request $request, $id)
