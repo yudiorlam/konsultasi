@@ -1,6 +1,5 @@
 @extends('user.layout.app')
 
-<<<<<<< HEAD
 @section('sidebar')	
 								
 	@foreach ($conversations as $conversation )
@@ -31,39 +30,6 @@
 		</div>
 		
 	@endforeach
-=======
-@section('sidebar')
-    @foreach ($conversations as $conversation)
-        <div class="d-flex align-items-center justify-content-between mb-5">
-            <div class="d-flex align-items-center">
-                <div class="symbol symbol-circle symbol-50 mr-3">
-                    <img alt="Pic" src="{{ $conversation->user_image }}" />
-                </div>
-
-                @if (auth()->user()->role == 3)
-                    <div class="d-flex flex-column">
-                        <a href="javaScript:void(0);"
-                            onclick="showChat('{{ $conversation->conv_id }}','{{ $conversation->name }}');"
-                            class="text-dark-75 text-hover-primary font-weight-bold font-size-lg">{{ $conversation->name }}</a>
-                        <span class="text-muted font-weight-bold font-size-sm">{{ $conversation->topic_name }}</span>
-                    </div>
-                @else
-                    <div class="d-flex flex-column">
-                        <a href="javaScript:void(0);"
-                            onclick="showChat('{{ $conversation->conv_id }}','{{ $conversation->name }}');"
-                            class="text-dark-75 text-hover-primary font-weight-bold font-size-lg">{{ $conversation->name }}</a>
-                        <span class="text-muted font-weight-bold font-size-sm">{{ $conversation->nip }}</span>
-                    </div>
-                @endif
-
-            </div>
-            <div class="d-flex flex-column align-items-end">
-                <span class="text-muted font-weight-bold font-size-sm">7 hrs</span>
-                <span class="label label-sm label-success">4</span>
-            </div>
-        </div>
-    @endforeach
->>>>>>> c88b57bf11c1c9db8562e4c2a49d6bbee8b6875e
 @endsection
 
 
