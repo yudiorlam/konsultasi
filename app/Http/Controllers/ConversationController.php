@@ -80,7 +80,6 @@ class ConversationController extends Controller
             ]);
         }
     }
-<<<<<<< HEAD
     public function daftarKonsul(){
         $daftarKonsul = Conversation :: join('topics', 'topics.id', '=' , 'conversations.topic_id' )
         -> join('users', 'users.id', '=' , 'conversations.user_id')
@@ -88,15 +87,6 @@ class ConversationController extends Controller
         ->get();
         // dd($daftarKonsul);
         return view ('admin.daftarKonsultasi' , compact('daftarKonsul'));
-=======
-    public function daftarKonsul()
-    {
-        $daftarKonsul = Conversation::join('topics', 'topics.id', '=', 'conversations.topic_id')
-            ->join('users', 'users.id', '=', 'conversations.user_id')
-            ->get();
-        //dd($daftarKonsul);
-        return view('admin.daftarKonsultasi', compact('daftarKonsul'));
->>>>>>> c88b57bf11c1c9db8562e4c2a49d6bbee8b6875e
     }
     public function edit($id)
     {
