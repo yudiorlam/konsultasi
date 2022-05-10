@@ -1,35 +1,36 @@
 @extends('user.layout.app')
 
-@section('sidebar')	
-								
-	@foreach ($conversations as $conversation )
-	
-		<div class="d-flex align-items-center justify-content-between mb-5">
-			<div class="d-flex align-items-center">
-				<div class="symbol symbol-circle symbol-50 mr-3">
-					<img alt="Pic" src="{{ $conversation->user_image }}" />
-				</div>
+@section('sidebar')
+    @foreach ($conversations as $conversation)
+        <div class="d-flex align-items-center justify-content-between mb-5">
+            <div class="d-flex align-items-center">
+                <div class="symbol symbol-circle symbol-50 mr-3">
+                    <img alt="Pic" src="{{ asset('storage/users/' . $conversation->user_image) }}" />
+                </div>
 
-				@if (auth()->user()->role == 3)
-					<div class="d-flex flex-column">
-						<a href="javaScript:void(0);" onclick="showChat('{{ $conversation->conv_id }}','{{ $conversation->name }}');" class="text-dark-75 text-hover-primary font-weight-bold font-size-lg">{{ $conversation->name }}</a>
-						<span class="text-muted font-weight-bold font-size-sm">{{ $conversation->topic_name }}</span>
-					</div>	
-				@else
-					<div class="d-flex flex-column">
-						<a href="javaScript:void(0);" onclick="showChat('{{ $conversation->conv_id }}','{{ $conversation->name }}');" class="text-dark-75 text-hover-primary font-weight-bold font-size-lg">{{ $conversation->name }}</a>
-						<span class="text-muted font-weight-bold font-size-sm">{{ $conversation->nip }}</span>
-					</div>	
-				@endif
-				
-			</div>
-			<div class="d-flex flex-column align-items-end">
-				<span class="text-muted font-weight-bold font-size-sm">7 hrs</span>
-				<span class="label label-sm label-success">4</span>
-			</div>
-		</div>
-		
-	@endforeach
+                @if (auth()->user()->role == 3)
+                    <div class="d-flex flex-column">
+                        <a href="javaScript:void(0);"
+                            onclick="showChat('{{ $conversation->conv_id }}','{{ $conversation->name }}');"
+                            class="text-dark-75 text-hover-primary font-weight-bold font-size-lg">{{ $conversation->name }}</a>
+                        <span class="text-muted font-weight-bold font-size-sm">{{ $conversation->topic_name }}</span>
+                    </div>
+                @else
+                    <div class="d-flex flex-column">
+                        <a href="javaScript:void(0);"
+                            onclick="showChat('{{ $conversation->conv_id }}','{{ $conversation->name }}');"
+                            class="text-dark-75 text-hover-primary font-weight-bold font-size-lg">{{ $conversation->name }}</a>
+                        <span class="text-muted font-weight-bold font-size-sm">{{ $conversation->nip }}</span>
+                    </div>
+                @endif
+
+            </div>
+            <div class="d-flex flex-column align-items-end">
+                <span class="text-muted font-weight-bold font-size-sm">7 hrs</span>
+                <span class="label label-sm label-success">4</span>
+            </div>
+        </div>
+    @endforeach
 @endsection
 
 
@@ -283,21 +284,21 @@
                     setTimeout(function() {
                         $.LoadingOverlay("hide");
                         $('.body-chat').append('<div class="d-flex flex-column mb-5 align-items-end">\
-                                                                                    										<div class="d-flex align-items-center">\
-                                                                                    											<div>\
-                                                                                    												<span class="text-muted font-size-sm">3 minushowChat</span>\
-                                                                                    												<a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">Administrator</a>\
-                                                                                    											</div>\
-                                                                                    											<div class="symbol symbol-circle symbol-40 ml-3">\
-                                                                                    												<img alt="Pic" src="https://picsum.photos/id/237/200/200" />\
-                                                                                    											</div>\
-                                                                                    										</div>\
-                                                                                    										<div class="mt-2 mb-2 rounded p-5 bg-light-primary text-dark-50 font-weight-bold font-size-lg text-right max-w-400px">\
-                                                                                    											Selamat siang, silahkan pilih topik pembahasan.\
-                                                                                    										</div>\
-                                                                                    										<div id="list-topic">\
-                                                                                    										</div>\
-                                                                                    									</div>');
+                                    <div class="d-flex align-items-center">\
+                                        <div>\
+                                            <span class="text-muted font-size-sm">3 minushowChat</span>\
+                                            <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">Administrator</a>\
+                                        </div>\
+                                        <div class="symbol symbol-circle symbol-40 ml-3">\
+                                            <img alt="Pic" src="https://picsum.photos/id/237/200/200" />\
+                                        </div>\
+                                    </div>\
+                                    <div class="mt-2 mb-2 rounded p-5 bg-light-primary text-dark-50 font-weight-bold font-size-lg text-right max-w-400px">\
+                                        Selamat siang, silahkan pilih topik pembahasan.\
+                                    </div>\
+                                    <div id="list-topic">\
+                                    </div>\
+                                </div>');
 
                         setTimeout(function() {
                             $.each(response, function(index, value) {
@@ -417,42 +418,43 @@
                             if (value.user_id == {{ auth()->user()->id }}) {
                                 pesan =
                                     '<div class="d-flex flex-column mb-5 align-items-end">\
-                                                                                    								<div class="d-flex align-items-center">\
-                                                                                    									<div>\
-                                                                                    										<span class="text-muted font-size-sm">' +
+                                                                                                								<div class="d-flex align-items-center">\
+                                                                                                									<div>\
+                                                                                                										<span class="text-muted font-size-sm">' +
                                     value
                                     .created_at +
                                     '</span>\
-                                                                                    										<a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">' +
+                                                                                                										<a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">' +
                                     value
                                     .name +
                                     '</a>\
-                                                                                    									</div>\
-                                                                                    									<div class="symbol symbol-circle symbol-40 ml-3">\
-                                                                                    										<img alt="Pic" src="{{ asset('/media/products/1.png') }}" />\
-                                                                                    									</div>\
-                                                                                    								</div>\
-                                                                                    								<div class="mt-2 rounded p-5 bg-light-primary text-dark-50 font-weight-bold font-size-lg text-right max-w-400px">' +
+                                                                                                									</div>\
+                                                                                                									<div class="symbol symbol-circle symbol-40 ml-3">\
+                                                                                                										<img alt="Pic" src="{{ asset('/media/products/1.png') }}" />\
+                                                                                                									</div>\
+                                                                                                								</div>\
+                                                                                                								<div class="mt-2 rounded p-5 bg-light-primary text-dark-50 font-weight-bold font-size-lg text-right max-w-400px">' +
                                     value.body + ' ' + is_read + ' </div>\
-                                                                                    							</div>';
+                                                                                                							</div>';
                             } else {
                                 pesan =
                                     '<div class="d-flex flex-column mb-5 align-items-start">\
-                                                                                    								<div class="d-flex align-items-center">\
-                                                                                    									<div class="symbol symbol-circle symbol-40 mr-3">\
-                                                                                    										<img alt="Pic" src="{{ asset('/media/products/1.png') }}" />\
-                                                                                    									</div>\
-                                                                                    									<div>\
-                                                                                    										<a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">' +
+                                                                                                								<div class="d-flex align-items-center">\
+                                                                                                									<div class="symbol symbol-circle symbol-40 mr-3">\
+                                                                                                										<img alt="Pic" src="{{ asset('/media/products/1.png') }}" />\
+                                                                                                									</div>\
+                                                                                                									<div>\
+                                                                                                										<a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">' +
                                     value
                                     .name + '</a>\
-                                                                                    										' + value.created_at +
+                                                                                                										' + value
+                                    .created_at +
                                     '</span>\
-                                                                                    									</div>\
-                                                                                    								</div>\
-                                                                                    								<div class="mt-2 rounded p-5 bg-light-success text-dark-50 font-weight-bold font-size-lg text-left max-w-400px">' +
+                                                                                                									</div>\
+                                                                                                								</div>\
+                                                                                                								<div class="mt-2 rounded p-5 bg-light-success text-dark-50 font-weight-bold font-size-lg text-left max-w-400px">' +
                                     is_read + ' ' + value.body + '</div>\
-                                                                                    							</div>';
+                                                                                                							</div>';
                             }
 
                             $('.body-chat').append(pesan);
@@ -465,10 +467,10 @@
                         $('#isi-pesan').attr('disabled', 'disabled');
                         $('#tombol-send').attr('disabled', 'disabled');
                         $('.body-chat').append('<div class="row">\
-                                                                                    									<div class="col-12 text-center pt-5">\
-                                                                                    										<p class="badge bg-primary text-white p-4">Sesi anda telah berakhir...</p>\
-                                                                                    									</div>\
-                                                                                    								</div>');
+                                                                                                									<div class="col-12 text-center pt-5">\
+                                                                                                										<p class="badge bg-primary text-white p-4">Sesi anda telah berakhir...</p>\
+                                                                                                									</div>\
+                                                                                                								</div>');
                     } else {
                         $('#isi-pesan').removeAttr("disabled");
                         $('#tombol-send').removeAttr("disabled");
