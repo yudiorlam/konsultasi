@@ -53,6 +53,8 @@ Route::middleware(['admin'])->group(function () {
     // DS
     Route::get('/pegawai/sync', [PegawaiSyncController::class, 'sync']);
     Route::get('/pegawai/sync/per-instansi', [PegawaiSyncController::class, 'per_instansi']);
+
+    Route::post('/send-message-with-attachment', [MessageController::class, 'send_attachment']);
 });
 
 

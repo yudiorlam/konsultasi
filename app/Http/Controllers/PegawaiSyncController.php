@@ -32,7 +32,5 @@ class PegawaiSyncController extends Controller
     public function per_instansi()
     {
         $pegawai = Pegawai::select('fkunitkerja')->distinct()->get();
-
-        dd($pegawai);
     }
 }

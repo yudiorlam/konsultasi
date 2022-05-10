@@ -1,5 +1,6 @@
 @extends('user.layout.app')
 
+<<<<<<< HEAD
 @section('sidebar')	
 								
 	@foreach ($conversations as $conversation )
@@ -30,15 +31,48 @@
 		</div>
 		
 	@endforeach
+=======
+@section('sidebar')
+    @foreach ($conversations as $conversation)
+        <div class="d-flex align-items-center justify-content-between mb-5">
+            <div class="d-flex align-items-center">
+                <div class="symbol symbol-circle symbol-50 mr-3">
+                    <img alt="Pic" src="{{ $conversation->user_image }}" />
+                </div>
+
+                @if (auth()->user()->role == 3)
+                    <div class="d-flex flex-column">
+                        <a href="javaScript:void(0);"
+                            onclick="showChat('{{ $conversation->conv_id }}','{{ $conversation->name }}');"
+                            class="text-dark-75 text-hover-primary font-weight-bold font-size-lg">{{ $conversation->name }}</a>
+                        <span class="text-muted font-weight-bold font-size-sm">{{ $conversation->topic_name }}</span>
+                    </div>
+                @else
+                    <div class="d-flex flex-column">
+                        <a href="javaScript:void(0);"
+                            onclick="showChat('{{ $conversation->conv_id }}','{{ $conversation->name }}');"
+                            class="text-dark-75 text-hover-primary font-weight-bold font-size-lg">{{ $conversation->name }}</a>
+                        <span class="text-muted font-weight-bold font-size-sm">{{ $conversation->nip }}</span>
+                    </div>
+                @endif
+
+            </div>
+            <div class="d-flex flex-column align-items-end">
+                <span class="text-muted font-weight-bold font-size-sm">7 hrs</span>
+                <span class="label label-sm label-success">4</span>
+            </div>
+        </div>
+    @endforeach
+>>>>>>> c88b57bf11c1c9db8562e4c2a49d6bbee8b6875e
 @endsection
 
 
 @section('content')
-		<div class="flex-row-fluid ml-lg-8" id="kt_chat_content">
-			<div class="card card-custom">
-				<div class="card-header align-items-center px-4 py-3">
-					<div class="text-left flex-grow-1">
-						{{-- <button type="button" class="btn btn-clean btn-sm btn-icon btn-icon-md d-lg-none" id="kt_app_chat_toggle">
+    <div class="flex-row-fluid ml-lg-8" id="kt_chat_content">
+        <div class="card card-custom">
+            <div class="card-header align-items-center px-4 py-3">
+                <div class="text-left flex-grow-1">
+                    {{-- <button type="button" class="btn btn-clean btn-sm btn-icon btn-icon-md d-lg-none" id="kt_app_chat_toggle">
 							<span class="svg-icon svg-icon-lg">
 								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
 									<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -123,291 +157,384 @@
 								<!--end::Navigation-->
 							</div>
 						</div> --}}
-					</div>
-					<div class="text-center flex-grow-1">
-						<div class="text-dark-75 font-weight-bold font-size-h5" id="receiver_name"></div>
-						<div>
-							{{-- <span class="label label-sm label-dot label-success"></span>
+                </div>
+                <div class="text-center flex-grow-1">
+                    <div class="text-dark-75 font-weight-bold font-size-h5" id="receiver_name"></div>
+                    <div>
+                        {{-- <span class="label label-sm label-dot label-success"></span>
 							<span class="font-weight-bold text-muted font-size-sm">Active</span> --}}
-						</div>
-					</div>
+                    </div>
+                </div>
 
-					<div class="text-right flex-grow-1">
-						<div class="dropdown dropdown-inline" id="action">
-						
-						</div>
-					</div>
-				</div>
-				<div class="card-body">
-					<div class="scroll scroll-pull" data-mobile-height="350">
-						<div class="messages">
+                <div class="text-right flex-grow-1">
+                    <div class="dropdown dropdown-inline" id="action">
 
-                            <div class="body-chat">
-								<div class="text-center">
-									<img src="{{ asset('img/phone-animasi.png') }}" alt="#" width="50%" draggable="false">
-								</div>
-							</div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="scroll scroll-pull" data-mobile-height="350">
+                    <div class="messages">
 
-						</div>
-					</div>
-				</div>
-				
-            
-				<div class="card-footer align-items-center">
-					<div class="kirim-pesan">
-						<form id="ajaxFormSend">
-							@csrf
-							{{-- <input type="hidden" name="tiket" id="tiket"> --}}
-							<input type="hidden" name="conv_id" id="id">
-							<input type="hidden" value="{{ auth()->user()->id }}" name="user_id">
+                        <div class="body-chat">
+                            <div class="text-center">
+                                <img src="{{ asset('img/phone-animasi.png') }}" alt="#" width="50%" draggable="false">
+                            </div>
+                        </div>
 
-							<textarea class="form-control border-0 p-0" rows="2" placeholder="Type a message" name="body" id="isi-pesan"></textarea>
+                    </div>
+                </div>
+            </div>
 
-							<div class="d-flex align-items-center justify-content-between mt-5">
-								<div class="mr-3">
-									<a href="#" class="btn btn-clean btn-icon btn-md mr-1">
-										<i class="flaticon2-photograph icon-lg"></i>
-									</a>
-									<a href="#" class="btn btn-clean btn-icon btn-md">
-										<i class="flaticon2-photo-camera icon-lg"></i>
-									</a>
-								</div>
-								<div>	
-								<button type="submit" class="btn btn-primary btn-md text-uppercase font-weight-bold py-2 px-6" id="tombol-send">Send</button>
-								</div>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-			
-		</div>
+
+            <div class="card-footer align-items-center">
+                <div class="kirim-pesan">
+                    <form id="ajaxFormSend">
+                        @csrf
+                        {{-- <input type="hidden" name="tiket" id="tiket"> --}}
+                        <input type="hidden" name="conv_id" id="id">
+                        <input type="hidden" value="{{ auth()->user()->id }}" name="user_id">
+
+                        <textarea class="form-control border-0 p-0" rows="2" placeholder="Type a message" name="body" id="isi-pesan"></textarea>
+
+                        <div class="d-flex align-items-center justify-content-between mt-5">
+                            <div class="mr-3">
+                                <a href="#" data-toggle="modal" data-target="#uploadImageModal"
+                                    class="btn btn-clean btn-icon btn-md mr-1">
+                                    <i class="flaticon2-photograph icon-lg"></i>
+                                </a>
+                                <a href="#" class="btn btn-clean btn-icon btn-md">
+                                    <i class="flaticon2-photo-camera icon-lg"></i>
+                                </a>
+                            </div>
+                            <div>
+                                <button type="submit"
+                                    class="btn btn-primary btn-md text-uppercase font-weight-bold py-2 px-6"
+                                    id="tombol-send">Send</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Modal-->
+    <div class="modal fade" id="uploadImageModal" data-backdrop="static" tabindex="-1" role="dialog"
+        aria-labelledby="staticBackdrop" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="uploadImageModalLabel">Modal Title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                    </button>
+                </div>
+                <form action="{{ url('send-message-with-attachment') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <div class="dropzone dropzone-default" id="kt_dropzone_1">
+                                    <div class="dropzone-msg dz-message needsclick">
+                                        <h3 class="dropzone-msg-title">Drop files here or click to upload.</h3>
+                                        <span class="dropzone-msg-desc">This is just a demo dropzone. Selected files are
+                                            <strong>not</strong>actually uploaded.</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <textarea class="form-control" rows="2" placeholder="Type a message" name="body" id="att_body"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light-primary font-weight-bold"
+                            data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary font-weight-bold">Kirim</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('js')
-<script>
-	$('#btn-edit-status-tiket').hide();
-	 //mulai konsultasi
-	function mulai_konsultasi(){
-		$('.kirim-pesan').show();
-		ajax_get_topic();
-	}
-	 //get all topic
-	function ajax_get_topic(){
-		$.ajax({
-			url: "{{ url('/ajax_get_topic') }}",
-			type: 'get',
-			dataType: 'json',
-			beforeSend: function() {
-				// $.LoadingOverlay("show");
-				$.LoadingOverlay("show", {
-					image       : "",
-					text        : "Loading..."
-				});
-				$('.body-chat').html("");
-				$('#list-topic').html("");
-			},
-			success: function(response) {
-				setTimeout(function(){
-					$.LoadingOverlay("hide");
-					$('.body-chat').append('<div class="d-flex flex-column mb-5 align-items-end">\
-										<div class="d-flex align-items-center">\
-											<div>\
-												<span class="text-muted font-size-sm">3 minushowChat</span>\
-												<a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">Administrator</a>\
-											</div>\
-											<div class="symbol symbol-circle symbol-40 ml-3">\
-												<img alt="Pic" src="https://picsum.photos/id/237/200/200" />\
-											</div>\
-										</div>\
-										<div class="mt-2 mb-2 rounded p-5 bg-light-primary text-dark-50 font-weight-bold font-size-lg text-right max-w-400px">\
-											Selamat siang, silahkan pilih topik pembahasan.\
-										</div>\
-										<div id="list-topic">\
-										</div>\
-									</div>');
-					
-					setTimeout(function(){
-						$.each(response, function(index, value) {
-						$('#list-topic').append('<button onclick="ajax_create_conv('+ value.id +')" class="btn btn-sm btn-primary py-1 d-inline ml-2">' + value.topic_name + '</button>');
-					});
-					}, 2000);
-				}, 3000);
-			}
-		});
-	}
+    <script src="{{ asset('') }}/js/pages/crud/file-upload/dropzonejs.js"></script>
 
-	//buat room dan cari admin yang akan melayani
-	function ajax_create_conv(topic_id){
-		// alert(topic_id);
-		$.ajax({
-			url: "{{ url('/ajax_create_conv') }}",
-			type: 'post',
-			data :{
-				"_token": "{{ csrf_token() }}",
-				'topic_id' : topic_id
-			},
-			dataType: 'json',
-			success: function(response) {
+    <script>
+        // upload gambar
+        // $('.custom-file-input').on('change', function() {
+        //     let fileName = $(this).val().split('\\').pop();
+        //     $(this).next('.custom-file-label').addClass("selected").html(fileName);
+        // });
 
-			}
-		});
-	}
+        // function foto_fc(input) {
+        //     if (input.files && input.files[0]) {
+        //         var reader = new FileReader();
 
-	var last_chat_id;
-	var interval;
+        //         reader.onload = function(e) {
+        //             $('#prev_file').attr('src', e.target.result);
+        //         }
 
-	function showChat(id,name){
-		$('#btn-edit-status-tiket').show();
-		$('#receiver_name').html(name);
-		fetch_chat(id);	
+        //         reader.readAsDataURL(input.files[0]);
+        //     }
+        // }
 
-		clearInterval(interval);
-		interval = setInterval( function () {
-			fetch_chat(id);
-		},10000 );			
-	}
+        // $(document).ready(function() {
+        //     $('#nama_file').change(function() {
+        //         foto_fc(this);
+        //     });
 
-	function editStatusTiket() {
-		var id = $('#id').val();
-		console.log(id);
-		Swal.fire({
-			title: 'Yakin?',
-			text: "Apakah anda yakin ingin mengakhiri konsultasi?",
-			icon: 'question',
-			showCancelButton: true,
-			confirmButtonColor: '#3085d6',
-			cancelButtonColor: '#d33',
-			confirmButtonText: 'Ya',
-			cancelButtonText: 'Batal',
-		}).then((result) => {
-			if (result.isConfirmed) {
-				$.ajax({
-					url: "{{ url('update_status_tiket') }}",
-					data: {
-						'_token' : '{{ csrf_token() }}',
-						'id' : id
-					},
-					dataType: 'json',
-					type: "POST",
-					success: function(response) {
-						fetch_chat(id);
-						$('#btn-edit-status-tiket').hide();
-						if(response) {
-							Swal.fire(
-								'Sukses',
-								'Sesi anda telah berakhir.',
-								'success'
-							)
-						}
-					}
-				});
-			}
-		})
-		
-	}
+        // });
+    </script>
 
-	function fetch_chat(id){
-		$('#id').val(id);
+    <script>
+        $('#btn-edit-status-tiket').hide();
+        //mulai konsultasi
+        function mulai_konsultasi() {
+            $('.kirim-pesan').show();
+            ajax_get_topic();
+        }
+        //get all topic
+        function ajax_get_topic() {
+            $.ajax({
+                url: "{{ url('/ajax_get_topic') }}",
+                type: 'get',
+                dataType: 'json',
+                beforeSend: function() {
+                    // $.LoadingOverlay("show");
+                    $.LoadingOverlay("show", {
+                        image: "",
+                        text: "Loading..."
+                    });
+                    $('.body-chat').html("");
+                    $('#list-topic').html("");
+                },
+                success: function(response) {
+                    setTimeout(function() {
+                        $.LoadingOverlay("hide");
+                        $('.body-chat').append('<div class="d-flex flex-column mb-5 align-items-end">\
+                                                                                    										<div class="d-flex align-items-center">\
+                                                                                    											<div>\
+                                                                                    												<span class="text-muted font-size-sm">3 minushowChat</span>\
+                                                                                    												<a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">Administrator</a>\
+                                                                                    											</div>\
+                                                                                    											<div class="symbol symbol-circle symbol-40 ml-3">\
+                                                                                    												<img alt="Pic" src="https://picsum.photos/id/237/200/200" />\
+                                                                                    											</div>\
+                                                                                    										</div>\
+                                                                                    										<div class="mt-2 mb-2 rounded p-5 bg-light-primary text-dark-50 font-weight-bold font-size-lg text-right max-w-400px">\
+                                                                                    											Selamat siang, silahkan pilih topik pembahasan.\
+                                                                                    										</div>\
+                                                                                    										<div id="list-topic">\
+                                                                                    										</div>\
+                                                                                    									</div>');
 
-		$.ajax({
-			url: "{{ url('/ajax_fetch_chats') }}",
-			type: 'post',
-			data :{
-				"_token": "{{ csrf_token() }}",
-				'id' : id,
-				'last_chat_id' : last_chat_id
-			},
-			dataType: 'json',
-			success: function(response) {
-				var pesan;
-				$('#action').html('');
-				$('.body-chat').html("");
-				
-				if(response.status == 'success'){
-					if(response.tiket_status == 1){
-						$('#action').append('<button type="button" onclick="editStatusTiket()" class="btn btn-clean btn-sm btn-icon btn-icon-md" id="btn-edit-status-tiket" title="Akhiri sesi"><i class="icon-2x text-danger flaticon-chat"><i style="margin-left:-15px;margin-top:10px" class="fas fa-window-close text-dark fs-1"></i></i></button>');
-					}
-					
-					$.each(response.chats, function(index, value) {
-						if(value.is_read ==  1){
-							is_read = '<i class="icon-xl la la-check-double"></i>';
-						} else {
-							is_read = '<i class="icon-xl la la-check-double text-primary"></i>';
-						}
-						
-						if(value.user_id == {{ auth()->user()->id }}){
-							pesan =  '<div class="d-flex flex-column mb-5 align-items-end">\
-								<div class="d-flex align-items-center">\
-									<div>\
-										<span class="text-muted font-size-sm">' + value.created_at + '</span>\
-										<a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">' + value.name + '</a>\
-									</div>\
-									<div class="symbol symbol-circle symbol-40 ml-3">\
-										<img alt="Pic" src="{{ asset('/media/products/1.png') }}" />\
-									</div>\
-								</div>\
-								<div class="mt-2 rounded p-5 bg-light-primary text-dark-50 font-weight-bold font-size-lg text-right max-w-400px">' + value.body + ' ' + is_read +' </div>\
-							</div>';
-						} else {
-							pesan = '<div class="d-flex flex-column mb-5 align-items-start">\
-								<div class="d-flex align-items-center">\
-									<div class="symbol symbol-circle symbol-40 mr-3">\
-										<img alt="Pic" src="{{ asset('/media/products/1.png') }}" />\
-									</div>\
-									<div>\
-										<a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">' + value.name + '</a>\
-										'+ value.created_at + '</span>\
-									</div>\
-								</div>\
-								<div class="mt-2 rounded p-5 bg-light-success text-dark-50 font-weight-bold font-size-lg text-left max-w-400px">'+ is_read + ' ' + value.body + '</div>\
-							</div>';
-						}
-						
-					$('.body-chat').append(pesan);
-					});
-					// last_chat_id = response.last_chat_id;
-					
-				} 
+                        setTimeout(function() {
+                            $.each(response, function(index, value) {
+                                $('#list-topic').append(
+                                    '<button onclick="ajax_create_conv(' + value
+                                    .id +
+                                    ')" class="btn btn-sm btn-primary py-1 d-inline ml-2">' +
+                                    value.topic_name + '</button>');
+                            });
+                        }, 2000);
+                    }, 3000);
+                }
+            });
+        }
 
-				if(response.tiket_status == 2){
-					$('#isi-pesan').attr('disabled', 'disabled');
-					$('#tombol-send').attr('disabled', 'disabled');
-					$('.body-chat').append('<div class="row">\
-									<div class="col-12 text-center pt-5">\
-										<p class="badge bg-primary text-white p-4">Sesi anda telah berakhir...</p>\
-									</div>\
-								</div>');
-				} else {
-					$('#isi-pesan').removeAttr("disabled");
-					$('#tombol-send').removeAttr("disabled");
-				}
-			}
-		});
-		$(".scroll-pull").animate({ scrollTop: $(document).height() + 10000 }, 1000);
-	}
+        //buat room dan cari admin yang akan melayani
+        function ajax_create_conv(topic_id) {
+            // alert(topic_id);
+            $.ajax({
+                url: "{{ url('/ajax_create_conv') }}",
+                type: 'post',
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    'topic_id': topic_id
+                },
+                dataType: 'json',
+                success: function(response) {
 
-    $(function() {
-		$("#ajaxFormSend").on('submit', function(e) {
-			e.preventDefault();
-			var id = $('#id').val();
+                }
+            });
+        }
 
-			var ajaxForm = $(this);
-			$.ajax({
-				url: "{{ url('send_message') }}",
-				type: 'post',
-				data: ajaxForm.serialize(),
-				dataType: 'json',
-				success: function(response) {
-					$('#isi-pesan').val("");
-					fetch_chat(id);
-					}
-				});
-			});
+        var last_chat_id;
+        var interval;
+
+        function showChat(id, name) {
+            $('#btn-edit-status-tiket').show();
+            $('#receiver_name').html(name);
+            fetch_chat(id);
+
+            clearInterval(interval);
+            interval = setInterval(function() {
+                fetch_chat(id);
+            }, 100000);
+        }
+
+        function editStatusTiket() {
+            var id = $('#id').val();
+            console.log(id);
+            Swal.fire({
+                title: 'Yakin?',
+                text: "Apakah anda yakin ingin mengakhiri konsultasi?",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya',
+                cancelButtonText: 'Batal',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "{{ url('update_status_tiket') }}",
+                        data: {
+                            '_token': '{{ csrf_token() }}',
+                            'id': id
+                        },
+                        dataType: 'json',
+                        type: "POST",
+                        success: function(response) {
+                            fetch_chat(id);
+                            $('#btn-edit-status-tiket').hide();
+                            if (response) {
+                                Swal.fire(
+                                    'Sukses',
+                                    'Sesi anda telah berakhir.',
+                                    'success'
+                                )
+                            }
+                        }
+                    });
+                }
+            })
+
+        }
+
+        function fetch_chat(id) {
+            $('#id').val(id);
+
+            $.ajax({
+                url: "{{ url('/ajax_fetch_chats') }}",
+                type: 'post',
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    'id': id,
+                    'last_chat_id': last_chat_id
+                },
+                dataType: 'json',
+                success: function(response) {
+                    var pesan;
+                    $('#action').html('');
+                    $('.body-chat').html("");
+
+                    if (response.status == 'success') {
+                        if (response.tiket_status == 1) {
+                            $('#action').append(
+                                '<button type="button" onclick="editStatusTiket()" class="btn btn-clean btn-sm btn-icon btn-icon-md" id="btn-edit-status-tiket" title="Akhiri sesi"><i class="icon-2x text-danger flaticon-chat"><i style="margin-left:-15px;margin-top:10px" class="fas fa-window-close text-dark fs-1"></i></i></button>'
+                            );
+                        }
+
+                        $.each(response.chats, function(index, value) {
+                            if (value.is_read == 1) {
+                                is_read = '<i class="icon-xl la la-check-double"></i>';
+                            } else {
+                                is_read = '<i class="icon-xl la la-check-double text-primary"></i>';
+                            }
+
+                            if (value.user_id == {{ auth()->user()->id }}) {
+                                pesan =
+                                    '<div class="d-flex flex-column mb-5 align-items-end">\
+                                                                                    								<div class="d-flex align-items-center">\
+                                                                                    									<div>\
+                                                                                    										<span class="text-muted font-size-sm">' +
+                                    value
+                                    .created_at +
+                                    '</span>\
+                                                                                    										<a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">' +
+                                    value
+                                    .name +
+                                    '</a>\
+                                                                                    									</div>\
+                                                                                    									<div class="symbol symbol-circle symbol-40 ml-3">\
+                                                                                    										<img alt="Pic" src="{{ asset('/media/products/1.png') }}" />\
+                                                                                    									</div>\
+                                                                                    								</div>\
+                                                                                    								<div class="mt-2 rounded p-5 bg-light-primary text-dark-50 font-weight-bold font-size-lg text-right max-w-400px">' +
+                                    value.body + ' ' + is_read + ' </div>\
+                                                                                    							</div>';
+                            } else {
+                                pesan =
+                                    '<div class="d-flex flex-column mb-5 align-items-start">\
+                                                                                    								<div class="d-flex align-items-center">\
+                                                                                    									<div class="symbol symbol-circle symbol-40 mr-3">\
+                                                                                    										<img alt="Pic" src="{{ asset('/media/products/1.png') }}" />\
+                                                                                    									</div>\
+                                                                                    									<div>\
+                                                                                    										<a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">' +
+                                    value
+                                    .name + '</a>\
+                                                                                    										' + value.created_at +
+                                    '</span>\
+                                                                                    									</div>\
+                                                                                    								</div>\
+                                                                                    								<div class="mt-2 rounded p-5 bg-light-success text-dark-50 font-weight-bold font-size-lg text-left max-w-400px">' +
+                                    is_read + ' ' + value.body + '</div>\
+                                                                                    							</div>';
+                            }
+
+                            $('.body-chat').append(pesan);
+                        });
+                        // last_chat_id = response.last_chat_id;
+
+                    }
+
+                    if (response.tiket_status == 2) {
+                        $('#isi-pesan').attr('disabled', 'disabled');
+                        $('#tombol-send').attr('disabled', 'disabled');
+                        $('.body-chat').append('<div class="row">\
+                                                                                    									<div class="col-12 text-center pt-5">\
+                                                                                    										<p class="badge bg-primary text-white p-4">Sesi anda telah berakhir...</p>\
+                                                                                    									</div>\
+                                                                                    								</div>');
+                    } else {
+                        $('#isi-pesan').removeAttr("disabled");
+                        $('#tombol-send').removeAttr("disabled");
+                    }
+                }
+            });
+            $(".scroll-pull").animate({
+                scrollTop: $(document).height() + 10000
+            }, 1000);
+        }
+
+        $(function() {
+            $("#ajaxFormSend").on('submit', function(e) {
+                e.preventDefault();
+                var id = $('#id').val();
+
+                var ajaxForm = $(this);
+                $.ajax({
+                    url: "{{ url('send_message') }}",
+                    type: 'post',
+                    data: ajaxForm.serialize(),
+                    dataType: 'json',
+                    success: function(response) {
+                        $('#isi-pesan').val("");
+                        fetch_chat(id);
+                    }
+                });
+            });
         });
     </script>
 
-	{{-- <script src="{{ asset('js/echo_custom.js') }}"></script>
+    {{-- <script src="{{ asset('js/echo_custom.js') }}"></script>
     <script src="{{ asset('js/pusher.js') }}"></script>
     <!--<script src="https://js.pusher.com/4.1/pusher.min.js"></script>-->
          
@@ -441,86 +568,84 @@
 				alert(x);
 			} --}}
 
-		{{-- </script> --}}
+    {{-- </script> --}}
     <!-- receive notifications -->
- <!-- firebase integration started -->
+    <!-- firebase integration started -->
 
 
 
-	<script>
-		var firebaseConfig = {
-		apiKey: "AIzaSyBxbjnfox7YDbeeff0SY-TaqBkqPZWPY3s",
-		authDomain: "konsul-online-6db72.firebaseapp.com",
-		projectId: "konsul-online-6db72",
-		storageBucket: "konsul-online-6db72.appspot.com",
-		messagingSenderId: "334320002286",
-		appId: "1:334320002286:web:7bbd6a365d7b6c54af3fff",
-		measurementId: "G-3YBM7N2HR7"
-		};
-		// Initialize Firebase
-		firebase.initializeApp(firebaseConfig);
-		//firebase.analytics();
-		const messaging = firebase.messaging();
-			messaging
-		.requestPermission()
-		.then(function () {
-		//MsgElem.innerHTML = "Notification permission granted." 
-			console.log("Notification permission granted.");
+    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyBxbjnfox7YDbeeff0SY-TaqBkqPZWPY3s",
+            authDomain: "konsul-online-6db72.firebaseapp.com",
+            projectId: "konsul-online-6db72",
+            storageBucket: "konsul-online-6db72.appspot.com",
+            messagingSenderId: "334320002286",
+            appId: "1:334320002286:web:7bbd6a365d7b6c54af3fff",
+            measurementId: "G-3YBM7N2HR7"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        //firebase.analytics();
+        const messaging = firebase.messaging();
+        messaging
+            .requestPermission()
+            .then(function() {
+                //MsgElem.innerHTML = "Notification permission granted." 
+                console.log("Notification permission granted.");
 
-			// get the token in the form of promise
-			return messaging.getToken()
-		})
-		.then(function(token) {
-		// print the token on the HTML page     
-		console.log(token);
-		
-		
-		
-		})
-		.catch(function (err) {
-			console.log("Unable to get permission to notify.", err);
-		});
+                // get the token in the form of promise
+                return messaging.getToken()
+            })
+            .then(function(token) {
+                // print the token on the HTML page     
+                console.log(token);
 
-		messaging.onMessage(function(payload) {
-			console.log(payload);
-			var notify;
-			notify = new Notification(payload.notification.title,{
-				body: payload.notification.body,
-				icon: payload.notification.icon,
-				tag: "Dummy"
-			});
-			console.log(payload.notification);
-		});
 
-			//firebase.initializeApp(config);
-		var database = firebase.database().ref().child("/users/");
-		
-		database.on('value', function(snapshot) {
-			renderUI(snapshot.val());
-		});
 
-		// On child added to db
-		database.on('child_added', function(data) {
-			console.log("Comming");
-			if(Notification.permission!=='default'){
-				var notify;
-				notify= new Notification('CodeWife - '+data.val().username,{
-					'body': data.val().message,
-					'icon': 'bell.png',
-					'tag': data.getKey()
-				});
-				notify.onclick = function(){
-					alert(this.tag);
-				}
-			}else{
-				alert('Please allow the notification first');
-			}
-		});
+            })
+            .catch(function(err) {
+                console.log("Unable to get permission to notify.", err);
+            });
 
-		self.addEventListener('notificationclick', function(event) {       
-			event.notification.close();
-		});
+        messaging.onMessage(function(payload) {
+            console.log(payload);
+            var notify;
+            notify = new Notification(payload.notification.title, {
+                body: payload.notification.body,
+                icon: payload.notification.icon,
+                tag: "Dummy"
+            });
+            console.log(payload.notification);
+        });
 
-	</script>
+        //firebase.initializeApp(config);
+        var database = firebase.database().ref().child("/users/");
+
+        database.on('value', function(snapshot) {
+            renderUI(snapshot.val());
+        });
+
+        // On child added to db
+        database.on('child_added', function(data) {
+            console.log("Comming");
+            if (Notification.permission !== 'default') {
+                var notify;
+                notify = new Notification('CodeWife - ' + data.val().username, {
+                    'body': data.val().message,
+                    'icon': 'bell.png',
+                    'tag': data.getKey()
+                });
+                notify.onclick = function() {
+                    alert(this.tag);
+                }
+            } else {
+                alert('Please allow the notification first');
+            }
+        });
+
+        self.addEventListener('notificationclick', function(event) {
+            event.notification.close();
+        });
+    </script>
 @endsection
-
