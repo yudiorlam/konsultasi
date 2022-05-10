@@ -1,6 +1,7 @@
 @extends('user.layout.app')
 
-@section('sidebar')									
+@section('sidebar')	
+								
 	@foreach ($conversations as $conversation )
 	
 		<div class="d-flex align-items-center justify-content-between mb-5">
@@ -30,6 +31,7 @@
 		
 	@endforeach
 @endsection
+
 
 @section('content')
 		<div class="flex-row-fluid ml-lg-8" id="kt_chat_content">

@@ -20,25 +20,25 @@ class LoginController extends Controller
         }
     }
 
-    public function save_fcm(Request $request)
-    {
-        $data = $this->validate($request, [
-            'user_id' => 'required',
-            'token' => 'required',
-        ]);
+    // public function save_fcm(Request $request)
+    // {
+    //     $data = $this->validate($request, [
+    //         'user_id' => 'required',
+    //         'token' => 'required',
+    //     ]);
 
-        $save = FCM::create($data);
+    //     $save = FCM::create($data);
 
-        if ($save) {
-            return response()->json([
-                'status' => 'success',
-            ]);
-        } else {
-            return response()->json([
-                'status' => 'error',
-            ]);
-        }
-    }
+    //     if ($save) {
+    //         return response()->json([
+    //             'status' => 'success',
+    //         ]);
+    //     } else {
+    //         return response()->json([
+    //             'status' => 'error',
+    //         ]);
+    //     }
+    // }
 
     public function actionlogin(Request $request)
     {

@@ -26,7 +26,7 @@ use App\Http\Controllers\PegawaiSyncController;
 // hanya untuk tamu yg belum auth
 Route::get('/', [LoginController::class, 'login'])->middleware('guest');
 //Route::post('/actionlogin', 'LoginController@actionlogin')->name('actionlogin');
-Route::get('/save_fcm', 'LoginController@save_fcm')->name('save_fcm');
+// Route::get('/save_fcm', 'LoginController@save_fcm')->name('save_fcm');
 Route::post('/actionlogout', [LoginController::class, 'actionlogout']);
 Route::post('/actionlogin', [LoginController::class, 'actionlogin'])->name('actionlogin');
 
@@ -43,7 +43,8 @@ Route::middleware(['admin'])->group(function () {
     Route::get('/addTopik', [TopicController::class, 'create']);
     Route::post('/addTopik', [TopicController::class, 'store']);
     Route::get('/daftarKonsul', [ConversationController::class, 'daftarKonsul']);
-    Route::get('/rangkuman', [ConversationController::class, 'edit']);
+    Route::get('/rangkuman/{id}', [ConversationController::class, 'edit'])->name('edit_rangkuman');
+    Route::put('/rangkumanUpdate/{id}', [ConversationController::class, 'updateRangkuman']);
 
 
     // Route::get('/color/{id}/edit', [TopicController::class, 'edit']);

@@ -130,7 +130,7 @@
 
 
 		
-		<script type="module">
+		{{-- <script type="module">
 			// Import the functions you need from the SDKs you need
 			import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
 			import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-analytics.js";
@@ -192,7 +192,7 @@
 			}  
 
 			initFirebaseMessagingRegistration();
-		</script>
+		</script> --}}
 
 	</body>
 	<!--end::Body-->

@@ -16,6 +16,7 @@
         "laravel-notification-channels/fcm": "~2.0",
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
+        "phpoffice/phpword": "^0.18.3",
         "pusher/pusher-php-server": "^7.0",
         "yajra/laravel-datatables": "1.5"
     },

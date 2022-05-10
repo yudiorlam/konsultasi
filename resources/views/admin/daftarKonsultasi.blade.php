@@ -186,7 +186,7 @@
 							<td>{{ $konsul->topic_name }}</td>
 							<td>{{ $konsul->nip }}</td>
 							<td class="text-right">{{ $konsul->tiket_status }}</td>
-							<td></td>
+							<td><a href="{{ url ('rangkuman/' .$konsul->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-pencil-alt"></i></a></td>
 							{{-- <td class="text-right">3</td> --}}
 						</tr>
 						@endforeach

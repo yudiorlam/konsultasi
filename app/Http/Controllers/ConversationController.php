@@ -79,24 +79,22 @@ class ConversationController extends Controller
     public function daftarKonsul(){
         $daftarKonsul = Conversation :: join('topics', 'topics.id', '=' , 'conversations.topic_id' )
         -> join('users', 'users.id', '=' , 'conversations.user_id')
+        ->select(['conversations.*', 'users.name' , 'topics.topic_name'])
         ->get();
-        //dd($daftarKonsul);
+        // dd($daftarKonsul);
         return view ('admin.daftarKonsultasi' , compact('daftarKonsul'));
     }
-    public function edit()
+    public function edit($id)
     {
-        // $rangkuman = Conversation::find($id);
-        return view('admin.rangkuman');
+        $rangkuman = Conversation::find($id);
+        return view('admin.rangkuman' , compact('rangkuman'));
     }
 
-    // public function update(Request $request, $id)
-    // {
-    //     $student = Student::find($id);
-    //     $student->name = $request->input('name');
-    //     $student->email = $request->input('email');
-    //     $student->course = $request->input('course');
-    //     $student->section = $request->input('section');
-    //     $student->update();
-    //     return redirect()->back()->with('status','Student Updated Successfully');
-    // }
+    public function updateRangkuman(Request $request, $id)
+    {
+        $rangkuman = Conversation::find($id);
+        $rangkuman->rangkuman = $request->input('rangkuman');
+        $rangkuman->update();
+        return redirect('/daftarKonsul');
+    }
 }
