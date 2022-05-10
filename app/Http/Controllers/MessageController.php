@@ -120,4 +120,29 @@ class MessageController extends Controller
             ]);
         }
     }
+
+
+    public function send_attachment(Request $request)
+    {
+
+        dd($request);
+
+        $data = $this->validate($request, [
+            'body' => 'required',
+            'conv_id' => 'required',
+            'user_id' => 'required',
+        ]);
+
+        $save = Message::create($data);
+
+        if ($save) {
+            return response()->json([
+                'status' => 'success',
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error',
+            ]);
+        }
+    }
 }
