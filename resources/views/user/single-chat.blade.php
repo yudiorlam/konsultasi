@@ -307,6 +307,9 @@
     <script>
         //mulai konsultasi
         function mulai_konsultasi() {
+            clearInterval(interval);
+            $('#receiver_name').html("Administrator");
+            $('.body-chat').html('');
             $('.kirim-pesan').show();
             ajax_get_topic();
         }
@@ -373,7 +376,7 @@
                 },
                 dataType: 'json',
                 success: function(response) {
-
+                
                 }
             });
         }
@@ -389,7 +392,7 @@
             clearInterval(interval);
             interval = setInterval(function() {
                 fetch_chat(id);
-            }, 100000);
+            }, 10000);
         }
 
         function editStatusTiket() {
