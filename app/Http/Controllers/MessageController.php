@@ -105,6 +105,7 @@ class MessageController extends Controller
     {
         $data = $this->validate($request, [
             'body' => 'required',
+            'attachment' => 'image|file|max:2040',
             'conv_id' => 'required',
             'user_id' => 'required',
         ]);
@@ -133,7 +134,7 @@ class MessageController extends Controller
             $save = Message::insert([
                 'conv_id' => 1,
                 'user_id' => 1,
-                'attachment' =>  $request->attachment->getFilename(),
+                'attachment' =>  $request->file('attachment')->store('attachment'),
                 'body' => $request->att_body,
             ]);
         } else {
@@ -143,8 +144,6 @@ class MessageController extends Controller
                 'attachment' =>  $request->attachment->getFilename()
             ]);
         }
-
-        Storage::disk('local')->put('attachment', $request->file('attachment'));
 
         if ($save) {
             return response()->json([
