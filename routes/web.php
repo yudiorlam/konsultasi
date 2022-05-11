@@ -41,6 +41,7 @@ Route::middleware(['super_admin'])->group(
         Route::get('/topic', [TopicController::class, 'index']);
         Route::get('/addTopik', [TopicController::class, 'create']);
         Route::post('/addTopik', [TopicController::class, 'store']);
+        Route::get('/edit/{id}', [TopicController::class, 'edit']);
 
         // Route::get('/getTopik', [TopicController::class, 'index']);
         // Route::get('/addTopik', [TopicController::class, 'create']);

@@ -18,10 +18,12 @@ class UserTopicController extends Controller
     {
         $topik = User_topic::join('topics' ,'topics.id', '=' , 'user_topics.topic_id')
         ->join('users', 'users.id', '=' , 'user_topics.user_id')
+        ->select('user_topics.*', 'users.name', 'topics.topic_name')
         ->get();
         $user = User::where('role', 2)->get();
-        // dd($topik);
-        return view ('admin.adminTopik' , compact('topik' , 'user'));
+        $tiket = Topic::all();
+        // dd($user);
+        return view ('admin.adminTopik' , compact('topik' , 'user', 'tiket'));
 
         
         
@@ -63,49 +65,12 @@ class UserTopicController extends Controller
 
         return redirect('/getAdminTopik');
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\User_topic  $user_topic
-     * @return \Illuminate\Http\Response
-     */
-    public function show(User_topic $user_topic)
+    public function edit($id)
     {
-        //
-    }
+    	$category = User_topic::find($id);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\User_topic  $user_topic
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(User_topic $user_topic)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateUser_topicRequest  $request
-     * @param  \App\Models\User_topic  $user_topic
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateUser_topicRequest $request, User_topic $user_topic)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\User_topic  $user_topic
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(User_topic $user_topic)
-    {
-        //
+	    return response()->json([
+	      'data' => $category
+	    ]);
     }
 }

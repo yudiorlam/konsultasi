@@ -30,38 +30,41 @@
             </h3>
         </div>
         <!--begin::Form-->
-        <form action="{{ url('rangkumanUpdate/'.$rangkuman->id) }}" method="post" class="form" id="kt_form">
-            @csrf
-            @method('put')
-            <div class="form-group">
-                <div class="alert alert-light-primary d-none mb-15" role="alert" id="kt_form_msg">
-                    <div class="alert-icon">
-                        <i class="la la-warning"></i>
-                    </div>
-                    <div class="alert-text font-weight-bold">
-                        Oh snap! Change a few things up and try submitting again.
-                    </div>
-                    <div class="alert-close">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span><i class="ki ki-close "></i></span>
-                        </button>
+        <div class="card-body">
+
+            <form action="{{ url('rangkumanUpdate/'.$rangkuman->id) }}" method="post" class="form" id="kt_form">
+                @csrf
+                @method('put')
+                <div class="form-group">
+                    <div class="alert alert-light-primary d-none mb-15" role="alert" id="kt_form_msg">
+                        <div class="alert-icon">
+                            <i class="la la-warning"></i>
+                        </div>
+                        <div class="alert-text font-weight-bold">
+                            Oh snap! Change a few things up and try submitting again.
+                        </div>
+                        <div class="alert-close">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span><i class="ki ki-close "></i></span>
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-form-label col-lg-3 col-sm-12 text-right">Markdown *</label>
-                <div class="col-lg-7 col-md-9 col-sm-12">
-                    <textarea name="rangkuman" class="form-control" data-provide="markdown" rows="10"></textarea>
-                    <span class="form-text text-muted">Enter some markdown content</span>
+                <div class="form-group row">
+                    <label class="col-form-label col-lg-3 col-sm-12 text-right">Markdown *</label>
+                    <div class="col-lg-7 col-md-9 col-sm-12">
+                        <textarea name="rangkuman" class="form-control" data-provide="markdown" rows="10"></textarea>
+                        <span class="form-text text-muted">Enter some markdown content</span>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-9 ml-lg-auto">
-                    <button type="submit" class="btn btn-primary mr-2"><i class="fa fa-save"></i>Validate</button>
-                    <button type="reset" class="btn btn-light-primary">Cancel</button>
+                <div class="row">
+                    <div class="col-lg-9 ml-lg-auto">
+                        <button type="submit" class="btn btn-primary mr-2"><i class="fa fa-save"></i>Validate</button>
+                        <button type="reset" class="btn btn-light-primary">Cancel</button>
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
 </div>
 </div>
 @endsection
