@@ -75,11 +75,12 @@ class TopicController extends Controller
 
     public function edit($id)
     {
-        $topic = Topic::find($id);
-            return response()->json([
-                'data' => $topic
-        ]);
-        }
+    	$topik = Topic::find($id);
+
+	    return response()->json([
+	      'data' => $topik
+	    ]);
+    }
 
     public function update (Request $request, $id)
     {

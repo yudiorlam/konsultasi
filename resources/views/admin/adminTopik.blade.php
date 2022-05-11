@@ -104,8 +104,43 @@
                             <td>{{ $no ++ }}</td>
                             <td>{{ $topik->topic_name }}</td>
                             <td>{{ $topik->name }}</td>
-                            <td nowrap="nowrap"></td>
+                            <td> 
+                                <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editModal-{{ $topik->id }}">Edit</button>
+                            </td>
                         </tr>
+                        <div class="modal fade" id="editModal-{{ $topik->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Edit Category</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="" method="POST">
+                                                <input type="hidden" name="_method" value="PUT">
+                                                @csrf
+                                                <div class="form-group">
+                                                    <select id="echelle"  name="echelle" class="form-control"> 
+                                                        <option value=""> Mensuelle</option>  
+                                                        @foreach ($user as $user )
+                                                        <option value="{{ $user->id }}">{{ $topik->name }}</option>   
+                                                        @endforeach                     
+                                                    </select>
+                                                    <label for="name">Name</label>
+                                                    <input type="text" name="name" class="form-control" id="name" value="{{ $topik->name }}" required>   
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="name">Name</label>
+                                                    <input type="text" name="name" class="form-control" id="name" value="{{ $topik->topic_name }}" required>   
+                                                </div>
+                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                            </form>
+                                        </div> 
+                                    </div>
+                                </div>
+                            </div>
                         @endforeach
                     </tbody>
                 </table>
@@ -113,6 +148,10 @@
             </div>                                     
         </div>
     </div>
+
+
+
+    
 
 
             {{-- <div class="card-body">
@@ -146,6 +185,7 @@
     </div>
 </div> --}}
 
+
 @endsection
 @section('js')
         <script src="{{ asset('/') }}/plugins/global/plugins.bundle.js"></script>
@@ -157,5 +197,54 @@
         <script src="{{ asset('/') }}plugins/custom/datatables/datatables.bundle.js"></script>
 		
 		<script src="{{ asset('/') }}js/pages/crud/datatables/data-sources/html.js"></script>
+
+        <script>
+
+            $(document).ready(function () {
+
+            $.ajaxSetup({
+                headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+            });
+
+            $('body').on('click', '#submit', function (event) {
+                event.preventDefault()
+                var id = $("#id").val();
+                var name = $("#name").val();
+            
+                $.ajax({
+                url: 'edit/' + id,
+                type: "POST",
+                data: {
+                    id: id,
+                    name: name,
+                },
+                dataType: 'json',
+                success: function (data) {
+                    
+                    $('#companydata').trigger("reset");
+                    $('#practice_modal').modal('hide');
+                    window.location.reload(true);
+                }
+            });
+            });
+
+            $('body').on('click', '#editCompany', function (event) {
+
+                event.preventDefault();
+                var id = $(this).data('id');
+                console.log(id)
+                $.get('edit/' + id ', function (data) {
+                    $('#userCrudModal').html("Edit category");
+                    $('#submit').val("Edit category");
+                    $('#practice_modal').modal('show');
+                    $('#id').val(data.data.id);
+                    $('#name').val(data.data.name);
+                })
+            });
+
+            }); 
+    </script>
 
 @endsection
