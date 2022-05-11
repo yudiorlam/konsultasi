@@ -198,22 +198,30 @@
                         <i aria-hidden="true" class="ki ki-close"></i>
                     </button>
                 </div>
-                <form action="{{ url('send-message-with-attachment') }}" method="POST" enctype="multipart/form-data">
+                <form id="attachmentForm">
                     @csrf
                     <div class="modal-body">
                         <div class="form-group row">
                             <div class="col-sm-12">
-                                <div class="dropzone dropzone-default" id="kt_dropzone_1">
-                                    <div class="dropzone-msg dz-message needsclick">
-                                        <h3 class="dropzone-msg-title">Drop files here or click to upload.</h3>
-                                        <span class="dropzone-msg-desc">This is just a demo dropzone. Selected files are
-                                            <strong>not</strong>actually uploaded.</span>
+
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                                    </div>
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="upload" onchange="readURL(this);"
+                                            name="attachment">
+                                        <label class="custom-file-label" for="inputGroupFile01">Pilih file</label>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-sm-12">
-                                <textarea class="form-control" rows="2" placeholder="Type a message" name="body" id="att_body"></textarea>
+                                <img id="imageResult" alt="" width="100%">
+                            </div>
+
+                            <div class="col-sm-12 mt-3">
+                                <textarea class="form-control" rows="2" placeholder="Ketikkan sesuatu..." name="att_body" id="att_body"></textarea>
                             </div>
                         </div>
                     </div>
@@ -232,30 +240,48 @@
     <script src="{{ asset('') }}/js/pages/crud/file-upload/dropzonejs.js"></script>
 
     <script>
-        // upload gambar
-        // $('.custom-file-input').on('change', function() {
-        //     let fileName = $(this).val().split('\\').pop();
-        //     $(this).next('.custom-file-label').addClass("selected").html(fileName);
-        // });
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
 
-        // function foto_fc(input) {
-        //     if (input.files && input.files[0]) {
-        //         var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#imageResult')
+                        .attr('src', e.target.result);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
 
-        //         reader.onload = function(e) {
-        //             $('#prev_file').attr('src', e.target.result);
-        //         }
+        $(function() {
+            $('#upload').on('change', function() {
+                readURL(input);
+            });
+        });
 
-        //         reader.readAsDataURL(input.files[0]);
-        //     }
-        // }
+        // send attachment
 
-        // $(document).ready(function() {
-        //     $('#nama_file').change(function() {
-        //         foto_fc(this);
-        //     });
+        $("#attachmentForm").submit(function(evt) {
 
-        // });
+            evt.preventDefault();
+            var formData = new FormData($(this)[0]);
+
+            $.ajax({
+                url: "{{ url('send-message-with-attachment') }}",
+                type: 'POST',
+                data: formData,
+                async: false,
+                cache: false,
+                contentType: false,
+                enctype: 'multipart/form-data',
+                processData: false,
+                success: function(response) {
+                    alert(response);
+                }
+            });
+
+            return false;
+
+        });
     </script>
 
     <script>
@@ -283,22 +309,24 @@
                 success: function(response) {
                     setTimeout(function() {
                         $.LoadingOverlay("hide");
-                        $('.body-chat').append('<div class="d-flex flex-column mb-5 align-items-end">\
-                                    <div class="d-flex align-items-center">\
-                                        <div>\
-                                            <span class="text-muted font-size-sm">3 minushowChat</span>\
-                                            <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">Administrator</a>\
-                                        </div>\
-                                        <div class="symbol symbol-circle symbol-40 ml-3">\
-                                            <img alt="Pic" src="https://picsum.photos/id/237/200/200" />\
-                                        </div>\
-                                    </div>\
-                                    <div class="mt-2 mb-2 rounded p-5 bg-light-primary text-dark-50 font-weight-bold font-size-lg text-right max-w-400px">\
-                                        Selamat siang, silahkan pilih topik pembahasan.\
-                                    </div>\
-                                    <div id="list-topic">\
-                                    </div>\
-                                </div>');
+                        $('.body-chat').append(
+                            '<div class="d-flex flex-column mb-5 align-items-end">\
+                                                                                                                                                                                                            <div class="d-flex align-items-center">\
+                                                                                                                                                                                                                <div>\
+                                                                                                                                                                                                                    <span class="text-muted font-size-sm">3 minushowChat</span>\
+                                                                                                                                                                                                                    <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">Administrator</a>\
+                                                                                                                                                                                                                </div>\
+                                                                                                                                                                                                                <div class="symbol symbol-circle symbol-40 ml-3">\
+                                                                                                                                                                                                                    <img alt="Pic" src="https://picsum.photos/id/237/200/200" />\
+                                                                                                                                                                                                                </div>\
+                                                                                                                                                                                                            </div>\
+                                                                                                                                                                                                            <div class="mt-2 mb-2 rounded p-5 bg-light-primary text-dark-50 font-weight-bold font-size-lg text-right max-w-400px">\
+                                                                                                                                                                                                                Selamat siang, silahkan pilih topik pembahasan.\
+                                                                                                                                                                                                            </div>\
+                                                                                                                                                                                                            <div id="list-topic">\
+                                                                                                                                                                                                            </div>\
+                                                                                                                                                                                                        </div>'
+                        );
 
                         setTimeout(function() {
                             $.each(response, function(index, value) {
@@ -418,43 +446,47 @@
                             if (value.user_id == {{ auth()->user()->id }}) {
                                 pesan =
                                     '<div class="d-flex flex-column mb-5 align-items-end">\
-                                                                                                								<div class="d-flex align-items-center">\
-                                                                                                									<div>\
-                                                                                                										<span class="text-muted font-size-sm">' +
+                                                                                                                                                                                                                                                                        								<div class="d-flex align-items-center">\
+                                                                                                                                                                                                                                                                        									<div>\
+                                                                                                                                                                                                                                                                        										<span class="text-muted font-size-sm">' +
                                     value
                                     .created_at +
                                     '</span>\
-                                                                                                										<a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">' +
+                                                                                                                                                                                                                                                                        										<a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">' +
                                     value
                                     .name +
                                     '</a>\
-                                                                                                									</div>\
-                                                                                                									<div class="symbol symbol-circle symbol-40 ml-3">\
-                                                                                                										<img alt="Pic" src="{{ asset('/media/products/1.png') }}" />\
-                                                                                                									</div>\
-                                                                                                								</div>\
-                                                                                                								<div class="mt-2 rounded p-5 bg-light-primary text-dark-50 font-weight-bold font-size-lg text-right max-w-400px">' +
-                                    value.body + ' ' + is_read + ' </div>\
-                                                                                                							</div>';
+                                                                                                                                                                                                                                                                        									</div>\
+                                                                                                                                                                                                                                                                        									<div class="symbol symbol-circle symbol-40 ml-3">\
+                                                                                                                                                                                                                                                                        										<img alt="Pic" src="{{ asset('/media/products/1.png') }}" />\
+                                                                                                                                                                                                                                                                        									</div>\
+                                                                                                                                                                                                                                                                        								</div>\
+                                                                                                                                                                                                                                                                        								<div class="mt-2 rounded p-5 bg-light-primary text-dark-50 font-weight-bold font-size-lg text-right max-w-400px">' +
+                                    value.body + ' ' + is_read +
+                                    ' </div>\
+                                                                                                                                                                                                                                                                        							</div>';
                             } else {
                                 pesan =
                                     '<div class="d-flex flex-column mb-5 align-items-start">\
-                                                                                                								<div class="d-flex align-items-center">\
-                                                                                                									<div class="symbol symbol-circle symbol-40 mr-3">\
-                                                                                                										<img alt="Pic" src="{{ asset('/media/products/1.png') }}" />\
-                                                                                                									</div>\
-                                                                                                									<div>\
-                                                                                                										<a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">' +
+                                                                                                                                                                                                                                                                        								<div class="d-flex align-items-center">\
+                                                                                                                                                                                                                                                                        									<div class="symbol symbol-circle symbol-40 mr-3">\
+                                                                                                                                                                                                                                                                        										<img alt="Pic" src="{{ asset('/media/products/1.png') }}" />\
+                                                                                                                                                                                                                                                                        									</div>\
+                                                                                                                                                                                                                                                                        									<div>\
+                                                                                                                                                                                                                                                                        										<a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">' +
                                     value
-                                    .name + '</a>\
-                                                                                                										' + value
+                                    .name +
+                                    '</a>\
+                                                                                                                                                                                                                                                                        										' +
+                                    value
                                     .created_at +
                                     '</span>\
-                                                                                                									</div>\
-                                                                                                								</div>\
-                                                                                                								<div class="mt-2 rounded p-5 bg-light-success text-dark-50 font-weight-bold font-size-lg text-left max-w-400px">' +
-                                    is_read + ' ' + value.body + '</div>\
-                                                                                                							</div>';
+                                                                                                                                                                                                                                                                        									</div>\
+                                                                                                                                                                                                                                                                        								</div>\
+                                                                                                                                                                                                                                                                        								<div class="mt-2 rounded p-5 bg-light-success text-dark-50 font-weight-bold font-size-lg text-left max-w-400px">' +
+                                    is_read + ' ' + value.body +
+                                    '</div>\
+                                                                                                                                                                                                                                                                        							</div>';
                             }
 
                             $('.body-chat').append(pesan);
@@ -466,11 +498,13 @@
                     if (response.tiket_status == 2) {
                         $('#isi-pesan').attr('disabled', 'disabled');
                         $('#tombol-send').attr('disabled', 'disabled');
-                        $('.body-chat').append('<div class="row">\
-                                                                                                									<div class="col-12 text-center pt-5">\
-                                                                                                										<p class="badge bg-primary text-white p-4">Sesi anda telah berakhir...</p>\
-                                                                                                									</div>\
-                                                                                                								</div>');
+                        $('.body-chat').append(
+                            '<div class="row">\
+                                                                                                                                                                                                                                                                        									<div class="col-12 text-center pt-5">\
+                                                                                                                                                                                                                                                                        										<p class="badge bg-primary text-white p-4">Sesi anda telah berakhir...</p>\
+                                                                                                                                                                                                                                                                        									</div>\
+                                                                                                                                                                                                                                                                        								</div>'
+                        );
                     } else {
                         $('#isi-pesan').removeAttr("disabled");
                         $('#tombol-send').removeAttr("disabled");
