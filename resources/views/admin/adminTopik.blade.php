@@ -78,7 +78,7 @@
                     </div>
                     <!--end::Dropdown-->
                     <!--begin::Button-->
-                    <a href="#" class="btn btn-primary font-weight-bolder">
+                    <a href="{{ url('/addAdmin') }}" class="btn btn-primary font-weight-bolder">
                     <i class="la la-plus"></i>New Record</a>
                     <!--end::Button-->
                 </div>

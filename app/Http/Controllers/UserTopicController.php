@@ -61,7 +61,7 @@ class UserTopicController extends Controller
             
         }
 
-        return redirect('/topik');
+        return redirect('/getAdminTopik');
     }
 
     /**
