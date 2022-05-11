@@ -51,7 +51,7 @@
 													<div class="dropdown dropdown-inline">
 									
 														<a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-															<img src="https://picsum.photos/id/237/200/200" width="40px" height="40" class="rounded-circle border-5" alt="">
+															<img src="{{ asset('storage/'. auth()->user()->user_image) }}" width="40px" height="40" class="rounded-circle border-5" alt="">
 														</a> 
 														<div class="dropdown-menu p-0 m-0 dropdown-menu-left dropdown-menu-md">
 															<!--begin::Navigation-->
@@ -130,8 +130,13 @@
 														{{ auth()->user()->name }}
 													</div>
 													<div>
-														{{-- <span class="label label-sm label-dot label-success"></span> --}}
-														<span class="font-weight-bold text-muted font-size-sm">19928499547785779</span>
+														<span class="font-weight-bold text-muted font-size-sm">
+															@if(auth()->user()->role == 3)
+																{{ auth()->user()->nip }}
+															@else
+																{{ auth()->user()->email }}
+															@endif
+														</span>
 													</div>
 												</div>
 												<div class="text-right flex-grow-1">

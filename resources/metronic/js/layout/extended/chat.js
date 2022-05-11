@@ -58,14 +58,14 @@ var KTLayoutChat = function () {
 		});
 
 		// attach events
-		KTUtil.on(element, '.card-footer textarea', 'keydown', function(e) {
-			if (e.keyCode == 13) {
-				_handeMessaging(element);
-				e.preventDefault();
+		// KTUtil.on(element, '.card-footer textarea', 'keydown', function(e) {
+		// 	if (e.keyCode == 13) {
+		// 		_handeMessaging(element);
+		// 		e.preventDefault();
 
-				return false;
-			}
-		});
+		// 		return false;
+		// 	}
+		// });
 
 		KTUtil.on(element, '.card-footer .chat-send', 'click', function(e) {
 			_handeMessaging(element);

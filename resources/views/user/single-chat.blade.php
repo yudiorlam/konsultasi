@@ -5,7 +5,7 @@
         <div class="d-flex align-items-center justify-content-between mb-5">
             <div class="d-flex align-items-center">
                 <div class="symbol symbol-circle symbol-50 mr-3">
-                    <img alt="Pic" src="{{ asset('storage/users/' . $conversation->user_image) }}" />
+                    <img alt="Pic" src="{{ asset('storage/' . $conversation->user_image) }}" />
                 </div>
 
                 @if (auth()->user()->role == 3)
@@ -154,7 +154,7 @@
             </div>
 
 
-            <div class="card-footer align-items-center">
+            <div class="card-footer align-items-center" id="anjir">
                 <div class="kirim-pesan">
                     <form id="ajaxFormSend">
                         @csrf
@@ -177,7 +177,7 @@
                             <div>
                                 <button type="submit"
                                     class="btn btn-primary btn-md text-uppercase font-weight-bold py-2 px-6"
-                                    id="tombol-send">Send</button>
+                                    id="tombol-send">Kirim</button>
                             </div>
                         </div>
                     </form>
@@ -202,6 +202,9 @@
                     @csrf
                     <div class="modal-body">
                         <div class="form-group row">
+
+                            <input type="hidden" id="att_conv_id" name="conv_id">
+
                             <div class="col-sm-12">
 
                                 <div class="input-group mb-3">
@@ -234,6 +237,7 @@
             </div>
         </div>
     </div>
+
 @endsection
 
 @section('js')
@@ -261,10 +265,10 @@
 
         // send attachment
         $("#attachmentForm").submit(function(evt) {
-
+            var id = $('#id').val();
             evt.preventDefault();
             var formData = new FormData($(this)[0]);
-
+            
             $.ajax({
                 url: "{{ url('send-message-with-attachment') }}",
                 type: 'POST',
@@ -274,8 +278,24 @@
                 contentType: false,
                 enctype: 'multipart/form-data',
                 processData: false,
+                beforeSend: function() {
+                    $.LoadingOverlay("show", {
+                        text: "Mengirim..."
+                    });
+                },
                 success: function(response) {
-                    alert(response);
+                    $('#uploadImageModal').modal('hide');
+                    $('#attachmentForm')[0].reset();
+                    $('#imageResult').attr('src', '');
+
+                    $.LoadingOverlay("hide");
+                    Swal.fire(
+                        'Sukses',
+                        'Gambar berhasil terkirim.',
+                        'success'
+                    );
+
+                    fetch_chat(id);
                 }
             });
 
@@ -285,7 +305,6 @@
     </script>
 
     <script>
-        $('#btn-edit-status-tiket').hide();
         //mulai konsultasi
         function mulai_konsultasi() {
             $('.kirim-pesan').show();
@@ -409,11 +428,11 @@
                     });
                 }
             })
-
         }
 
         function fetch_chat(id) {
             $('#id').val(id);
+            $('#att_conv_id').val(id);
 
             $.ajax({
                 url: "{{ url('/ajax_fetch_chats') }}",
@@ -430,6 +449,8 @@
                     $('.body-chat').html("");
 
                     if (response.status == 'success') {
+
+                        // tombol akhiri sesi
                         if (response.tiket_status == 1) {
                             $('#action').append(
                                 '<button type="button" onclick="editStatusTiket()" class="btn btn-clean btn-sm btn-icon btn-icon-md" id="btn-edit-status-tiket" title="Akhiri sesi"><i class="icon-2x text-danger flaticon-chat"><i style="margin-left:-15px;margin-top:10px" class="fas fa-window-close text-dark fs-1"></i></i></button>'
@@ -437,23 +458,28 @@
                         }
 
                         $.each(response.chats, function(index, value) {
+                            // is read
                             if (value.is_read == 1) {
                                 is_read = '<i class="icon-xl la la-check-double"></i>';
                             } else {
                                 is_read = '<i class="icon-xl la la-check-double text-primary"></i>';
                             }
+
+                            // is attachment
+                            if(value.attachment !== '0'){
+                                attachment = '<a data-toggle="modal" data-target="#prevAttachmentModal'+value.message_id+'"><img class="img-thumbnail mt-2" width="200px" src="{{ asset("storage") }}'+ '/' + value.attachment +'"></a> <div class="modal fade" id="prevAttachmentModal'+ value.message_id +'" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-dialog-centered modal-lg" role="document"><div class="modal-content"><img width="100%" src="{{ asset("storage") }}'+ '/' + value.attachment +'"></div></div></div>';
+                            }else{
+                                attachment= '';
+                            }
+
                             if (value.user_id == {{ auth()->user()->id }}) {
-                                pesan = '<div class="d-flex flex-column mb-5 align-items-end"><div class="d-flex align-items-center"><div>
-                                        <span class="text-muted font-size-sm">' + value.created_at + '</span> <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">' + value .name + '</a> </div> <div class="symbol symbol-circle symbol-40 ml-3">\
-                                        <img alt="Pic" src="{{ asset('storage/users') }}' + '/' + value .user_image +'" /></div> </div><div class="mt-2 rounded p-5 bg-light-primary text-dark-50 font-weight-bold font-size-lg text-right max-w-400px">' + value.body + ' '+is_read +' </div></div>';
-                                            } 
-                                        else { pesan = '<div class="d-flex flex-column mb-5 align-items-start"> <div class="d-flex align-items-center">  <div class="symbol symbol-circle symbol-40 mr-3"> <img alt="Pic" src="{{ asset('storage/users') }}' + '/' + value     .user_image + '" /> </div><div><a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">' + value.name +'</a> ' + value  .created_at +'</span></div></div> <div class="mt-2 rounded p-5 bg-light-success text-dark-50 font-weight-bold font-size-lg text-left max-w-400px">' + is_read+ ' ' + value.body + '</div> </div>';
+                                pesan = '<div class="d-flex flex-column mb-5 align-items-end"><div class="d-flex align-items-center"><div><span class="text-muted font-size-sm">' + value.created_at + '</span> <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">' + value.name + '</a> </div> <div class="symbol symbol-circle symbol-40 ml-3"><img alt="Pic" src="{{ asset('storage') }}' + '/' + value.user_image +'" /></div> </div>'+attachment+'<div class="mt-2 rounded px-3 bg-light-primary text-dark-50 font-weight-bold font-size-lg text-right max-w-400px">' + value.body + ' '+ is_read +'</div></div>';
+                            } else {
+                                pesan = '<div class="d-flex flex-column mb-5 align-items-start"> <div class="d-flex align-items-center">  <div class="symbol symbol-circle symbol-40 mr-3"> <img alt="Pic" src="{{ asset('storage') }}' + '/' + value.user_image + '" /> </div><div><a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">' + value.name +'</a> ' + value  .created_at +'</span></div></div> ' +attachment+ ' <div class="mt-2 rounded px-3 bg-light-success text-dark-50 font-weight-bold font-size-lg text-left max-w-400px">' + is_read + ' ' + value.body + '</div> </div>';
                             }
 
                             $('.body-chat').append(pesan);
                         });
-                        // last_chat_id = response.last_chat_id;
-
                     }
 
                     if (response.tiket_status == 2) {
