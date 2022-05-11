@@ -8,6 +8,7 @@ use App\Models\Message;
 use App\Models\MessagePuki;
 use App\Events\NewMessageNotification;
 use App\Models\Conversation;
+use Illuminate\Support\Facades\Storage;
 
 class MessageController extends Controller
 {
@@ -104,6 +105,7 @@ class MessageController extends Controller
     {
         $data = $this->validate($request, [
             'body' => 'required',
+            'attachment' => 'image|file|max:2040',
             'conv_id' => 'required',
             'user_id' => 'required',
         ]);
@@ -124,16 +126,24 @@ class MessageController extends Controller
 
     public function send_attachment(Request $request)
     {
-
-        dd($request);
-
         $data = $this->validate($request, [
-            'body' => 'required',
-            'conv_id' => 'required',
-            'user_id' => 'required',
+            'attachment' => 'required',
         ]);
 
-        $save = Message::create($data);
+        if ($request->att_body != '') {
+            $save = Message::insert([
+                'conv_id' => 1,
+                'user_id' => 1,
+                'attachment' =>  $request->file('attachment')->store('attachment'),
+                'body' => $request->att_body,
+            ]);
+        } else {
+            $save = Message::insert([
+                'conv_id' => 1,
+                'user_id' => 1,
+                'attachment' =>  $request->attachment->getFilename()
+            ]);
+        }
 
         if ($save) {
             return response()->json([

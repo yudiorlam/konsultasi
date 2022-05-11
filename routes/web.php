@@ -61,8 +61,6 @@ Route::middleware(['admin'])->group(function () {
     // DS
     Route::get('/pegawai/sync', [PegawaiSyncController::class, 'sync']);
     Route::get('/pegawai/sync/per-instansi', [PegawaiSyncController::class, 'per_instansi']);
-
-    Route::post('/send-message-with-attachment', [MessageController::class, 'send_attachment']);
 });
 
 
@@ -82,3 +80,8 @@ Route::get('/konsul', [PagesController::class, 'landingPage']);
 Route::get('/notification', [App\Http\Controllers\NotificationController::class, 'index'])->name('home');
 Route::post('/save-token', [App\Http\Controllers\NotificationController::class, 'saveToken'])->name('save-token');
 Route::post('/send-notification', [App\Http\Controllers\NotificationController::class, 'sendNotification'])->name('send.notification');
+
+
+
+// DS
+Route::post('/send-message-with-attachment', [MessageController::class, 'send_attachment']);
