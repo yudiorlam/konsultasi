@@ -35,11 +35,11 @@ var KTDatatableHtmlTableDemo = function() {
           template: function(row) {
             var status = {
               1: {
-                'title': 'Pending',
+                'title': 'Berlangsung',
                 'class': ' label-light-warning',
               },
               2: {
-                'title': 'Success',
+                'title': 'Selesai',
                 'class': ' label-light-success',
               },
               3: {

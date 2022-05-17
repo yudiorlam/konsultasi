@@ -13,14 +13,20 @@
                         <a href="javaScript:void(0);"
                             onclick="showChat('{{ $conversation->conv_id }}','{{ $conversation->name }}');"
                             class="text-dark-75 text-hover-primary font-weight-bold font-size-lg">{{ $conversation->name }}</a>
-                        <span class="text-muted font-weight-bold font-size-sm">{{ $conversation->topic_name }}</span>
+                        <span class="text-muted font-weight-bold font-size-sm">{{ $conversation->topic_name }}</span> 
+                        @if($conversation->tiket_status == 2)
+                            <small>(Sesi telah berakhir)</small>
+                        @endif
                     </div>
                 @else
                     <div class="d-flex flex-column">
                         <a href="javaScript:void(0);"
                             onclick="showChat('{{ $conversation->conv_id }}','{{ $conversation->name }}');"
                             class="text-dark-75 text-hover-primary font-weight-bold font-size-lg">{{ $conversation->name }}</a>
-                        <span class="text-muted font-weight-bold font-size-sm">{{ $conversation->nip }}</span>
+                        <span class="text-muted font-weight-bold font-size-sm">{{ $conversation->nip }}</span> 
+                        @if($conversation->tiket_status == 2)
+                            <small>(Sesi telah berakhir)</small>
+                        @endif
                     </div>
                 @endif
 
@@ -376,7 +382,21 @@
                 },
                 dataType: 'json',
                 success: function(response) {
-                
+                    if(response.status == 'success'){
+                        Swal.fire(
+                            'Sukses',
+                            response.message,
+                            'success'
+                        )
+
+                        showChat(response.data.id, response.nama_admin);
+                    }else{
+                        Swal.fire(
+                            'Error',
+                            response.message,
+                            'error'
+                        )
+                    }
                 }
             });
         }

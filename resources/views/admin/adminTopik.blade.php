@@ -105,7 +105,7 @@
                             <td>{{ $topik->topic_name }}</td>
                             <td>{{ $topik->name }}</td>
                             <td> 
-                                <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editModal-{{ $topik->id }}">Edit</button>
+                                <a href="" data-toggle="modal" data-target="#editModal-{{ $topik->id }}"><i class="fas fa-edit" style="color: blue"></i></a>|<a href=""><i class="fas fa-trash-alt" style="color: red"></i></a>
                             </td>
                         </tr>
                         <div class="modal fade" id="editModal-{{ $topik->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -122,12 +122,12 @@
                                                 <input type="hidden" name="_method" value="PUT">
                                                 @csrf
                                                 <div class="form-group">
-                                                    <select id="echelle"  name="echelle" class="form-control"> 
+                                                    {{-- <select id="echelle"  name="echelle" class="form-control"> 
                                                         <option value=""> Mensuelle</option>  
                                                         @foreach ($user as $user )
                                                         <option value="{{ $user->id }}">{{ $topik->name }}</option>   
                                                         @endforeach                     
-                                                    </select>
+                                                    </select> --}}
                                                     <label for="name">Name</label>
                                                     <input type="text" name="name" class="form-control" id="name" value="{{ $topik->name }}" required>   
                                                 </div>

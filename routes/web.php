@@ -73,6 +73,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/ajax_fetch_chats', [MessageController::class, 'ajax_fetch_chats']);
     Route::post('/ajax_create_conv', [ConversationController::class, 'ajax_create_conv']);
     Route::post('/update_status_tiket', [ConversationController::class, 'update']);
+    Route::get('/get_change_password', [LoginController::class, 'getChangePassword']);
+    Route::post('/change_password', [LoginController::class, 'changePassword']);
+
 });
 
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Conversation;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -17,6 +18,12 @@ class ConversationController extends Controller
             if ($conv) {
                 $status = 'error';
                 $message = 'Harap mengakhiri konsultasi sebelumnya untuk memulai konsutasi baru!';
+
+                return response()->json([
+                    'status' => $status,
+                    'message' => $message,
+                ]);
+
             } else {
                 // buat room
                 $user_topik = DB::select(
@@ -41,21 +48,18 @@ class ConversationController extends Controller
                 ]);
 
                 if ($save) {
+                    $admin = User::findOrFail($user_topik[0]->uid);
                     return response()->json([
                         'status' => 'success',
+                        'data' => $save,
+                        'nama_admin' => $admin->name,
                     ]);
                 } else {
                     return response()->json([
                         'status' => 'error',
+                        'message' => 'Gagal menyimpan'
                     ]);
                 }
-
-
-                return response()->json([
-                    'status' => $status,
-                    'message' => $message,
-                    'data' => $save,
-                ]);
             }
         }
     }

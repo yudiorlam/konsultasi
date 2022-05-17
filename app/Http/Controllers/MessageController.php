@@ -30,19 +30,19 @@ class MessageController extends Controller
         $user_id = Auth::user()->id;
         if (auth()->user()->role == 1) {
             $conversations = Conversation::join('users', 'users.id', '=', 'conversations.user_id')
-                ->select('conversations.id as conv_id', 'users.id', 'users.name', 'users.user_image')
+                ->select('conversations.id as conv_id', 'conversations.tiket_status', 'users.id', 'users.name', 'users.user_image')
                 ->get();
             //  dd($conversations);
         } else if (auth()->user()->role == 2) {
             $conversations = Conversation::join('users', 'users.nip', '=', 'conversations.nip')
-                ->select('conversations.id as conv_id', 'conversations.user_id', 'users.id', 'users.name', 'users.user_image', 'users.nip')
+                ->select('conversations.id as conv_id', 'conversations.tiket_status', 'conversations.user_id', 'users.id', 'users.name', 'users.user_image', 'users.nip')
                 ->where('conversations.user_id', auth()->user()->id)
                 ->get();
             //  dd($conversations);
         } else {
             $conversations = Conversation::join('users', 'users.id', '=', 'conversations.user_id')
                 ->join('topics', 'topics.id', '=', 'conversations.topic_id')
-                ->select('conversations.id as conv_id', 'conversations.user_id', 'conversations.topic_id', 'topics.topic_name', 'conversations.nip', 'users.id', 'users.name', 'users.user_image',)
+                ->select('conversations.id as conv_id', 'conversations.tiket_status', 'conversations.user_id', 'conversations.topic_id', 'topics.topic_name', 'conversations.nip', 'users.id', 'users.name', 'users.user_image',)
                 ->where('conversations.nip', auth()->user()->nip)
                 ->get();
             //  dd($conversations);

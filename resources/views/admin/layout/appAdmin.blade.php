@@ -50,6 +50,7 @@ License: You must have a valid license purchased only from themeforest(the above
 			<a href="index.html">
 				<img alt="Logo" src="{{ asset ('/') }}media/logos/logo-light.png" />
 			</a>
+			
 			<!--end::Logo-->
 			<!--begin::Toolbar-->
 			<div class="d-flex align-items-center">
@@ -81,6 +82,7 @@ License: You must have a valid license purchased only from themeforest(the above
 			</div>
 			<!--end::Toolbar-->
 		</div>
+		
 		<!--end::Header Mobile-->
 		<div class="d-flex flex-column flex-root">
 			<!--begin::Page-->

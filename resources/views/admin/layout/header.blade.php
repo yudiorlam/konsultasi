@@ -1,4 +1,3 @@
-	
 <div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
     <!--begin::Header-->
     <div id="kt_header" class="header header-fixed">

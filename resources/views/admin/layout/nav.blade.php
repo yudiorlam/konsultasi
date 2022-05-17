@@ -216,7 +216,7 @@
                 </div>
             </li>
             <li class="menu-item" aria-haspopup="true">
-                <a target="_blank" href="https://preview.keenthemes.com/metronic/demo1/builder.html"
+                <a href="{{ url('/chat') }}"
                     class="menu-link">
                     <span class="svg-icon menu-icon">
                         <!--begin::Svg Icon | path:{{ asset('/') }}media/svg/icons/Home/Library.svg-->
@@ -234,7 +234,7 @@
                         </svg>
                         <!--end::Svg Icon-->
                     </span>
-                    <span class="menu-text">Builder</span>
+                    <span class="menu-text">Chat</span>
                 </a>
             </li>
         </ul>
