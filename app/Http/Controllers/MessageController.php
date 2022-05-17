@@ -31,12 +31,14 @@ class MessageController extends Controller
         if (auth()->user()->role == 1) {
             $conversations = Conversation::join('users', 'users.id', '=', 'conversations.user_id')
                 ->select('conversations.id as conv_id', 'conversations.tiket_status', 'users.id', 'users.name', 'users.user_image')
+                ->orderBy('conversations.created_at', 'DESC')
                 ->get();
             //  dd($conversations);
         } else if (auth()->user()->role == 2) {
             $conversations = Conversation::join('users', 'users.nip', '=', 'conversations.nip')
                 ->select('conversations.id as conv_id', 'conversations.tiket_status', 'conversations.user_id', 'users.id', 'users.name', 'users.user_image', 'users.nip')
                 ->where('conversations.user_id', auth()->user()->id)
+                ->orderBy('conversations.created_at', 'DESC')
                 ->get();
             //  dd($conversations);
         } else {
@@ -44,6 +46,7 @@ class MessageController extends Controller
                 ->join('topics', 'topics.id', '=', 'conversations.topic_id')
                 ->select('conversations.id as conv_id', 'conversations.tiket_status', 'conversations.user_id', 'conversations.topic_id', 'topics.topic_name', 'conversations.nip', 'users.id', 'users.name', 'users.user_image',)
                 ->where('conversations.nip', auth()->user()->nip)
+                ->orderBy('conversations.created_at', 'DESC')
                 ->get();
             //  dd($conversations);
         }

@@ -9,7 +9,7 @@ use App\Http\Controllers\PagesController;
 use App\Http\Controllers\ConversationController;
 use App\Http\Controllers\UserTopicController;
 use App\Http\Controllers\TopicController;
-
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AJG;
 use App\Http\Controllers\PegawaiSyncController;
 
@@ -73,9 +73,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/ajax_fetch_chats', [MessageController::class, 'ajax_fetch_chats']);
     Route::post('/ajax_create_conv', [ConversationController::class, 'ajax_create_conv']);
     Route::post('/update_status_tiket', [ConversationController::class, 'update']);
-    Route::get('/get_change_password', [LoginController::class, 'getChangePassword']);
+    
     Route::post('/change_password', [LoginController::class, 'changePassword']);
 
+    Route::get('/profile', [ProfileController::class, 'index']);
 });
 
 
