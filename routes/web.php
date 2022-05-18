@@ -80,9 +80,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/ajax_create_conv', [ConversationController::class, 'ajax_create_conv']);
     Route::post('/update_status_tiket', [ConversationController::class, 'update']);
 
-    Route::post('/change_password', [LoginController::class, 'changePassword']);
-
     Route::get('/profile', [ProfileController::class, 'index']);
+    Route::post('/update-profile', [ProfileController::class, 'update']);
 });
 
 

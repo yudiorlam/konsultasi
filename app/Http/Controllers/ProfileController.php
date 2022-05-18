@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pegawai;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -14,5 +17,54 @@ class ProfileController extends Controller
             ->where('users.nip', auth()->user()->nip)
             ->first();
         return view('user.changePassword', compact('user'));
+    }
+
+    public function update(Request $request)
+    {
+        if($request->hasFile('user_image')){
+            $fileName = time() . '.' . request()->user_image->getClientOriginalExtension();
+
+            if(auth()->user()->image != 'default.jpg'){
+                Storage::delete(public_path('storage/users/') . auth()->user()->image);
+            }
+
+            request()->user_image->move(public_path('storage/users/'), $fileName);
+
+            $new_image_user = $fileName;
+
+            User::where('id', auth()->user()->id)->update([
+                'user_image' => 'users/'.$new_image_user,
+            ]);
+        }
+
+        if($request->password == null){
+            $this->validate($request,[
+                'notelp' => 'required',
+            ]);
+            Pegawai::where('nipbaru', auth()->user()->nip)->update([
+                'notelp' => $request->notelp,
+            ]);
+
+            return back()->with('success', 'Berhasil memperbarui data diri anda...');
+
+        } else {
+            $this->validate($request,[
+                'notelp' => 'required',
+                'password' => 'min:3',
+                'confirm-password' => 'required_with:password|same:password|min:3'
+            ]);
+
+            Pegawai::where('nipbaru', auth()->user()->nip)->update([
+                'notelp' => $request->notelp,
+            ]);
+
+            User::where('id', auth()->user()->id)->update([
+                'password' => Hash::make($request->password),
+            ]);
+
+            return back()->with('success', 'Berhasil memperbarui data diri anda...');
+        }
+
+        return back()->withInput();
     }
 }
