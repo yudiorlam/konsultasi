@@ -34,7 +34,7 @@
             <div class="col-12">
                 <nav class="main-nav">
                 <a href="index.html" class="logo">
-                    <img src="assets/images/logo.png" alt="Chain App Dev">
+                    <img src="assets/images/logo3.png" alt="Chain App Dev">
                 </a>
                 <ul class="nav">
                     {{-- <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
