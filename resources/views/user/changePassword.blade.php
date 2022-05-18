@@ -1,10 +1,9 @@
 {{-- Extends layout --}}
-@extends('user.layout.app')
+@extends('user.layout.apps')
 
 {{-- Content --}}
 @section('content')
- <div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
-        <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
             <div class="d-flex flex-column-fluid">
                 <div class="container">
                  <div class="flex-row-fluid ml-lg-8">
@@ -125,7 +124,6 @@
                 </div>
                 </div>
             </div>
-        </div>
  </div>
    
 @endsection
