@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>SIPATUO</title>
+    <title>PERIKSA KI'</title>
     <meta name="description" content="Private chat example" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <!--begin::Fonts-->
