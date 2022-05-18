@@ -45,6 +45,7 @@ Route::middleware(['super_admin'])->group(
         Route::post('/addTopik', [TopicController::class, 'store']);
         Route::get('/edit/{id}', [TopicController::class, 'edit']);
         Route::get('/cetak', [CetakKonsultasiController::class, 'index']);
+        Route::post('/cetakKonsul', [CetakKonsultasiController::class, 'cetak']);
 
         // Route::get('/getTopik', [TopicController::class, 'index']);
         // Route::get('/addTopik', [TopicController::class, 'create']);

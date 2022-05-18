@@ -167,9 +167,9 @@
 					<thead>
 						<tr>
 							<th title="Field #1">No</th>
-							<th title="Field #2">Nama Admin</th>
+							<th title="Field #2">Nama Narasumber</th>
 							<th title="Field #3">Topik</th>
-							<th title="Field #4">NIP</th>
+							<th title="Field #4">Nama Responden</th>
 							<th title="Field #5">Status</th>
 							<th title="Field #6">Action</th>
 						</tr>
@@ -178,17 +178,23 @@
 						@php
 						$no = 1
 						@endphp
-						
+						@foreach ($daftarCetak as $cetak)
 							
 						<tr>
 							<td>{{ $no++ }}</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td class="text-right"></td>
-							<td><a href="" class="btn btn-primary btn-sm"><i class="fas fa-pencil-alt"></i></a></td>
+							<td>{{ $cetak->name }}</td>
+							<td>{{ $cetak->topic_name }}</td>
+							<td>{{ $cetak->nama }}</td>
+							<td class="text-right">{{ $cetak->tiket_status }}</td>
+							<td>
+								<form method="POST" action="{{ url('/cetakKonsul') }}">
+                                @csrf<input type="hidden" name="id" value="{{$cetak->id}}">
+                                <button class="btn btn-primary" type="submit"><i class="fas la-print"></button>
+                              </form>
+							</td>
 							{{-- <td class="text-right">3</td> --}}
 						</tr>
+						@endforeach
                     </tbody>
                 </table>
             </div>
