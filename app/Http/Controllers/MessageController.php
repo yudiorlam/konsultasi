@@ -13,45 +13,9 @@ use Illuminate\Support\Facades\Storage;
 
 class MessageController extends Controller
 {
-    public function index()
-    {
-        $page_title = 'lineawesome';
-        $page_description = 'This is lineawesome test page';
-
-
-
-        $message = Message::join('users', 'users');
-
-        return view('user.single-chat', compact('page_title', 'page_description'));
-    }
-
     public function chatUser()
     {
-        $user_id = Auth::user()->id;
-        if (auth()->user()->role == 1) {
-            $conversations = Conversation::join('users', 'users.id', '=', 'conversations.user_id')
-                ->select('conversations.id as conv_id', 'conversations.tiket_status', 'users.id', 'users.name', 'users.user_image')
-                ->orderBy('conversations.created_at', 'DESC')
-                ->get();
-            //  dd($conversations);
-        } else if (auth()->user()->role == 2) {
-            $conversations = Conversation::join('users', 'users.nip', '=', 'conversations.nip')
-                ->select('conversations.id as conv_id', 'conversations.tiket_status', 'conversations.user_id', 'users.id', 'users.name', 'users.user_image', 'users.nip')
-                ->where('conversations.user_id', auth()->user()->id)
-                ->orderBy('conversations.created_at', 'DESC')
-                ->get();
-            //  dd($conversations);
-        } else {
-            $conversations = Conversation::join('users', 'users.id', '=', 'conversations.user_id')
-                ->join('topics', 'topics.id', '=', 'conversations.topic_id')
-                ->select('conversations.id as conv_id', 'conversations.tiket_status', 'conversations.user_id', 'conversations.topic_id', 'topics.topic_name', 'conversations.nip', 'users.id', 'users.name', 'users.user_image',)
-                ->where('conversations.nip', auth()->user()->nip)
-                ->orderBy('conversations.created_at', 'DESC')
-                ->get();
-            //  dd($conversations);
-        }
-
-        return view('user.single-chat', compact('conversations', 'user_id'));
+        return view('user.single-chat');
     }
 
 
@@ -84,7 +48,7 @@ class MessageController extends Controller
             foreach ($chats as $u) {
                 $data[] = [
                     'conv_id' => $u->conv_id,
-                    'message_id' =>$u->messages_id,
+                    'message_id' => $u->messages_id,
                     'user_id' => $u->user_id,
                     'body' => $u->body,
                     'name' => $u->name,

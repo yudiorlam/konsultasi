@@ -10,7 +10,6 @@ use App\Http\Controllers\ConversationController;
 use App\Http\Controllers\UserTopicController;
 use App\Http\Controllers\TopicController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\AJG;
 use App\Http\Controllers\PegawaiSyncController;
 use App\Http\Controllers\CetakKonsultasiController;
 
@@ -71,13 +70,16 @@ Route::middleware(['admin'])->group(function () {
 
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/fetch_conv', [ConversationController::class, 'fetch_conv']);
+
     Route::get('/chat', [MessageController::class, 'chatUser']);
+
     Route::get('/ajax_get_topic', [DaftarTiket::class, 'ajax_get_topic']);
     Route::post('/send_message', [MessageController::class, 'send_message']);
     Route::post('/ajax_fetch_chats', [MessageController::class, 'ajax_fetch_chats']);
     Route::post('/ajax_create_conv', [ConversationController::class, 'ajax_create_conv']);
     Route::post('/update_status_tiket', [ConversationController::class, 'update']);
-    
+
     Route::post('/change_password', [LoginController::class, 'changePassword']);
 
     Route::get('/profile', [ProfileController::class, 'index']);
