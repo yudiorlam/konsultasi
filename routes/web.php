@@ -25,8 +25,8 @@ use App\Http\Controllers\CetakKonsultasiController;
 |
 */
 // hanya untuk tamu yg belum auth
-Route::get('/', [PagesController::class, 'landingPage']);
-Route::get('/login', [LoginController::class, 'login'])->middleware('guest');
+Route::get('/', [PagesController::class, 'landingPage'])->middleware('guest');
+Route::get('/login', [LoginController::class, 'login']);
 //Route::post('/actionlogin', 'LoginController@actionlogin')->name('actionlogin');
 // Route::get('/save_fcm', 'LoginController@save_fcm')->name('save_fcm');
 Route::post('/actionlogout', [LoginController::class, 'actionlogout']);
