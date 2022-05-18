@@ -4,7 +4,7 @@
 	<head>
 
 		<meta charset="utf-8" />
-		<title>Private | Keenthemes</title>
+		<title>{{ config('app.name') }}</title>
 		<meta name="description" content="Private chat example" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 		<link rel="canonical" href="https://keenthemes.com/metronic" />

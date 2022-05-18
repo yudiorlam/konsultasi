@@ -1,10 +1,6 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
@@ -14,105 +10,78 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 
 <title>Chain App Dev - App Landing Page HTML5 Template</title>
-
-<!-- Bootstrap core CSS -->
 <link href="{{ asset('/') }}vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-<!--
-
-TemplateMo 570 Chain App Dev
-
-https://templatemo.com/tm-570-chain-app-dev
-
--->
-
-<!-- Additional CSS Files -->
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 <link rel="stylesheet" href="{{ asset('/') }}assets/css/templatemo-chain-app-dev.css">
 <link rel="stylesheet" href="{{ asset('/') }}assets/css/animated.css">
 <link rel="stylesheet" href="{{ asset('/') }}assets/css/owl.css">
 
 </head>
-
 <body>
-
-<!-- ***** Preloader Start ***** -->
-<div id="js-preloader" class="js-preloader">
-<div class="preloader-inner">
-    <span class="dot"></span>
-    <div class="dots">
-    <span></span>
-    <span></span>
-    <span></span>
-    </div>
-</div>
-</div>
-<!-- ***** Preloader End ***** -->
-
-<!-- ***** Header Area Start ***** -->
-<header class="header-area header-sticky wow slideInDown" data-wow-duration="0.75s" data-wow-delay="0s">
-<div class="container">
-    <div class="row">
-    <div class="col-12">
-        <nav class="main-nav">
-        <!-- ***** Logo Start ***** -->
-        <a href="index.html" class="logo">
-            <img src="assets/images/logo.png" alt="Chain App Dev">
-        </a>
-        <!-- ***** Logo End ***** -->
-        <!-- ***** Menu Start ***** -->
-        <ul class="nav">
-            {{-- <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
-            <li class="scroll-to-section"><a href="#services">Services</a></li>
-            <li class="scroll-to-section"><a href="#about">About</a></li>
-            <li class="scroll-to-section"><a href="#pricing">Pricing</a></li>
-            <li class="scroll-to-section"><a href="#newsletter">Newsletter</a></li> --}}
-            <li><div class="gradient-button"><a id="modal_trigger" href="{{ asset('/') }}"><i class="fa fa-sign-in-alt"></i> Sign In Now</a></div></li> 
-        </ul>        
-        <a class='menu-trigger'>
-            <span>Menu</span>
-        </a>
-        <!-- ***** Menu End ***** -->
-        </nav>
-    </div>
-    </div>
-</div>
-</header>
-<!-- ***** Header Area End ***** -->
-
-<div id="modal" class="popupContainer" style="display:none;">
-<div class="popupHeader">
-    <span class="header_title">Login</span>
-    <span class="modal_close"><i class="fa fa-times"></i></span>
-</div>
-
-<section class="popupBody">
-    <!-- Social Login -->
-    <div class="social_login">
-        <div class="">
-            <a href="#" class="social_box fb">
-                <span class="icon"><i class="fab fa-facebook"></i></span>
-                <span class="icon_title">Connect with Facebook</span>
-
-            </a>
-
-            <a href="#" class="social_box google">
-                <span class="icon"><i class="fab fa-google-plus"></i></span>
-                <span class="icon_title">Connect with Google</span>
-            </a>
-        </div>
-
-        <div class="centeredText">
-            <span>Or use your Email address</span>
-        </div>
-
-        <div class="action_btns">
-            <div class="one_half"><a href="#" id="login_form" class="btn">Login</a></div>
-            <div class="one_half last"><a href="#" id="register_form" class="btn">Sign up</a></div>
+    <div id="js-preloader" class="js-preloader">
+        <div class="preloader-inner">
+            <span class="dot"></span>
+            <div class="dots">
+            <span></span>
+            <span></span>
+            <span></span>
+            </div>
         </div>
     </div>
-</div>
+    <header class="header-area header-sticky wow slideInDown" data-wow-duration="0.75s" data-wow-delay="0s">
+        <div class="container">
+            <div class="row">
+            <div class="col-12">
+                <nav class="main-nav">
+                <a href="index.html" class="logo">
+                    <img src="assets/images/logo.png" alt="Chain App Dev">
+                </a>
+                <ul class="nav">
+                    {{-- <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
+                    <li class="scroll-to-section"><a href="#services">Services</a></li>
+                    <li class="scroll-to-section"><a href="#about">About</a></li>
+                    <li class="scroll-to-section"><a href="#pricing">Pricing</a></li>
+                    <li class="scroll-to-section"><a href="#newsletter">Newsletter</a></li> --}}
+                    <li><div class="gradient-button"><a id="modal_trigger" href="{{ url('/login') }}"><i class="fa fa-sign-in-alt"></i> Sign In Now</a></div></li> 
+                </ul>        
+                <a class='menu-trigger'>
+                    <span>Menu</span>
+                </a>
+                </nav>
+            </div>
+            </div>
+        </div>
+    </header>
 
+    <div id="modal" class="popupContainer" style="display:none;">
+        <div class="popupHeader">
+            <span class="header_title">Login</span>
+            <span class="modal_close"><i class="fa fa-times"></i></span>
+        </div>
+    <section class="popupBody">
+        <div class="social_login">
+            <div class="">
+                <a href="#" class="social_box fb">
+                    <span class="icon"><i class="fab fa-facebook"></i></span>
+                    <span class="icon_title">Connect with Facebook</span>
+
+                </a>
+
+                <a href="#" class="social_box google">
+                    <span class="icon"><i class="fab fa-google-plus"></i></span>
+                    <span class="icon_title">Connect with Google</span>
+                </a>
+            </div>
+
+            <div class="centeredText">
+                <span>Or use your Email address</span>
+            </div>
+            <div class="action_btns">
+                <div class="one_half"><a href="#" id="login_form" class="btn">Login</a></div>
+                <div class="one_half last"><a href="#" id="register_form" class="btn">Sign up</a></div>
+            </div>
+        </div>
+    </div>
 <div class="main-banner wow fadeIn" id="top" data-wow-duration="1s" data-wow-delay="0.5s">
 <div class="container">
     <div class="row">
@@ -121,17 +90,9 @@ https://templatemo.com/tm-570-chain-app-dev
         <div class="col-lg-6 align-self-center">
             <div class="left-content show-up header-text wow fadeInLeft" data-wow-duration="1s" data-wow-delay="1s">
             <div class="row">
-                <div class="col-lg-12">
-                <h2>SIPATUO</h2>
-                <p>Chain App Dev is an app landing page HTML5 template based on Bootstrap v5.1.3 CSS layout provided by TemplateMo, a great website to download free CSS templates.</p>
-                </div>
-                <div class="col-lg-12">
-                <div class="white-button first-button scroll-to-section">
-                    <a href="#contact">Free Quote <i class="fab fa-apple"></i></a>
-                </div>
-                <div class="white-button scroll-to-section">
-                    <a href="#contact">Free Quote <i class="fab fa-google-play"></i></a>
-                </div>
+                <div class="col-lg-20">
+                <h1 size="45">PERIKSA KI'</h1>
+                <p>Peningkatan Peran Inspektorat Daerah Kabupaten Luwu Timur Melalui Layanan Konsultasi</p>
                 </div>
             </div>
             </div>
@@ -188,58 +149,6 @@ https://templatemo.com/tm-570-chain-app-dev
         <div class="text-button">
             <a href="#">Read More <i class="fa fa-arrow-right"></i></a>
         </div>
-        </div>
-    </div>
-    </div>
-</div>
-</div>
-
-<div id="about" class="about-us section">
-<div class="container">
-    <div class="row">
-    <div class="col-lg-6 align-self-center">
-        <div class="section-heading">
-        <h4>About <em>What We Do</em> &amp; Who We Are</h4>
-        <img src="assets/images/heading-line-dec.png" alt="">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eismod tempor incididunt ut labore et dolore magna.</p>
-        </div>
-        <div class="row">
-        <div class="col-lg-6">
-            <div class="box-item">
-            <h4><a href="#">Maintance Problems</a></h4>
-            <p>Lorem Ipsum Text</p>
-            </div>
-        </div>
-        <div class="col-lg-6">
-            <div class="box-item">
-            <h4><a href="#">24/7 Support &amp; Help</a></h4>
-            <p>Lorem Ipsum Text</p>
-            </div>
-        </div>
-        <div class="col-lg-6">
-            <div class="box-item">
-            <h4><a href="#">Fixing Issues About</a></h4>
-            <p>Lorem Ipsum Text</p>
-            </div>
-        </div>
-        <div class="col-lg-6">
-            <div class="box-item">
-            <h4><a href="#">Co. Development</a></h4>
-            <p>Lorem Ipsum Text</p>
-            </div>
-        </div>
-        <div class="col-lg-12">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eismod tempor idunte ut labore et dolore adipiscing  magna.</p>
-            <div class="gradient-button">
-            <a href="#">Start 14-Day Free Trial</a>
-            </div>
-            <span>*No Credit Card Required</span>
-        </div>
-        </div>
-    </div>
-    <div class="col-lg-6">
-        <div class="right-image">
-        <img src="assets/images/about-right-dec.png" alt="">
         </div>
     </div>
     </div>
@@ -490,21 +399,6 @@ https://templatemo.com/tm-570-chain-app-dev
     </div>
 </div>
 </div>
-
-<div id="pricing" class="pricing-tables">
-<div class="container">
-    <div class="row">
-    <div class="col-lg-8 offset-lg-2">
-        <div class="section-heading">
-        <h4>We Have The Best Pre-Order <em>Prices</em> You Can Get</h4>
-        <img src="assets/images/heading-line-dec.png" alt="">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eismod tempor incididunt ut labore et dolore magna.</p>
-        </div>
-    </div>
-    </div>
-</div>
-</div> 
-
 <footer id="newsletter">
 <div class="container">
     <div class="row">

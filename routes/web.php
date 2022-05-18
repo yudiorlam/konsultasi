@@ -12,6 +12,7 @@ use App\Http\Controllers\TopicController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AJG;
 use App\Http\Controllers\PegawaiSyncController;
+use App\Http\Controllers\CetakKonsultasiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +25,8 @@ use App\Http\Controllers\PegawaiSyncController;
 |
 */
 // hanya untuk tamu yg belum auth
-Route::get('/', [LoginController::class, 'login'])->middleware('guest');
+Route::get('/', [PagesController::class, 'landingPage']);
+Route::get('/login', [LoginController::class, 'login'])->middleware('guest');
 //Route::post('/actionlogin', 'LoginController@actionlogin')->name('actionlogin');
 // Route::get('/save_fcm', 'LoginController@save_fcm')->name('save_fcm');
 Route::post('/actionlogout', [LoginController::class, 'actionlogout']);
@@ -42,6 +44,7 @@ Route::middleware(['super_admin'])->group(
         Route::get('/addTopik', [TopicController::class, 'create']);
         Route::post('/addTopik', [TopicController::class, 'store']);
         Route::get('/edit/{id}', [TopicController::class, 'edit']);
+        Route::get('/cetak', [CetakKonsultasiController::class, 'index']);
 
         // Route::get('/getTopik', [TopicController::class, 'index']);
         // Route::get('/addTopik', [TopicController::class, 'create']);

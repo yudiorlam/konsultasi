@@ -33,7 +33,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-xl-3 col-lg-3 col-form-label">Avatar</label>
+                                    <label class="col-xl-3 col-lg-3 col-form-label">Foto</label>
                                     <div class="col-lg-9 col-xl-6">
                                         <div class="image-input image-input-outline" id="kt_profile_avatar" style="background-image: url({{ asset('storage/' . auth()->user()->user_image) }})">
                                             <div class="image-input-wrapper" style="background-image: url(assets/media/users/300_21.jpg)"></div>
@@ -53,22 +53,21 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-xl-3 col-lg-3 col-form-label">First Name</label>
+                                    <label class="col-xl-3 col-lg-3 col-form-label">NIP</label>
                                     <div class="col-lg-9 col-xl-6">
                                         <input class="form-control form-control-lg form-control-solid" type="text" value="{{ auth()->user()->nip }}" readonly/>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-xl-3 col-lg-3 col-form-label">Last Name</label>
+                                    <label class="col-xl-3 col-lg-3 col-form-label">Nama</label>
                                     <div class="col-lg-9 col-xl-6">
                                         <input class="form-control form-control-lg form-control-solid" type="text" value="{{ auth()->user()->name }}" readonly/>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-xl-3 col-lg-3 col-form-label">Company Name</label>
+                                    <label class="col-xl-3 col-lg-3 col-form-label">Instansi</label>
                                     <div class="col-lg-9 col-xl-6">
                                         <input class="form-control form-control-lg form-control-solid" type="text" value="{{ $user->nama }}" readonly/>
-                                        <span class="form-text text-muted">If you want your invoices addressed to a company. Leave blank to use your full name.</span>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -78,7 +77,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-xl-3 col-lg-3 col-form-label">Contact Phone</label>
+                                    <label class="col-xl-3 col-lg-3 col-form-label">Nomor Telepon</label>
                                     <div class="col-lg-9 col-xl-6">
                                         <div class="input-group input-group-lg input-group-solid">
                                             <div class="input-group-prepend">
@@ -88,11 +87,10 @@
                                             </div>
                                             <input type="text" class="form-control form-control-lg form-control-solid" value="{{ $user->notelp }}" placeholder="Phone" />
                                         </div>
-                                        <span class="form-text text-muted">We'll never share your email with anyone else.</span>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-xl-3 col-lg-3 col-form-label">Password</label>
+                                    <label class="col-xl-3 col-lg-3 col-form-label">Kata Sandi</label>
                                     <div class="col-lg-9 col-xl-6">
                                         <div class="input-group input-group-lg input-group-solid">
                                             <div class="input-group-prepend">
@@ -100,12 +98,13 @@
                                                     <i class="fa fa-lock"></i>
                                                 </span>
                                             </div>
-                                            <input type="password" class="form-control form-control-lg form-control-solid" placeholder="Kosongkan jika tidak ingin diubah." />
+                                            <input type="password" class="form-control form-control-lg form-control-solid" placeholder="Kata Sandi" />
                                         </div>
+                                        <span class="form-text text-muted">Kosongkan Jika Tidak Ingin Di Ubah</span>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-xl-3 col-lg-3 col-form-label">Konfirmasi Paswword</label>
+                                    <label class="col-xl-3 col-lg-3 col-form-label">Konfirmasi Kata Sandi</label>
                                     <div class="col-lg-9 col-xl-6">
                                         <div class="input-group input-group-lg input-group-solid">
                                             <div class="input-group-prepend">
@@ -113,8 +112,9 @@
                                                     <i class="fa fa-lock"></i>
                                                 </span>
                                             </div>
-                                            <input type="password" class="form-control form-control-lg form-control-solid" placeholder="Kosongkan jika tidak ingin diubah."  />
+                                            <input type="password" class="form-control form-control-lg form-control-solid" placeholder="Konfirmasi Kata Sandi"  />
                                         </div>
+                                        <span class="form-text text-muted">Kosongkan Jika Tidak Ingin Di Ubah</span>
                                     </div>
                                 </div>
                             </div>

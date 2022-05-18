@@ -62,7 +62,7 @@ class LoginController extends Controller
                 return redirect('chat');
             }
         }else{
-            return redirect('/');
+            return redirect('/login');
         }
     }
 
