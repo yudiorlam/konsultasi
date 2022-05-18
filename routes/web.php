@@ -10,7 +10,6 @@ use App\Http\Controllers\ConversationController;
 use App\Http\Controllers\UserTopicController;
 use App\Http\Controllers\TopicController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\AJG;
 use App\Http\Controllers\PegawaiSyncController;
 use App\Http\Controllers\CetakKonsultasiController;
 
