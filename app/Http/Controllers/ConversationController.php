@@ -5,10 +5,45 @@ namespace App\Http\Controllers;
 use App\Models\Conversation;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ConversationController extends Controller
 {
+    public function fetch_conv(Request $request)
+    {
+        if ($request->ajax()) {
+            $user_id = Auth::user()->id;
+            if (auth()->user()->role == 1) {
+                $conversations = Conversation::join('users', 'users.id', '=', 'conversations.user_id')
+                    ->select('conversations.id as conv_id', 'conversations.tiket_status', 'users.id', 'users.name', 'users.user_image')
+                    ->orderBy('conversations.created_at', 'DESC')
+                    ->get();
+                //  dd($conversations);
+            } else if (auth()->user()->role == 2) {
+                $conversations = Conversation::join('users', 'users.nip', '=', 'conversations.nip')
+                    ->select('conversations.id as conv_id', 'conversations.tiket_status', 'conversations.user_id', 'users.id', 'users.name', 'users.user_image', 'users.nip')
+                    ->where('conversations.user_id', auth()->user()->id)
+                    ->orderBy('conversations.created_at', 'DESC')
+                    ->get();
+                //  dd($conversations);
+            } else {
+                $conversations = Conversation::join('users', 'users.id', '=', 'conversations.user_id')
+                    ->join('topics', 'topics.id', '=', 'conversations.topic_id')
+                    ->select('conversations.id as conv_id', 'conversations.tiket_status', 'conversations.user_id', 'conversations.topic_id', 'topics.topic_name', 'conversations.nip', 'users.id', 'users.name', 'users.user_image',)
+                    ->where('conversations.nip', auth()->user()->nip)
+                    ->orderBy('conversations.created_at', 'DESC')
+                    ->get();
+                //  dd($conversations);
+            }
+
+            return response()->json([
+                'status' => 'success',
+                'data' => $conversations,
+            ]);
+        }
+    }
+
     public function ajax_create_conv(Request $request)
     {
         if ($request->ajax()) {
@@ -23,7 +58,6 @@ class ConversationController extends Controller
                     'status' => $status,
                     'message' => $message,
                 ]);
-
             } else {
                 // buat room
                 $user_topik = DB::select(
