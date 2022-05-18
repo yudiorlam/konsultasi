@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Conversation;
+use Response;
 
 use Illuminate\Http\Request;
 
@@ -19,11 +20,18 @@ class CetakKonsultasiController extends Controller
 
     public function cetak(Request $request)
     {
+        
         $bulan = array(" ", "Januari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember");
 
-        //dd($request);
+         
         $filter['id'] = $request->input('id');
-        $data = Conversation::select('*')->where($filter)->orderBy('updated_at', 'desc')->get()->first();
+        $data = Conversation::join('users', 'users.id', '=' ,'conversations.user_id')
+        ->join('topics', 'topics.id' , '=' ,'conversations.topic_id')
+        ->join('m_pegawai', 'm_pegawai.nipbaru', '=', 'conversations.nip')
+        ->select(['conversations.*' , 'users.name', 'topics.topic_name', 'm_pegawai.nama'])
+        ->where('conversations.id', $filter)
+        ->first();
+        // dd($data);
 
 
         //echo Carbon::now()->format('l, d F Y H:i');
@@ -32,12 +40,11 @@ class CetakKonsultasiController extends Controller
         $File = Conversation::select('*');
         $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('Konsultasi.docx');
         //$templateProcessor->setValue('tanggal', Carbon::now()->format('d ') . $bulan[(int) Carbon::now()->format('m')] . Carbon::now()->format(' Y'));
-        $templateProcessor->setValue('namaOrganisasi',$data->namaOrganisasi);
-        $templateProcessor->setValue('bidangKegiatan',$data->bidangKegiatan);
-        $templateProcessor->setValue('namaKetua',$data->namaKetua);
-        $templateProcessor->setValue('namaSekertaris',$data->namaSekertaris);
-        $templateProcessor->setValue('namaBendahara',$data->namaBendahara);
-        $templateProcessor->setValue('alamatSekertariat',$data->alamatSekertariat);
+        $templateProcessor->setValue('name',$data->name);
+        $templateProcessor->setValue('nip',$data->nip);
+        $templateProcessor->setValue('topic_name',$data->topic_name);
+        $templateProcessor->setValue('rangkuman',$data->rangkuman);
+        
          //var_dump($data['fileKartuKuning']);die();
         
 
