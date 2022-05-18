@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pegawai;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
@@ -24,8 +25,8 @@ class ProfileController extends Controller
         if($request->hasFile('user_image')){
             $fileName = time() . '.' . request()->user_image->getClientOriginalExtension();
 
-            if(auth()->user()->image != 'default.jpg'){
-                Storage::delete(public_path('storage/users/') . auth()->user()->image);
+            if(auth()->user()->user_image != 'users/default.jpg'){
+                File::delete(public_path('storage/'). auth()->user()->user_image);
             }
 
             request()->user_image->move(public_path('storage/users/'), $fileName);
