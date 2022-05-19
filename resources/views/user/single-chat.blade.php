@@ -49,56 +49,6 @@
                                     </div>
                                 </div>
                                 <div class="text-right flex-grow-1">
-                                    <!--begin::Dropdown Menu-->
-                                    <div class="dropdown dropdown-inline">
-                                        <button type="button" class="btn btn-clean btn-sm btn-icon btn-icon-md"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="svg-icon svg-icon-primary svg-icon-2x">
-                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                    xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
-                                                    viewBox="0 0 24 24" version="1.1">
-                                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                        <rect x="0" y="0" width="24" height="24" {{ asset('/') }}>
-                                                            <path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd"
-                                                                d="M14.4862 18L12.7975 21.0566C12.5304 21.54 11.922 21.7153 11.4386 21.4483C11.2977 21.3704 11.1777 21.2597 11.0887 21.1255L9.01653 18H5C3.34315 18 2 16.6569 2 15V6C2 4.34315 3.34315 3 5 3H19C20.6569 3 22 4.34315 22 6V15C22 16.6569 20.6569 18 19 18H14.4862Z"
-                                                                fill="black" {{ asset('/') }}>
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                    d="M6 7H15C15.5523 7 16 7.44772 16 8C16 8.55228 15.5523 9 15 9H6C5.44772 9 5 8.55228 5 8C5 7.44772 5.44772 7 6 7ZM6 11H11C11.5523 11 12 11.4477 12 12C12 12.5523 11.5523 13 11 13H6C5.44772 13 5 12.5523 5 12C5 11.4477 5.44772 11 6 11Z"
-                                                                    fill="black" {{ asset('/') }}>
-                                                    </g>
-                                                </svg>
-                                            </span>
-
-                                        </button>
-                                        <div class="dropdown-menu p-0 m-0 dropdown-menu-right dropdown-menu-md">
-                                            <ul class="navi navi-hover py-5">
-                                                <li class="navi-item">
-                                                    <b href="javascript:void(0)" onclick="mulai_konsultasi()"
-                                                        style="width: 100%;text-align: left"
-                                                        class="btn btn-text-success btn-hover-light-success font-weight-bold mr-2">
-                                                        <span class="navi-icon">
-                                                            <i class="flaticon2-drop"></i>
-                                                        </span>
-                                                        <span class="navi-text">Konsultasi</span>
-                                                    </b>
-                                                </li>
-                                                <form action="{{ url('/actionlogout') }}" method="post">
-                                                    @csrf
-                                                    <li class="navi-item">
-                                                        <button type="submit" style="width: 100%;text-align: left"
-                                                            class="btn btn-text-success btn-hover-light-success font-weight-bold mr-2">
-                                                            <span class="navi-icon">
-                                                                <i class="flaticon2-list-3"></i>
-                                                            </span>
-                                                            <span class="navi-text">Logout</span>
-                                                        </button>
-                                                    </li>
-                                                </form>
-                                            </ul>
-                                            <!--end::Navigation-->
-                                        </div>
-                                    </div>
-                                    <!--end::Dropdown Menu-->
                                 </div>
                             </div>
 
@@ -124,7 +74,7 @@
                                             </span>
                                         </span>
                                     </div>
-                                    <input type="text" class="form-control py-4 h-auto" placeholder="Email" />
+                                    <input type="text" class="form-control py-4 h-auto" placeholder="Nama Pegawai" />
                                 </div>
 
                                 <div class="scroll scroll-pull mt-3" id="conversations">
@@ -138,6 +88,14 @@
                         <div class="card card-custom">
                             <div class="card-header align-items-center px-4 py-3">
                                 <div class="text-left flex-grow-1">
+                                    <button type="button" class="btn btn-clean btn-sm btn-icon btn-icon-md d-lg-none" id="kt_app_chat_toggle">
+                                        <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo1\dist/../src/media/svg/icons\Communication\Chat4.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <rect x="0" y="0" width="24" height="24"/>
+                                                <path d="M21.9999843,15.009808 L22.0249378,15 L22.0249378,19.5857864 C22.0249378,20.1380712 21.5772226,20.5857864 21.0249378,20.5857864 C20.7597213,20.5857864 20.5053674,20.4804296 20.317831,20.2928932 L18.0249378,18 L5,18 C3.34314575,18 2,16.6568542 2,15 L2,6 C2,4.34314575 3.34314575,3 5,3 L19,3 C20.6568542,3 22,4.34314575 22,6 L22,15 C22,15.0032706 21.9999948,15.0065399 21.9999843,15.009808 Z M6.16794971,10.5547002 C7.67758127,12.8191475 9.64566871,14 12,14 C14.3543313,14 16.3224187,12.8191475 17.8320503,10.5547002 C18.1384028,10.0951715 18.0142289,9.47430216 17.5547002,9.16794971 C17.0951715,8.86159725 16.4743022,8.98577112 16.1679497,9.4452998 C15.0109146,11.1808525 13.6456687,12 12,12 C10.3543313,12 8.9890854,11.1808525 7.83205029,9.4452998 C7.52569784,8.98577112 6.90482849,8.86159725 6.4452998,9.16794971 C5.98577112,9.47430216 5.86159725,10.0951715 6.16794971,10.5547002 Z" fill="#000000"/>
+                                            </g>
+                                        </svg><!--end::Svg Icon--></span>
+                                    </button>
                                 </div>
                                 <div class="text-center flex-grow-1">
                                     <div class="text-dark-75 font-weight-bold font-size-h5" id="receiver_name"></div>
@@ -147,11 +105,61 @@
                                     </div>
                                 </div>
 
-                                <div class="text-right flex-grow-1">
+                                {{-- <div class="text-right flex-grow-1">
                                     <div class="dropdown dropdown-inline" id="action">
 
                                     </div>
+                                </div> --}}
+
+                                <div class="text-right flex-grow-1">
+                                    <div class="dropdown dropdown-inline">
+                                        <button type="button" class="btn btn-clean btn-sm btn-icon btn-icon-md"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="svg-icon svg-icon-primary svg-icon-2x">
+                                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                        <rect x="0" y="0" width="24" height="24"/>
+                                                        <circle fill="#000000" cx="5" cy="12" r="2"/>
+                                                        <circle fill="#000000" cx="12" cy="12" r="2"/>
+                                                        <circle fill="#000000" cx="19" cy="12" r="2"/>
+                                                    </g>
+                                                </svg>
+                                            </span>
+                                        </button>
+
+                                        <div class="dropdown-menu p-0 m-0 dropdown-menu-right dropdown-menu-md">
+                                            <ul class="navi navi-hover py-5">
+                                                <li class="navi-item">
+                                                    <b href="javascript:void(0)" onclick="mulai_konsultasi()"
+                                                        style="width: 100%;text-align: left"
+                                                        class="btn btn-text-success btn-hover-light-success font-weight-bold mr-2">
+                                                        <span class="navi-icon">
+                                                            <i class="flaticon2-drop"></i>
+                                                        </span>
+                                                        <span class="navi-text">Konsultasi</span>
+                                                    </b>
+                                                </li>
+
+                                                <div id="akhiri-konsultasi"></div>
+
+                                                <form action="{{ url('/actionlogout') }}" method="post">
+                                                    @csrf
+                                                    <li class="navi-item">
+                                                        <button type="submit" style="width: 100%;text-align: left"
+                                                            class="btn btn-text-success btn-hover-light-success font-weight-bold mr-2">
+                                                            <span class="navi-icon">
+                                                                <i class="flaticon2-list-3"></i>
+                                                            </span>
+                                                            <span class="navi-text">Logout</span>
+                                                        </button>
+                                                    </li>
+                                                </form>
+                                            </ul>
+                                            <!--end::Navigation-->
+                                        </div>
+                                    </div>
                                 </div>
+
                             </div>
                             <div class="card-body">
                                 <div class="scroll scroll-pull" data-mobile-height="350">
@@ -263,6 +271,23 @@
     <script src="{{ asset('') }}/js/pages/crud/file-upload/dropzonejs.js"></script>
 
     <script>
+        $('#ajaxFormSend').keypress(function(e) {
+            if (e.which == 13) {
+                var id = $('#id').val();
+
+                var ajaxForm = $(this);
+                $.ajax({
+                    url: "{{ url('send_message') }}",
+                    type: 'post',
+                    data: ajaxForm.serialize(),
+                    dataType: 'json',
+                    success: function(response) {
+                        $('#isi-pesan').val("");
+                        fetch_chat(id);
+                    }
+                });
+            }
+        });
         // preview image
         function readURL(input) {
             if (input.files && input.files[0]) {
@@ -332,20 +357,33 @@
                 type: 'get',
                 dataType: 'json',
                 success: function(response) {
-
+                    $('#conversations').html('');
                     $.each(response.data, function(index, value) {
+                        var tiket_status = '';
+                        
+                        if(value.tiket_status == 2){
+                            var tiket_status = '<button class="btn btn-danger btn-sm p-0">Sesi telah berakhir...</button>';
+                        }
+
+                        if(value.last_chat_from == {{ auth()->user()->id }}){
+                            last_chat = '<i class="la la-check-double"></i> ' + value.last_chat;
+                        } else {
+                            last_chat = value.last_chat;
+                        }
+
                         $('#conversations').append('<div class="d-flex align-items-center justify-content-between mb-5">\
                             <div class="d-flex align-items-center">\
                                 <div class="symbol symbol-circle symbol-50 mr-3">\
                                     <img alt="Pic" src="{{ asset('storage') }}/' + value.user_image + '" />\
                                 </div>\
                                 <div class="d-flex flex-column">\
-                                    <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-lg">'+ value.name+'</a>\
-                                    <span class="text-muted font-weight-bold font-size-sm">Head of Development</span>\
+                                    <a href="javascript:void(0)" onclick="showChat('+ value.conv_id + ')" class="text-dark-75 text-hover-primary font-weight-bold font-size-lg">'+ value.name + " (" + value.topic_name + ")" +'</a>\
+                                    <span class="text-muted font-weight-bold font-size-sm" id="last_chat">'+ last_chat +'</span>\
+                                    '+ tiket_status +'\
                                 </div>\
                             </div>\
                             <div class="d-flex flex-column align-items-end">\
-                                <span class="text-muted font-weight-bold font-size-sm">35 mins</span>\
+                                <span class="text-muted font-weight-bold font-size-sm" style="font-size:7pt">'+ value.last_chat_time +'</span>\
                                 <span class="label label-sm label-success">5</span>\
                             </div>\
                         </div>');
@@ -383,21 +421,21 @@
                         $.LoadingOverlay("hide");
                         $('.body-chat').append(
                             '<div class="d-flex flex-column mb-5 align-items-end">\
-                                                            <div class="d-flex align-items-center">\
-                                                                <div>\
-                                                                    <span class="text-muted font-size-sm">3 minushowChat</span>\
-                                                                    <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">Administrator</a>\
-                                                                </div>\
-                                                                <div class="symbol symbol-circle symbol-40 ml-3">\
-                                                                    <img alt="Pic" src="https://picsum.photos/id/237/200/200" />\
-                                                                </div>\
-                                                            </div>\
-                                                            <div class="mt-2 mb-2 rounded p-5 bg-light-primary text-dark-50 font-weight-bold font-size-lg text-right max-w-400px">\
-                                                                Selamat siang, silahkan pilih topik pembahasan.\
-                                                            </div>\
-                                                            <div id="list-topic">\
-                                                            </div>\
-                                                            </div>'
+                                <div class="d-flex align-items-center">\
+                                    <div>\
+                                        <span class="text-muted font-size-sm">3 minushowChat</span>\
+                                        <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">Administrator</a>\
+                                    </div>\
+                                    <div class="symbol symbol-circle symbol-40 ml-3">\
+                                        <img alt="Pic" src="https://picsum.photos/id/237/200/200" />\
+                                    </div>\
+                                </div>\
+                                <div class="mt-2 mb-2 rounded p-5 bg-light-primary text-dark-50 font-weight-bold font-size-lg text-right max-w-400px">\
+                                    Selamat siang, silahkan pilih topik pembahasan.\
+                                </div>\
+                                <div id="list-topic">\
+                            </div>\
+                        </div>'
                         );
 
                         setTimeout(function() {
@@ -432,7 +470,7 @@
                             response.message,
                             'success'
                         )
-
+                        fetch_conv();
                         showChat(response.data.id, response.nama_admin);
                     } else {
                         Swal.fire(
@@ -456,7 +494,7 @@
             clearInterval(interval);
             interval = setInterval(function() {
                 fetch_chat(id);
-            }, 10000);
+            }, 20000);
         }
 
         function editStatusTiket() {
@@ -484,7 +522,8 @@
                         success: function(response) {
                             fetch_chat(id);
                             $('#btn-edit-status-tiket').hide();
-                            if (response) {
+                            if (response.status == 'success') {
+                                fetch_conv();
                                 Swal.fire(
                                     'Sukses',
                                     'Sesi anda telah berakhir.',
@@ -516,12 +555,11 @@
                     $('.body-chat').html("");
 
                     if (response.status == 'success') {
-
+                        fetch_conv();
                         // tombol akhiri sesi
+                        $('#akhiri-konsultasi').html('');
                         if (response.tiket_status == 1) {
-                            $('#action').append(
-                                '<button type="button" onclick="editStatusTiket()" class="btn btn-clean btn-sm btn-icon btn-icon-md" id="btn-edit-status-tiket" title="Akhiri sesi"><i class="icon-2x text-danger flaticon-chat"><i style="margin-left:-15px;margin-top:10px" class="fas fa-window-close text-dark fs-1"></i></i></button>'
-                            );
+                            $('#akhiri-konsultasi').append('<li class="navi-item"><b href="javascript:void(0)" onclick="editStatusTiket()" style="width: 100%;text-align: left" class="btn btn-text-success btn-hover-light-success font-weight-bold mr-2"><span class="navi-icon"><i class="flaticon-circle"></i></span><span class="navi-text">Akhiri Konsultasi</span></b></li>');
                         }
 
                         $.each(response.chats, function(index, value) {
@@ -551,9 +589,7 @@
                                 pesan =
                                     '<div class="d-flex flex-column mb-5 align-items-end"><div class="d-flex align-items-center"><div><span class="text-muted font-size-sm">' +
                                     value.created_at +
-                                    '</span> <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">' +
-                                    value.name +
-                                    '</a> </div> <div class="symbol symbol-circle symbol-40 ml-3"><img alt="Pic" src="{{ asset('storage') }}' +
+                                    '</span> <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">Anda</a> </div> <div class="symbol symbol-circle symbol-40 ml-3"><img alt="Pic" src="{{ asset('storage') }}' +
                                     '/' + value.user_image + '" /></div> </div>' + attachment +
                                     '<div class="mt-2 rounded px-3 bg-light-primary text-dark-50 font-weight-bold font-size-lg text-right max-w-400px">' +
                                     value.body + ' ' + is_read + '</div></div>';

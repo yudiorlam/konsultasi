@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\FCM;
 use Session;
 use App\Http\Controllers\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
@@ -43,10 +44,30 @@ class LoginController extends Controller
 
     public function actionlogin(Request $request)
     {
-        $credentials = request()->validate([
-            'login' => 'required',
-            'password' => 'required'
-        ]);
+        // $credentials = request()->validate([
+        //     'login' => 'required',
+        //     'password' => 'required'
+        // ]);
+
+        $credentials = Validator::make(
+            $request->all(),
+            [
+                'login' => 'required',
+                'password' => 'required|min:4'
+            ],
+            [
+                'login.required' => 'NIP atau email harus diisi!',
+                'password.required' => 'Password harus diisi!',
+                'password.min' => 'Password minimal 8 karakter!',
+            ]
+        );
+
+        if ($credentials->fails()) {
+            return back()
+                ->withErrors($credentials)
+                ->withInput();
+        }
+
         $login_type = filter_var($request->input('login'), FILTER_VALIDATE_EMAIL)
         ?'email'
         :'nip';
@@ -62,7 +83,7 @@ class LoginController extends Controller
                 return redirect('chat');
             }
         }else{
-            return redirect('/login');
+            return back()->withInput();
         }
     }
 
