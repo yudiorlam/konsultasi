@@ -42,7 +42,9 @@ class MessageController extends Controller
             //         ->get();
             // }
 
-            // $last_chat = Message::orderBy('messages.id', 'DESC')->first();
+            $last_chat = Message::where('conv_id', $id)
+                ->orderBy('messages.id', 'DESC')
+                ->first();
 
             $data = array();
             foreach ($chats as $u) {
@@ -62,8 +64,9 @@ class MessageController extends Controller
             $data = [
                 'status' => 'success',
                 'conv_id' => $id,
+                'receiver_name' => '',
                 'tiket_status' => $conversation->tiket_status,
-                // 'last_chat_id' => $last_chat->id,
+                'last_chat' => substr($last_chat->body, 0, 20),
                 'chats' => $data,
             ];
 

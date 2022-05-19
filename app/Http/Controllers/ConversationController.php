@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Conversation;
+use App\Models\Message;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,26 +16,46 @@ class ConversationController extends Controller
         if ($request->ajax()) {
             $user_id = Auth::user()->id;
             if (auth()->user()->role == 1) {
-                $conversations = Conversation::join('users', 'users.id', '=', 'conversations.user_id')
+                $data = Conversation::join('users', 'users.id', '=', 'conversations.user_id')
                     ->select('conversations.id as conv_id', 'conversations.tiket_status', 'users.id', 'users.name', 'users.user_image')
                     ->orderBy('conversations.created_at', 'DESC')
                     ->get();
                 //  dd($conversations);
             } else if (auth()->user()->role == 2) {
-                $conversations = Conversation::join('users', 'users.nip', '=', 'conversations.nip')
+                $data = Conversation::join('users', 'users.nip', '=', 'conversations.nip')
                     ->select('conversations.id as conv_id', 'conversations.tiket_status', 'conversations.user_id', 'users.id', 'users.name', 'users.user_image', 'users.nip')
                     ->where('conversations.user_id', auth()->user()->id)
                     ->orderBy('conversations.created_at', 'DESC')
                     ->get();
-                //  dd($conversations);
             } else {
-                $conversations = Conversation::join('users', 'users.id', '=', 'conversations.user_id')
+                $data = Conversation::join('users', 'users.id', '=', 'conversations.user_id')
                     ->join('topics', 'topics.id', '=', 'conversations.topic_id')
                     ->select('conversations.id as conv_id', 'conversations.tiket_status', 'conversations.user_id', 'conversations.topic_id', 'topics.topic_name', 'conversations.nip', 'users.id', 'users.name', 'users.user_image',)
                     ->where('conversations.nip', auth()->user()->nip)
                     ->orderBy('conversations.created_at', 'DESC')
                     ->get();
-                //  dd($conversations);
+            }
+
+            $conversations = array();
+            foreach ($data as $u) {
+                $last_chat = Message::where('conv_id', $u->conv_id)
+                    ->orderBy('messages.id', 'DESC')
+                    ->first();
+
+                $conversations[] = [
+                    'conv_id' => $u->conv_id,
+                    'tiket_status' => $u->tiket_status,
+                    'user_id' => $u->user_id,
+                    'topic_id' => $u->topic_id,
+                    'topic_name' => $u->topic_name,
+                    'nip' => $u->nip,
+                    'admin_id' => $u->id,
+                    'name' => $u->name,
+                    'user_image' => $u->user_image,
+                    'last_chat' => substr($last_chat->body, 0, 30),
+                    'last_chat_time' => $last_chat->created_at->diffForHumans(),
+                    'last_chat_from' => $last_chat->user_id,
+                ];
             }
 
             return response()->json([
@@ -62,7 +83,7 @@ class ConversationController extends Controller
                 // buat room
                 $user_topik = DB::select(
                     "
-                SELECT user_id as uid, 
+                SELECT user_id as uid,
                     (
                         SELECT COUNT(user_id)
                         FROM conversations
@@ -79,6 +100,14 @@ class ConversationController extends Controller
                     'user_id' => $user_topik[0]->uid,
                     'nip' => auth()->user()->nip,
                     'tiket_status' => '1',
+                ]);
+
+                $admin = User::findOrFail($user_topik[0]->uid);
+                Message::create([
+                    'conv_id' => $save->id,
+                    'user_id' => $user_topik[0]->uid,
+                    'attachment' =>  '0',
+                    'body' => 'Hai, <strong>' . auth()->user()->name. '</strong>, perkenalkan nama saya ' . $admin->name . '. Sekarang anda sudah bisa memulai konsultasi..',
                 ]);
 
                 if ($save) {

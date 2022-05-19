@@ -35,18 +35,22 @@
 								</div> --}}
 								<div class="form-group">
 									<label class="font-size-h6 font-weight-bolder text-dark">NIP/Email</label>
-									<input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg border-0" type="text" name="login" autocomplete="off" />
-									@error('email')
-										<p>{{ $message }}</p>
+									<input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg border-0 @error('login') is-invalid @enderror" type="text" name="login" value="{{ old('login') }}"/>
+									@error('login')
+										<div class="invalid-feedback">
+												{{ $message }}
+										</div>
 									@enderror
 								</div>
 								<div class="form-group">
 									<div class="d-flex justify-content-between mt-n5">
 										<label class="font-size-h6 font-weight-bolder text-dark pt-5">Password</label>
 									</div>
-									<input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg border-0" type="password" name="password" autocomplete="off" />
+									<input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg border-0 @error('password') is-invalid @enderror" type="password" name="password" autocomplete="off"/>
 									@error('password')
-										<p>{{ $message }}</p>
+										<div class="invalid-feedback">
+												{{ $message }}
+										</div>
 									@enderror
 								</div>
 								<div class="pb-lg-0 pb-5">
