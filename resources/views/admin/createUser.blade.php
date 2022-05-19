@@ -167,10 +167,10 @@
 					<thead>
 						<tr>
 							<th title="Field #1">No</th>
-							<th title="Field #2">Nama Narasumber</th>
-							<th title="Field #3">Topik</th>
-							<th title="Field #4">Nama Responden</th>
-							<th title="Field #5">Status</th>
+							<th title="Field #2">Nama</th>
+							<th title="Field #3">NIP</th>
+							<th title="Field #4">Jabatan</th>
+							<th title="Field #5">Pangkat/Gol</th>
 							<th title="Field #6">Action</th>
 						</tr>
 					</thead>
@@ -178,20 +178,15 @@
 						@php
 						$no = 1
 						@endphp
-						@foreach ($daftarCetak as $cetak)
+						@foreach ($daftarUser as $user)
 							
 						<tr>
 							<td>{{ $no++ }}</td>
-							<td>{{ $cetak->name }}</td>
-							<td>{{ $cetak->topic_name }}</td>
-							<td>{{ $cetak->nama }}</td>
-							<td class="text-right">{{ $cetak->tiket_status }}</td>
-							<td>
-								<form method="POST" action="{{ url('/cetakKonsul') }}">
-                                @csrf<input type="hidden" name="id" value="{{$cetak->id}}">
-                                <button class="btn btn-primary" type="submit"><i class="fas la-print"></i></button>
-                              </form>
-							</td>
+							<td>{{ $user->name }}</td>
+							<td>{{ $user->nip }}</td>
+							<td>{{ $user->jabatan }}</td>
+							<td {{ $user->pangkat }}</td>
+							<td><a href="{{ url ('rangkuman/' .$user->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-pencil-alt"></i></a></td>
 							{{-- <td class="text-right">3</td> --}}
 						</tr>
 						@endforeach

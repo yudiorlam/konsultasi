@@ -51,16 +51,29 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-form-label col-lg-3 col-sm-12 text-right">Markdown *</label>
+                    <label class="col-form-label col-lg-3 col-sm-12 text-right">Kesimpulan</label>
                     <div class="col-lg-7 col-md-9 col-sm-12">
                         <textarea name="rangkuman" class="form-control" data-provide="markdown" rows="10"></textarea>
                         <span class="form-text text-muted">Enter some markdown content</span>
                     </div>
                 </div>
+                <div class="form-group row">
+                    <label class="col-form-label col-lg-3 col-sm-12 text-right">Materi</label>
+                    <div class="col-lg-7 col-md-9 col-sm-12">
+                        <textarea name="materi" class="form-control" data-provide="markdown" rows="10"></textarea>
+                        <span class="form-text text-muted">Enter some markdown content</span>
+                    </div>
+                </div>
+                 <div class="form-group row">
+                    <label class="col-form-label col-lg-3 col-sm-12 text-right">Saran</label>
+                    <div class="col-lg-7 col-md-9 col-sm-12">
+                        <textarea name="saran" class="form-control" data-provide="markdown" rows="10"></textarea>
+                        <span class="form-text text-muted">Enter some markdown content</span>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-lg-9 ml-lg-auto">
-                        <button type="submit" class="btn btn-primary mr-2"><i class="fa fa-save"></i>Validate</button>
-                        <button type="reset" class="btn btn-light-primary">Cancel</button>
+                        <button type="submit" class="btn btn-primary mr-2"><i class="fa fa-save"></i>Save</button>
                     </div>
                 </div>
             </form>

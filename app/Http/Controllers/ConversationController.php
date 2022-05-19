@@ -146,6 +146,8 @@ class ConversationController extends Controller
     {
         $rangkuman = Conversation::find($id);
         $rangkuman->rangkuman = $request->input('rangkuman');
+        $rangkuman->materi = $request->input('materi');
+        $rangkuman->saran = $request->input('saran');
         $rangkuman->update();
         return redirect('/daftarKonsul');
     }

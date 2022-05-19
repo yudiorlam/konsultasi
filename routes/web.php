@@ -12,6 +12,7 @@ use App\Http\Controllers\TopicController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PegawaiSyncController;
 use App\Http\Controllers\CetakKonsultasiController;
+use App\Http\Controllers\CreateUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,8 +44,10 @@ Route::middleware(['super_admin'])->group(
         Route::get('/addTopik', [TopicController::class, 'create']);
         Route::post('/addTopik', [TopicController::class, 'store']);
         Route::get('/edit/{id}', [TopicController::class, 'edit']);
-        Route::get('/cetak', [CetakKonsultasiController::class, 'index']);
-        Route::post('/cetakKonsul', [CetakKonsultasiController::class, 'cetak']);
+
+
+        Route::get('/create', [CreateUserController::class, 'index']);
+    
 
         // Route::get('/getTopik', [TopicController::class, 'index']);
         // Route::get('/addTopik', [TopicController::class, 'create']);
@@ -57,6 +60,8 @@ Route::middleware(['admin'])->group(function () {
     Route::get('/daftarKonsul', [ConversationController::class, 'daftarKonsul']);
     Route::get('/rangkuman/{id}', [ConversationController::class, 'edit'])->name('edit_rangkuman');
     Route::put('/rangkumanUpdate/{id}', [ConversationController::class, 'updateRangkuman']);
+    Route::get('/cetak', [CetakKonsultasiController::class, 'index']);
+    Route::post('/cetakKonsul', [CetakKonsultasiController::class, 'cetak']);
 
 
     // Route::get('/color/{id}/edit', [TopicController::class, 'edit']);

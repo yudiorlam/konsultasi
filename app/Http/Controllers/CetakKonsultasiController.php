@@ -3,17 +3,27 @@
 namespace App\Http\Controllers;
 use App\Models\Conversation;
 use Response;
-
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class CetakKonsultasiController extends Controller
 {
     public function index(){
-        $daftarCetak= Conversation::join('users', 'users.id', '=' ,'conversations.user_id')
-        ->join('topics', 'topics.id' , '=' ,'conversations.topic_id')
-        ->join('m_pegawai', 'm_pegawai.nipbaru', '=', 'conversations.nip')
-        ->select(['conversations.*' , 'users.name', 'topics.topic_name', 'm_pegawai.nama'])
-        ->get();
+        if(auth()->user()->role == 1){
+           $daftarCetak= Conversation::join('users', 'users.id', '=' ,'conversations.user_id')
+            ->join('topics', 'topics.id' , '=' ,'conversations.topic_id')
+            ->join('m_pegawai', 'm_pegawai.nipbaru', '=', 'conversations.nip')
+            ->select(['conversations.*' , 'users.name', 'topics.topic_name', 'm_pegawai.nama'])
+            ->get(); 
+        } else {
+            $daftarCetak= Conversation::join('users', 'users.id', '=' ,'conversations.user_id')
+                ->join('topics', 'topics.id' , '=' ,'conversations.topic_id')
+                ->join('m_pegawai', 'm_pegawai.nipbaru', '=', 'conversations.nip')
+                ->where('conversations.user_id', auth()->user()->id)
+                ->select(['conversations.*' , 'users.name', 'topics.topic_name', 'm_pegawai.nama'])
+                ->get();
+        }
         // dd($daftarCetak);
         return view ('admin.cetakKonsultasi', compact('daftarCetak'));
     }
@@ -44,6 +54,8 @@ class CetakKonsultasiController extends Controller
         $templateProcessor->setValue('nip',$data->nip);
         $templateProcessor->setValue('topic_name',$data->topic_name);
         $templateProcessor->setValue('rangkuman',$data->rangkuman);
+        $templateProcessor->setValue('materi',$data->materi);
+        $templateProcessor->setValue('saran',$data->saran);
         
          //var_dump($data['fileKartuKuning']);die();
         
