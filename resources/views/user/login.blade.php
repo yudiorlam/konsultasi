@@ -22,8 +22,9 @@
 			<div class="login login-4 wizard d-flex flex-column flex-lg-row flex-column-fluid">
 				<div class="login-container order-2 order-lg-1 d-flex flex-center flex-row-fluid px-7 pt-lg-0 pb-lg-0 pt-4 pb-6 bg-white">
 					<div class="login-content d-flex flex-column pt-lg-0 pt-12">
-						<a href="#" class="login-logo pb-xl-20 pb-15">
-							<img src="{{ asset('/') }}media/logos/logo-4.png" class="max-h-70px" alt="" />
+						<a  href="#" class="login-logo pb-xl-20 pb-15 text-center">
+							<img src="{{ asset('/') }}media/lutim.png"  alt="" style="width: 100px " />
+							<img src="{{ asset('/') }}media/ds.png"  alt="" style="width: 120px " />
 						</a>
 						<div class="login-form">
 							<form class="form" id="" action="{{ route('actionlogin') }}" method="post">

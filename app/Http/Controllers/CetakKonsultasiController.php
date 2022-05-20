@@ -38,7 +38,8 @@ class CetakKonsultasiController extends Controller
         $data = Conversation::join('users', 'users.id', '=' ,'conversations.user_id')
         ->join('topics', 'topics.id' , '=' ,'conversations.topic_id')
         ->join('m_pegawai', 'm_pegawai.nipbaru', '=', 'conversations.nip')
-        ->select(['conversations.*' , 'users.name', 'topics.topic_name', 'm_pegawai.nama'])
+        ->join('m_unitkerja', 'm_unitkerja.id', '=' ,'m_pegawai.fkunitkerja')
+        ->select(['conversations.*' , 'users.name', 'topics.topic_name', 'm_pegawai.nama', 'm_pegawai.nipbaru', 'users.nip', 'm_unitkerja.nama as instansi'])
         ->where('conversations.id', $filter)
         ->first();
         // dd($data);
@@ -56,6 +57,9 @@ class CetakKonsultasiController extends Controller
         $templateProcessor->setValue('rangkuman',$data->rangkuman);
         $templateProcessor->setValue('materi',$data->materi);
         $templateProcessor->setValue('saran',$data->saran);
+        $templateProcessor->setValue('nama',$data->nama);
+        $templateProcessor->setValue('nipbaru',$data->nipbaru);
+        $templateProcessor->setValue('instansi',$data->instansi);
         
          //var_dump($data['fileKartuKuning']);die();
         
