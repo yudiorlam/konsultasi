@@ -92,6 +92,7 @@
                             <th>No</th>
                             <th>Nama Admin</th>
                             <th>Nama Topik</th>
+                            <th>Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -104,6 +105,13 @@
                             <td>{{ $no ++ }}</td>
                             <td>{{ $topik->topic_name }}</td>
                             <td>{{ $topik->name }}</td>
+                            <td>
+                                @if($topik->status == 1)
+                                    <span class="label label-primary label-inline font-weight-lighter mr-2">Aktif</span>
+                                 @else 
+                                   <span class="label label-danger label-pill label-inline mr-2">Tidak Aktif</span>
+                                @endif
+                            </td>
                             <td> 
                                 <a href="" data-toggle="modal" data-target="#editModal-{{ $topik->id }}"><i class="fas fa-edit" style="color: blue"></i></a>|<a href=""><i class="fas fa-trash-alt" style="color: red"></i></a>
                             </td>
@@ -119,21 +127,15 @@
                                         </div>
                                         <div class="modal-body">
                                             <form action="" method="POST">
-                                                <input type="hidden" name="_method" value="PUT">
+                                                <input type="hidden" name="id" value="PUT">
                                                 @csrf
                                                 <div class="form-group">
-                                                    {{-- <select id="echelle"  name="echelle" class="form-control"> 
-                                                        <option value=""> Mensuelle</option>  
-                                                        @foreach ($user as $user )
-                                                        <option value="{{ $user->id }}">{{ $topik->name }}</option>   
-                                                        @endforeach                     
-                                                    </select> --}}
-                                                    <label for="name">Name</label>
-                                                    <input type="text" name="name" class="form-control" id="name" value="{{ $topik->name }}" required>   
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="name">Name</label>
-                                                    <input type="text" name="name" class="form-control" id="name" value="{{ $topik->topic_name }}" required>   
+                                                    <select id="echelle"  name="echelle" class="form-control"> 
+                                                        <option value="0">Aktif</option>
+                                                        <option value="1">Tidak Aktif</option>       
+                                                    </select>
+                                                    {{-- <label for="name">Name</label>
+                                                    <input type="text" name="name" class="form-control" id="name" value="{{ $topik->name }}" required>    --}}
                                                 </div>
                                                 <button type="submit" class="btn btn-primary">Submit</button>
                                             </form>

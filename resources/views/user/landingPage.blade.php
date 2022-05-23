@@ -1,4 +1,4 @@
-<html lang="fr">
+<html>
     <head>
         <meta charset="utf-8">
         <title>OPPOSITE-SLIDER</title>
@@ -14,21 +14,22 @@
         <section class="intro">
         <div class="left">
             <div>
-                <img src="{{ asset('/') }}media/lutim.png"  alt=""  style="width: 100px "  />
-                <img src="{{ asset('/') }}media/ds.png"  alt="" style="width: 120px " />
-               
-            <h1>PERIKSA KI'</h1>
-            <p>
-                Merupakan akronim dari peningkatan peran Inspektorat daerah Kabupaten Luwu Timur Melalui Peningkatan Layanan Konsultasi, yaitu
-                sebuah inovasi yang dirancang untuk membangun sebuah systerm layanan konsultasi yang digunakan oleh APIP Inspektorat Kabupaten Luwu Timur 
-            </p>
-            <a href="https://unsplash.com/" target="_blank"></a>
+                <div class="ajg">
+                    <img class="logo-lutim" src="{{ asset('/') }}media/lutim.png" />
+                </div>
+                <h1><img src="{{ asset('/') }}media/ds.png"  alt="" style="width: 110px;margin-top:20px " />PERIKSA KI'</h1>
+                <p>
+                    Merupakan akronim dari peningkatan peran Inspektorat daerah Kabupaten Luwu Timur Melalui Peningkatan Layanan Konsultasi, yaitu
+                    sebuah inovasi yang dirancang untuk membangun sebuah systerm layanan konsultasi yang digunakan oleh APIP Inspektorat Kabupaten Luwu Timur 
+                    <a href="{{ asset ('/login') }}" class="btn third" style="width: 150px">Login</a>
+                </p>
+                <a href="https://unsplash.com/" target="_blank"></a>
             </div>
         </div>
 
         <div class="slider">
             <ul>
-            <li style="background-image:url(https://images.unsplash.com/photo-1458640904116-093b74971de9?crop=entropy&fit=crop&fm=jpg&h=675&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=1375)">
+            <li style="background-image:url({{asset('')}}img/luwutimur.jpg)">
                 <div class="center-y">
                 <h3>Slider Title #1</h3>
                 <a href="#">View Project</a>	

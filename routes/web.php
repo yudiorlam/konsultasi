@@ -53,6 +53,7 @@ Route::middleware(['super_admin'])->group(
         // Route::get('/addTopik', [TopicController::class, 'create']);
         // Route::post('/addTopik', [TopicController::class, 'store']);
 
+        Route::post('/cek_pegawai', [UserTopicController::class, 'cek_pegawai']);
     }
 );
 

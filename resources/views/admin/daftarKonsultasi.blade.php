@@ -169,7 +169,7 @@
 							<th title="Field #1">No</th>
 							<th title="Field #2">Nama Admin</th>
 							<th title="Field #3">Topik</th>
-							<th title="Field #4">NIP</th>
+							<th title="Field #4">Nama Konsultasi</th>
 							<th title="Field #5">Status</th>
 							<th title="Field #6">Action</th>
 						</tr>
@@ -184,7 +184,7 @@
 							<td>{{ $no++ }}</td>
 							<td>{{ $konsul->name }}</td>
 							<td>{{ $konsul->topic_name }}</td>
-							<td>{{ $konsul->nip }}</td>
+							<td>{{ $konsul->nama }}</td>
 							<td class="text-right">{{ $konsul->tiket_status }}</td>
 							<td><a href="{{ url ('rangkuman/' .$konsul->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-pencil-alt"></i></a></td>
 							{{-- <td class="text-right">3</td> --}}

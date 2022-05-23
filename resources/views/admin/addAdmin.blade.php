@@ -34,32 +34,63 @@
         <form action="{{ url('/addAdmin') }}" method="post">
             @csrf
             <div class="card-body">
-                <div class="form-group row">
-                    <label class="col-form-label text-right col-lg-3 col-sm-12">Nama Topik</label>
-                        <div class=" col-lg-4 col-md-9 col-sm-12">
-                            <select class="form-control select2" id="kt_select2_1" name="topic_id">
-                                <option value="">--Pilih--</option>
-                                @foreach ($topik as $topik )
-                                    <option value = "{{ $topik->id }}">{{ $topik->topic_name }}</option>
-                                @endforeach
-                            </select>
-                        </div>  
-                </div>
-                <div class="form-group row">
-                    <label class="col-form-label text-right col-lg-3 col-sm-12">User Topik</label>
-                    <div class=" col-lg-4 col-md-9 col-sm-12">
-                        <select class="form-control select2" id="kt_select2_2" name="user_id">
-                            <option value="">--pilih--</option>
-                            @foreach ($user as $user )
-                            <option value="{{ $user->id }}">{{ $user->name }}</option> 
-                            @endforeach
-                        </select>
+                <div class="row justify-content-center">
+
+                    <div class="col-sm-8">
+                        <div class="form-group row">
+                            <label class="col-form-label text-right col-sm-3">NIP</label>
+                            <div class="col-sm-7">
+                                <input type="number" class="form-control" id="nip" name="nip"  placeholder="NIP" value="{{ old('nip') }}"/>
+                                @error('nip')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>  
+                            <div class="col-sm-2">
+                                <a href="#" onclick="cek_pegawai()" class="btn btn-primary" id="btn-cek" style="width: 100%">CEK</a>
+                            </div> 
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-form-label text-right col-sm-3">Nama Pegawai</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}"  placeholder="Nama Pegawai" readonly/>
+                                 @error('nip')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>  
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-form-label text-right col-sm-3">Jabatan</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="jabatan" name="jabatan" value="{{ old('jabatan') }}" placeholder="Jabatan"/>
+                                 @error('nip')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>  
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-form-label text-right col-sm-3">Nama Topik</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control select2" id="kt_select2_1" name="topic_id">
+                                        <option value="">--Pilih--</option>
+                                        @foreach ($topik as $topik )
+                                            <option value = "{{ $topik->id }}">{{ $topik->topic_name }}</option>
+                                        @endforeach
+                                    </select>
+                                     @error('nip')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                                </div>  
+                        </div>
                     </div>
+
                 </div>
             </div>
             <div class="card-footer">
-                <div class="row">
-                    <div class="col-lg-9 ml-lg-auto">
+                <div class="row justify-content-center">
+                    <div class="col-sm-12 text-center">
                         <button type="submit" class="btn btn-primary mr-2">Submit</button>
                         <button type="reset" class="btn btn-secondary">Cancel</button>
                     </div>
@@ -87,6 +118,37 @@
 @endsection
 
 @section('js')
+    <script>
+        function cek_pegawai() {
+            // alert(topic_id);
+            $.ajax({
+                url: "{{ url('/cek_pegawai') }}",
+                type: 'post',
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    'nip': $('#nip').val()
+                },
+                dataType: 'json',
+                success: function(response) {
+                    if(response.status == 'success'){
+                        $('#name').val(response.data);
+                    }else{
+                        Swal.fire(
+                            'Error',
+                            'NIP tidak sesuai!',
+                            'error'
+                        )
+                    }
+                }
+            });
+        }
+    </script>
+
+
+
+
+
+
     <script>
         // Class definition
     var KTSelect2 = function() {

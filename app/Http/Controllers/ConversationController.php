@@ -23,7 +23,9 @@ class ConversationController extends Controller
                 //  dd($conversations);
             } else if (auth()->user()->role == 2) {
                 $data = Conversation::join('users', 'users.nip', '=', 'conversations.nip')
-                    ->select('conversations.id as conv_id', 'conversations.tiket_status', 'conversations.user_id', 'users.id', 'users.name', 'users.user_image', 'users.nip')
+                    ->join('m_pegawai', 'm_pegawai.nipbaru', '=', 'conversations.nip')
+                    ->join('m_unitkerja', 'm_unitkerja.id', '=' ,'m_pegawai.fkunitkerja')
+                    ->select('conversations.id as conv_id', 'conversations.tiket_status', 'conversations.user_id', 'users.id', 'users.name', 'users.user_image', 'users.nip', 'm_unitkerja.nama')
                     ->where('conversations.user_id', auth()->user()->id)
                     ->orderBy('conversations.created_at', 'DESC')
                     ->get();
@@ -41,13 +43,19 @@ class ConversationController extends Controller
                 $last_chat = Message::where('conv_id', $u->conv_id)
                     ->orderBy('messages.id', 'DESC')
                     ->first();
+                    $ajg = '';
+                    if(auth()->user()->role == 3){
+                        $ajg = $u->topic_name;
+                    } else {
+                        $ajg = $u->nama;
+                    }
 
                 $conversations[] = [
                     'conv_id' => $u->conv_id,
                     'tiket_status' => $u->tiket_status,
                     'user_id' => $u->user_id,
                     'topic_id' => $u->topic_id,
-                    'topic_name' => $u->topic_name,
+                    'topic_name' => $ajg,
                     'nip' => $u->nip,
                     'admin_id' => $u->id,
                     'name' => $u->name,
@@ -89,7 +97,7 @@ class ConversationController extends Controller
                         FROM conversations
                         WHERE conversations.user_id = uid 
                     ) AS tot 
-                    FROM user_topics WHERE  topic_id = '" . $request->topic_id . "' ORDER BY tot ASC LIMIT 1"
+                    FROM user_topics WHERE  topic_id = '" . $request->topic_id . "' AND status = 1 ORDER BY tot ASC LIMIT 1"
                 );
 
                 $status = 'success';
@@ -152,7 +160,8 @@ class ConversationController extends Controller
         if (auth()->user()->role == 1) {
             $daftarKonsul = Conversation::join('topics', 'topics.id', '=', 'conversations.topic_id')
                 ->join('users', 'users.id', '=', 'conversations.user_id')
-                ->select(['conversations.*', 'users.name', 'topics.topic_name'])
+                ->join('m_pegawai', 'm_pegawai.nipbaru', '=' , 'conversations.nip')
+                ->select(['conversations.*', 'users.name', 'topics.topic_name', 'm_pegawai.nama'])
                 ->get();
         } else {
             $daftarKonsul = Conversation::join('topics', 'topics.id', '=', 'conversations.topic_id')

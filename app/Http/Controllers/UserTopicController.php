@@ -24,16 +24,8 @@ class UserTopicController extends Controller
         $tiket = Topic::all();
         // dd($user);
         return view ('admin.adminTopik' , compact('topik' , 'user', 'tiket'));
-
-        
-        
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create(Request $request)
     {
         
@@ -42,28 +34,26 @@ class UserTopicController extends Controller
     //dd($topik);
         return view ('admin.addAdmin' , compact('topik' , 'user'));
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreUser_topicRequest  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $this->validate($request,[
-            'user_id' => 'required',
+            'nip' => 'required',
+            'name' => 'required',
+            'jabatan' => 'required',
             'topic_id' => 'required'
         ]);
 
-        $save = User_topic::create($request->all());
-        if($save){
+        $user = User::where('nip', $request->nip)->first();
+        $user->role = 2;
+        $user->update();
 
-        }else{
-            
-        }
-
-        return redirect('/getAdminTopik');
+        $save = User_topic::create([
+            'user_id' => $user->id,
+            'topic_id' => $request->topic_id,
+            'status' => 1
+        ]);
+      
+        return redirect('/getAdminTopik')->with(['success', 'Berhasil menambahkan data admin']);
     }
     public function edit($id)
     {
@@ -73,4 +63,25 @@ class UserTopicController extends Controller
 	      'data' => $category
 	    ]);
     }
+
+
+    // cek pegawai
+    public function cek_pegawai(Request $request){
+        $pegawai = User::where('nip', $request->nip)->first();
+
+        // dd($pegawai);
+
+        if($pegawai){
+            return response()->json([
+                'status' => 'success',
+                'data' => $pegawai->name,
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error',
+            ]);
+        }
+    }
+
+
 }
