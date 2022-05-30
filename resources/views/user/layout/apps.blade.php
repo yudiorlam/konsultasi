@@ -18,7 +18,7 @@
     <link href="{{ asset('/') }}css/themes/layout/brand/dark.css" rel="stylesheet" type="text/css" />
     <link href="{{ asset('/') }}css/themes/layout/aside/dark.css" rel="stylesheet" type="text/css" />
     <!--end::Layout Themes-->
-    <link rel="shortcut icon" href="{{ asset('/') }}media/logos/favicon.ico" />
+    <link rel="shortcut icon" href="{{ asset('/') }}assets/images/logo1.png" />
 
     {{-- waitMe --}}
     <link href="{{ asset('/') }}plugins/waitme/waitMe.min.css" rel="stylesheet" type="text/css" />
@@ -29,7 +29,7 @@
     class="header-fixed header-mobile-fixed aside-enabled aside-fixed aside-minimize-hoverable page-loading">
     <div id="kt_header_mobile" class="header-mobile align-items-center header-mobile-fixed">
         <a href="{{ url('') }}">
-            <img alt="Logo" src="{{ asset('') }}media/logos/logo-light.png" />
+            <img alt="Logo" src="{{ asset('') }}img/periksaki.png" />
         </a>
         <div class="d-flex align-items-center">
             <button class="btn p-0 burger-icon burger-icon-left" id="kt_aside_mobile_toggle">
@@ -61,7 +61,7 @@
             <div class="aside aside-left aside-fixed d-flex flex-column flex-row-auto" id="kt_aside">
                 <div class="brand flex-column-auto" id="kt_brand">
                     <a href="index.html" class="brand-logo">
-                        <img alt="Logo" src="{{ asset('') }}media/logos/logo-light.png" />
+                        <img alt="Logo" src="{{ asset('') }}img/periksaki2.png" />
                     </a>
                     <button class="brand-toggle btn btn-sm px-0" id="kt_aside_toggle">
                         <span class="svg-icon svg-icon svg-icon-xl">
@@ -206,6 +206,39 @@
                         </div>
                     </div>
                 </a>
+
+                <form class="navi-item" action="{{ url('actionlogout') }}" method="POST">
+                    @csrf
+                    <button class="navi-link text-left" type="submit" style="width: 100%;background-color: transparent;border: none;cursor: pointer;overflow: hidden;outline: none;">
+                        <div class="symbol symbol-40 bg-light mr-3">
+                            <div class="symbol-label">
+                                <span class="svg-icon svg-icon-md svg-icon-warning">
+                                    <!--begin::Svg Icon | path:{{ asset('') }}media/svg/icons/Shopping/Chart-bar1.svg-->
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                        width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                            <rect x="0" y="0" width="24" height="24" />
+                                            <rect fill="#000000" opacity="0.3" x="12" y="4" width="3" height="13"
+                                                rx="1.5" />
+                                            <rect fill="#000000" opacity="0.3" x="7" y="9" width="3" height="8"
+                                                rx="1.5" />
+                                            <path
+                                                d="M5,19 L20,19 C20.5522847,19 21,19.4477153 21,20 C21,20.5522847 20.5522847,21 20,21 L4,21 C3.44771525,21 3,20.5522847 3,20 L3,4 C3,3.44771525 3.44771525,3 4,3 C4.55228475,3 5,3.44771525 5,4 L5,19 Z"
+                                                fill="#000000" fill-rule="nonzero" />
+                                            <rect fill="#000000" opacity="0.3" x="17" y="11" width="3" height="6"
+                                                rx="1.5" />
+                                        </g>
+                                    </svg>
+                                    <!--end::Svg Icon-->
+                                </span>
+                            </div>
+                        </div>
+                        <div class="navi-text">
+                            <div class="font-weight-bold">Logout</div>
+                            <div class="text-muted"></div>
+                        </div>
+                    </button>
+                </form>
 
             </div>
             <div class="separator separator-dashed my-7"></div>

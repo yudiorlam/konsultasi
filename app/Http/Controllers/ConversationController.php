@@ -97,7 +97,7 @@ class ConversationController extends Controller
                         FROM conversations
                         WHERE conversations.user_id = uid 
                     ) AS tot 
-                    FROM user_topics WHERE  topic_id = '" . $request->topic_id . "' AND status = 1 ORDER BY tot ASC LIMIT 1"
+                    FROM user_topics WHERE  topic_id = '" . $request->topic_id . "' AND status = 0 ORDER BY tot ASC LIMIT 1"
                 );
 
                 $status = 'success';

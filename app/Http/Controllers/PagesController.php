@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Conversation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class PagesController extends Controller
 {
@@ -11,7 +14,47 @@ class PagesController extends Controller
         $page_title = 'Dashboard';
         $page_description = 'Some description for the page';
 
-        return view('admin.dashboard2', compact('page_title', 'page_description'));
+        $donat = DB::table('conversations')
+                ->join('topics', 'topics.id', '=', 'conversations.topic_id')
+                ->select('conversations.topic_id', DB::raw('count(*) as total'), 'topics.topic_name')
+                ->groupBy('conversations.topic_id')
+                ->whereMonth('conversations.created_at', Carbon::now())
+                ->get();
+        
+        return view('admin.dashboard2', compact('donat', 'page_title', 'page_description'));
+    }
+
+
+    public function donat(){
+        $donat = DB::table('conversations')
+                ->join('topics', 'topics.id', '=', 'conversations.topic_id')
+                ->select(DB::raw('count(*) as value'), 'topics.topic_name as category')
+                ->groupBy('conversations.topic_id')
+                ->whereMonth('conversations.created_at', Carbon::now())
+                ->get();
+                
+        return response()->json($donat);
+    }
+
+    public function batangan(){
+        $batangan = DB::table('conversations')
+                ->join('users', 'users.id', '=', 'conversations.user_id')
+                ->select(DB::raw('count(*) as steps'), 'users.name as name', 'users.name as name', 'users.user_image as pictureSettings')
+                ->groupBy('conversations.user_id')
+                ->whereMonth('conversations.created_at', Carbon::now())
+                ->get();
+
+        foreach ($batangan as $b) {
+            $batangans[] = [
+                'name' => $b->name,
+                'steps' => $b->steps,
+                'pictureSettings' => [
+                    'src' => 'https://www.amcharts.com/wp-content/uploads/2019/04/monica.jpg', 
+                ],
+            ];
+        }
+                
+        return response()->json($batangans);
     }
 
     /**
@@ -24,7 +67,7 @@ class PagesController extends Controller
         $page_title = 'Add Admin';
         $page_description = 'This is datatables test page';
 
-        return view('user.landingPage', compact('page_title', 'page_description'));
+        return view('landing.landing', compact('page_title', 'page_description'));
     }
 
     // KTDatatables

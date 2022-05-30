@@ -1,63 +1,124 @@
-{
-	class SliderClip {
-		constructor(el) {
-			this.el = el;
-			this.Slides = Array.from(this.el.querySelectorAll('li'));
-			this.Nav = Array.from(this.el.querySelectorAll('nav a'));
-			this.totalSlides = this.Slides.length;
-			this.current = 0;
-			this.autoPlay = true; //true or false
-			this.timeTrans = 4000; //transition time in milliseconds
-			this.IndexElements = [];
+var Lslide      = document.querySelectorAll('.Lslide'),
+    Rslide      = document.querySelectorAll('.Rslide'),
+    control     = document.querySelectorAll('.oncontrol'),
+    slideHeight = document.querySelector('.wrapper').clientHeight,
+    color = ['#FD5D5D', '#e5d3d0', '#71b3d6'],
+    index = 0;
 
-			for(let i=0;i<this.totalSlides;i++) {
-				this.IndexElements.push(i);
-			}
 
-			this.setCurret();
-			this.initEvents();
-		}
-		setCurret() {
-			this.Slides[this.current].classList.add('current');
-			this.Nav[this.current].classList.add('current_dot');
-		}
-		initEvents() {
-			const self = this;
-
-			this.Nav.forEach((dot) => {
-				dot.addEventListener('click', (ele) => {
-					ele.preventDefault();
-					this.changeSlide(this.Nav.indexOf(dot));
-				})
-			})
-
-			this.el.addEventListener('mouseenter', () => self.autoPlay = false);
-			this.el.addEventListener('mouseleave', () => self.autoPlay = true);
-
-			setInterval(function() {
-				if (self.autoPlay) {
-					self.current = self.current < self.Slides.length-1 ? self.current + 1 : 0;
-					self.changeSlide(self.current);
-				}
-			}, this.timeTrans);
-
-		}
-		changeSlide(index) {
-
-			this.Nav.forEach((allDot) => allDot.classList.remove('current_dot'));
-
-			this.Slides.forEach((allSlides) => allSlides.classList.remove('prev', 'current'));
-
-			const getAllPrev = value => value < index;
-
-			const prevElements = this.IndexElements.filter(getAllPrev);
-
-			prevElements.forEach((indexPrevEle) => this.Slides[indexPrevEle].classList.add('prev'));
-
-			this.Slides[index].classList.add('current');
-			this.Nav[index].classList.add('current_dot');
-		}
-	}
-
-	const slider = new SliderClip(document.querySelector('.slider'));
+function init() {
+    slideHeight = document.querySelector('.wrapper').clientHeight;
+    for (i = 0; i < Lslide.length; i++) {
+        Lslide[i].style.backgroundColor = color[i];
+        Lslide[i].style.top = -slideHeight * i + "px";
+        Rslide[i].style.top = slideHeight * i + "px";
+    }  
 }
+init();
+mulai();
+
+window.addEventListener('resize', function(){
+    init();
+});
+
+var intervalAJG;
+var isTop = false;
+
+function mulai() {
+	clearInterval(intervalAJG);
+	intervalAJG = setInterval(function() {
+		if(isTop == true){
+			moveToTop();
+			isTop = true;
+		} else {
+			moveToBottom();
+			isTop = false;
+		}
+		transition();
+	}, 5000);
+}
+
+function moveToTop() {
+
+    index++;
+    for (el = 0; el < Lslide.length; el++) {
+        Lslide[el].style.top = parseInt(Lslide[el].style.top) + slideHeight + "px";
+        Rslide[el].style.top = parseInt(Rslide[el].style.top) - slideHeight + "px";
+    }
+
+    if (index > Lslide.length-1) {
+        index = 0;
+        for (el = 0; el < Lslide.length; el++) {
+            Lslide[el].style.top = -slideHeight * el + "px";
+            Rslide[el].style.top = slideHeight * el + "px";
+        }
+    }
+}
+
+function moveToBottom() {
+    index--;
+    for (el = 0; el < Lslide.length; el++) {
+        Lslide[el].style.top = parseInt(Lslide[el].style.top) - slideHeight + "px";
+        Rslide[el].style.top = parseInt(Rslide[el].style.top) + slideHeight + "px";
+        
+    }
+    if (index < 0) {
+        index = Rslide.length-1;
+        for (el = 0; el < Lslide.length; el++) {
+            Lslide[el].style.top = parseInt(Lslide[el].style.top) + slideHeight * Lslide.length + "px";
+            Rslide[el].style.top = parseInt(Rslide[el].style.top) - slideHeight * Rslide.length + "px";
+        }
+    }
+}
+
+function transition() {
+    for (t = 0; t < Lslide.length; t++) {
+        Lslide[t].style.transition = "all 0.8s";
+        Rslide[t].style.transition = "all 0.8s";
+    }
+}
+  
+
+for (t = 0; t < control.length; t++) {
+    control[t].addEventListener("click", function() {
+
+        if (this.classList.contains('control-top')) {
+            moveToTop();
+			isTop = true;
+        } 
+        if (this.classList.contains('control-bottom')) {
+            moveToBottom();
+			isTop = false;
+        }
+
+        transition()
+   
+    });
+}
+
+
+var wheeling;
+function mousemouve(e) {
+
+    clearTimeout(wheeling);
+    e.preventDefault();
+    var e = window.event || e; 
+    var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+    
+    wheeling = setTimeout(function() {
+        wheeling = undefined;
+        if (delta === 1) {
+            moveToTop();
+			isTop = true;
+        }
+        if (delta === -1) {
+            moveToBottom();
+			isTop = false;
+        }
+    }, 100);
+
+    transition()
+}
+
+document.addEventListener("mousewheel", mousemouve);
+document.addEventListener("DOMMouseScroll", mousemouve);

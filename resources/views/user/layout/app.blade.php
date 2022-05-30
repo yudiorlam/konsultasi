@@ -21,7 +21,7 @@
     <link href="{{ asset('/') }}css/themes/layout/brand/dark.css" rel="stylesheet" type="text/css" />
     <link href="{{ asset('/') }}css/themes/layout/aside/dark.css" rel="stylesheet" type="text/css" />
     <!--end::Layout Themes-->
-    <link rel="shortcut icon" href="{{ asset('/') }}media/logos/favicon.ico" />
+    <link rel="shortcut icon" href="{{ asset('/') }}assets/images/logo1.png" />
 
     {{-- waitMe --}}
     <link href="{{ asset('/') }}plugins/waitme/waitMe.min.css" rel="stylesheet" type="text/css" />
@@ -66,7 +66,7 @@
             <div class="aside aside-left aside-fixed d-flex flex-column flex-row-auto" id="kt_aside">
                 <div class="brand flex-column-auto" id="kt_brand">
                     <a href="index.html" class="brand-logo">
-                        <img alt="Logo" src="{{ asset('/') }}media/logos/logo-light.png" />
+                        <img alt="Logo" src="{{ asset ('/') }}img/periksaki2.png" />
                     </a>
                     <button class="brand-toggle btn btn-sm px-0" id="kt_aside_toggle">
                         <span class="svg-icon svg-icon svg-icon-xl">

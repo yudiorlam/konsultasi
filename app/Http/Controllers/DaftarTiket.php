@@ -9,7 +9,7 @@ class DaftarTiket extends Controller
 {
     public function ajax_get_topic (Request $request){
         if ($request->ajax()) {
-            $tiket = Topic::all();
+            $tiket = Topic::where('status', 0)->get();
 
             return response()->json($tiket);
         }

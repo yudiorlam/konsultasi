@@ -39,7 +39,7 @@ class CetakKonsultasiController extends Controller
         ->join('topics', 'topics.id' , '=' ,'conversations.topic_id')
         ->join('m_pegawai', 'm_pegawai.nipbaru', '=', 'conversations.nip')
         ->join('m_unitkerja', 'm_unitkerja.id', '=' ,'m_pegawai.fkunitkerja')
-        ->select(['conversations.*' , 'users.name', 'topics.topic_name', 'm_pegawai.nama', 'm_pegawai.nipbaru', 'users.nip', 'm_unitkerja.nama as instansi'])
+        ->select(['conversations.*' , 'users.name', 'topics.topic_name', 'm_pegawai.nama', 'm_pegawai.nipbaru', 'users.nip', 'm_unitkerja.nama as instansi', 'users.jabatan'])
         ->where('conversations.id', $filter)
         ->first();
         // dd($data);
@@ -51,15 +51,17 @@ class CetakKonsultasiController extends Controller
         $File = Conversation::select('*');
         $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('Konsultasi.docx');
         //$templateProcessor->setValue('tanggal', Carbon::now()->format('d ') . $bulan[(int) Carbon::now()->format('m')] . Carbon::now()->format(' Y'));
-        $templateProcessor->setValue('name',$data->name);
-        $templateProcessor->setValue('nip',$data->nip);
-        $templateProcessor->setValue('topic_name',$data->topic_name);
-        $templateProcessor->setValue('rangkuman',$data->rangkuman);
-        $templateProcessor->setValue('materi',$data->materi);
-        $templateProcessor->setValue('saran',$data->saran);
-        $templateProcessor->setValue('nama',$data->nama);
-        $templateProcessor->setValue('nipbaru',$data->nipbaru);
-        $templateProcessor->setValue('instansi',$data->instansi);
+        //dd($data);
+        $templateProcessor->setValue('name',htmlspecialchars($data->name));
+        $templateProcessor->setValue('nip',htmlspecialchars($data->nip));
+        $templateProcessor->setValue('topic_name',htmlspecialchars($data->topic_name));
+        $templateProcessor->setValue('rangkuman',htmlspecialchars($data->rangkuman));
+        $templateProcessor->setValue('materi',htmlspecialchars($data->materi));
+        $templateProcessor->setValue('saran',htmlspecialchars($data->saran));
+        $templateProcessor->setValue('nama',htmlspecialchars($data->nama));
+        $templateProcessor->setValue('nipbaru',htmlspecialchars($data->nipbaru));
+        $templateProcessor->setValue('jabatan',htmlspecialchars($data->jabatan));
+        $templateProcessor->setValue('instansi',htmlspecialchars($data->instansi));
         
          //var_dump($data['fileKartuKuning']);die();
         

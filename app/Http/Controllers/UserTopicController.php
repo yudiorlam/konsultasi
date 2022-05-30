@@ -45,12 +45,13 @@ class UserTopicController extends Controller
 
         $user = User::where('nip', $request->nip)->first();
         $user->role = 2;
+        $user->jabatan =  $request->jabatan;
         $user->update();
 
         $save = User_topic::create([
             'user_id' => $user->id,
             'topic_id' => $request->topic_id,
-            'status' => 1
+            'status' => 0
         ]);
       
         return redirect('/getAdminTopik')->with(['success', 'Berhasil menambahkan data admin']);
@@ -69,12 +70,22 @@ class UserTopicController extends Controller
     public function cek_pegawai(Request $request){
         $pegawai = User::where('nip', $request->nip)->first();
 
-        // dd($pegawai);
+        $user = User_topic::where('user_id', $pegawai->id)->get();
+
+        $data = [];
+        foreach ($user as $u){
+            $data[] = ['id', '!=', $u->topic_id ]; 
+        }
+
+        // dd($data);
+
+        $user_topic = Topic::where($data)->get();
 
         if($pegawai){
             return response()->json([
                 'status' => 'success',
                 'data' => $pegawai->name,
+                'topic' => $user_topic,
             ]);
         } else {
             return response()->json([
@@ -83,5 +94,18 @@ class UserTopicController extends Controller
         }
     }
 
+    public function editStatus($id)
+    {
+        $status = User_topic::find($id);
+        return view('admin.adminTopik', compact('status'));
+    }
 
+    public function updateStatus(Request $request)
+    {
+        $status = User_topic::find($request->input('id'));
+        $status->status = $request->input('status');
+        $status->update();
+        return redirect('/getAdminTopik');
+    }
 }
+

@@ -20,7 +20,7 @@ class PegawaiSyncController extends Controller
                 'name' => $u->nama,
                 'role' => 3,
                 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
-                'user_image' => 'default.jpg',
+                'user_image' => 'users/default.jpg',
             ];
         }
 
@@ -33,4 +33,10 @@ class PegawaiSyncController extends Controller
     {
         $pegawai = Pegawai::select('fkunitkerja')->distinct()->get();
     }
+
+    public function delete_all_pegawai()
+    {
+        User::truncate();
+    }
+
 }

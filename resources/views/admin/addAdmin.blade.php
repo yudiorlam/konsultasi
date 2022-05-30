@@ -74,6 +74,8 @@
                             <label class="col-form-label text-right col-sm-3">Nama Topik</label>
                                 <div class="col-sm-9">
                                     <select class="form-control select2" id="kt_select2_1" name="topic_id">
+                                    </select>
+                                    {{-- <select class="form-control select2" id="kt_select2_1" name="topic_id">
                                         <option value="">--Pilih--</option>
                                         @foreach ($topik as $topik )
                                             <option value = "{{ $topik->id }}">{{ $topik->topic_name }}</option>
@@ -81,7 +83,7 @@
                                     </select>
                                      @error('nip')
                                     <small class="text-danger">{{ $message }}</small>
-                                @enderror
+                                @enderror --}}
                                 </div>  
                         </div>
                     </div>
@@ -130,8 +132,14 @@
                 },
                 dataType: 'json',
                 success: function(response) {
+                     $('#kt_select2_1').html('');
                     if(response.status == 'success'){
                         $('#name').val(response.data);
+
+                         $.each(response.topic, function(index, value) {
+                            $('#kt_select2_1').append('<option value = "' + value.id + '">' + value.topic_name + '</option>');
+                         });
+                        
                     }else{
                         Swal.fire(
                             'Error',

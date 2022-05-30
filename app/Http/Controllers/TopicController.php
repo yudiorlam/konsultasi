@@ -17,29 +17,33 @@ class TopicController extends Controller
      */
     public function index(Request $request)
     {
-         if ($request->ajax()) {
-            $data = Topic::all();
+        //  if ($request->ajax()) {
+        //     $data = Topic::all();
 
-            return Datatables::of($data)
-                ->addIndexColumn()
-                ->addColumn('action', function ($row) {
+        //     return Datatables::of($data)
+        //         ->addIndexColumn()
+        //         ->addColumn('action', function ($row) {
 
-                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit"><i class="far fa-edit fs-2 text-info"></i></a>';
+        //             $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit"><i class="far fa-edit fs-2 text-info"></i></a>';
 
-                    $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="delete"><i class="far fa-trash-alt fs-2 text-danger"></i></a>';
+        //             $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="delete"><i class="far fa-trash-alt fs-2 text-danger"></i></a>';
 
-                    return $btn;
-                })
-                ->rawColumns(['action'])
-                ->make(true);
-        }
+        //             return $btn;
+        //         })
+        //         ->rawColumns(['action'])
+        //         ->make(true);
+        // }
         
-        return view('admin.topik');
+        // return view('admin.topik');
+
+
+        $topik = Topic::all();
+        return view('admin.topik', compact('topik')); 
     }
     
     public function create()
     {
-        // return view('admin.addTopik');
+        
     }
 
     public function store(Request $request)
@@ -51,6 +55,7 @@ class TopicController extends Controller
         $save = Topic::updateOrCreate(
             [
                 'id' => $request->id,
+                'status' => 0
             ],
             [
                 'topic_name' => ucwords($request->topic_name),
@@ -58,13 +63,10 @@ class TopicController extends Controller
         );
 
         if ($save) {
-            return response()->json($response = [
-                'status' => 'success',
-            ]);
+            return redirect('/topic');
+                
         } else {
-            return response()->json($response = [
-                'status' => 'error',
-            ]);
+           //
         }
     }
 
@@ -106,5 +108,13 @@ class TopicController extends Controller
     public function destroy(Topic $topic)
     {
         //
+    }
+
+    public function updateTopic(Request $request)
+    {
+        $status = Topic::find($request->input('id'));
+        $status->status = $request->input('status');
+        $status->update();
+        return redirect('/topic');
     }
 }

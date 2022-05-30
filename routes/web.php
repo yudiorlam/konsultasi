@@ -54,6 +54,19 @@ Route::middleware(['super_admin'])->group(
         // Route::post('/addTopik', [TopicController::class, 'store']);
 
         Route::post('/cek_pegawai', [UserTopicController::class, 'cek_pegawai']);
+        Route::get('/status/{id}', [UserTopicController::class, 'editStatus'])->name('editStatus');
+        Route::post('/updateStatus', [UserTopicController::class, 'updateStatus'])->name('updateStatus');
+        Route::post('/updateStatusTopik', [TopicController::class, 'updateTopic'])->name('updateStatusTopik');
+
+
+        // 
+        Route::get('/grafik-donat', [PagesController::class, 'donat']);
+        Route::get('/grafik-batangan', [PagesController::class, 'batangan']);
+
+
+        // 
+        Route::get('/delete_all_pegawai', [PegawaiSyncController::class, 'delete_all_pegawai']);
+        Route::get('/pegawai/sync', [PegawaiSyncController::class, 'sync']);
     }
 );
 
@@ -69,7 +82,7 @@ Route::middleware(['admin'])->group(function () {
     // Route::post('/color/{id}', [TopicController::class, 'update']);
 
     // DS
-    Route::get('/pegawai/sync', [PegawaiSyncController::class, 'sync']);
+  
     Route::get('/pegawai/sync/per-instansi', [PegawaiSyncController::class, 'per_instansi']);
 });
 
