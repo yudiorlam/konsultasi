@@ -404,7 +404,6 @@
                             </div>\
                             <div class="d-flex flex-column align-items-end">\
                                 <span class="text-muted font-weight-bold font-size-sm" style="font-size:7pt">'+ value.last_chat_time +'</span>\
-                                <span class="label label-sm label-success">5</span>\
                             </div>\
                         </div>');
                     });
@@ -604,12 +603,13 @@
                                     '" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-dialog-centered modal-lg" role="document"><div class="modal-content"><img width="100%" src="{{ asset('storage') }}' +
                                     '/' + value.attachment + '"></div></div></div>';
                                 } else {
-                                    attachment = '<iframe class="mt-3" src="{{ asset("storage") }}' + '/' + value.attachment + '" frameBorder="0" scrolling="auto" height="500px" width="70%"></iframe>';
+                                    attachment = '<div class="d-flex flex-column mb-5 align-items-end">\
+                                <div class="d-flex align-items-center">\
+                                    <div class="mt-2 mb-2 rounded p-5 bg-light-primary text-dark-50 font-weight-bold font-size-lg text-right max-w-400px">\
+                                        <a href="#" class="btn btn-clean btn-icon btn-md mr-1"><i class="flaticon2-photograph icon-lg"></i></a>  Selamat siang, silahkan pilih topik pembahasan.\
+                                    </div>\
+                                </div>';
                                 }
-
-
-                                
-
                                 
                             } else {
                                 attachment = '';
