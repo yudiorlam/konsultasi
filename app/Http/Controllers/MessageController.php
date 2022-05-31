@@ -98,9 +98,15 @@ class MessageController extends Controller
 
     public function send_attachment(Request $request)
     {
-        $data = $this->validate($request, [
-            'attachment' => 'image|file|max:2040',
-        ]);
+        if($request->att_type == 'image'){
+            $data = $this->validate($request, [
+                'attachment' => 'required|image|file|max:2040',
+            ]);
+        } else {
+            $data = $this->validate($request, [
+                'attachment' => 'required|mimetypes:application/pdf|max:2040',
+            ]);
+        }
 
         if ($request->att_body != '') {
             $save = Message::create([

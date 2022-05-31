@@ -189,12 +189,11 @@
 
                                         <div class="d-flex align-items-center justify-content-between mt-5">
                                             <div class="mr-3">
-                                                <a href="#" data-toggle="modal" data-target="#uploadImageModal"
-                                                    class="btn btn-clean btn-icon btn-md mr-1">
+                                                <a href="#" onclick="uploadAttachment('image')" class="btn btn-clean btn-icon btn-md mr-1">
                                                     <i class="flaticon2-photograph icon-lg"></i>
                                                 </a>
-                                                <a href="#" class="btn btn-clean btn-icon btn-md">
-                                                    <i class="flaticon2-photo-camera icon-lg"></i>
+                                                <a href="#" onclick="uploadAttachment('pdf')" class="btn btn-clean btn-icon btn-md">
+                                                    <i class="flaticon2-file icon-lg"></i>
                                                 </a>
                                             </div>
                                             <div>
@@ -220,13 +219,14 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="uploadImageModalLabel">Modal Title</h5>
+                    <h5 class="modal-title" id="uploadImageModalLabel"></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <i aria-hidden="true" class="ki ki-close"></i>
                     </button>
                 </div>
                 <form id="attachmentForm">
                     @csrf
+                    <input type="hidden" name="att_type" id="att_type">
                     <div class="modal-body">
                         <div class="form-group row">
 
@@ -239,9 +239,9 @@
                                         <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
                                     </div>
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="upload" onchange="readURL(this);"
+                                        <input type="file" class="custom-file-input" id="upload" 
                                             name="attachment">
-                                        <label class="custom-file-label" for="inputGroupFile01">Pilih
+                                        <label class="custom-file-label tes" for="inputGroupFile01">Pilih
                                             file</label>
                                     </div>
                                 </div>
@@ -269,6 +269,26 @@
 
 @section('js')
     <script src="{{ asset('') }}/js/pages/crud/file-upload/dropzonejs.js"></script>
+
+    <script>
+        $('#upload').on("change",function() {
+            var file = $('#upload')[0].files[0].name;
+            $('.tes').text(file);
+        });
+        
+        function uploadAttachment(type) {
+            $('.tes').text('Pilih File');
+            $('#att_type').val(type);
+
+            if(type == 'image'){
+                $('#uploadImageModalLabel').text('Upload Image');
+            } else {
+                $('#uploadImageModalLabel').text('Upload Dokumen');
+            }
+
+            $('#uploadImageModal').modal('show');
+        }
+    </script>
 
     <script>
         $('#ajaxFormSend').keypress(function(e) {
@@ -572,7 +592,9 @@
 
                             // is attachment
                             if (value.attachment !== '0') {
-                                attachment =
+
+                                if(value.attachment.substring(value.attachment.length - 1) == 'g') {
+                                    attachment =
                                     '<a data-toggle="modal" data-target="#prevAttachmentModal' + value
                                     .message_id +
                                     '"><img class="img-thumbnail mt-2" width="200px" src="{{ asset('storage') }}' +
@@ -581,6 +603,14 @@
                                     .message_id +
                                     '" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-dialog-centered modal-lg" role="document"><div class="modal-content"><img width="100%" src="{{ asset('storage') }}' +
                                     '/' + value.attachment + '"></div></div></div>';
+                                } else {
+                                    attachment = '<iframe class="mt-3" src="{{ asset("storage") }}' + '/' + value.attachment + '" frameBorder="0" scrolling="auto" height="500px" width="70%"></iframe>';
+                                }
+
+
+                                
+
+                                
                             } else {
                                 attachment = '';
                             }
