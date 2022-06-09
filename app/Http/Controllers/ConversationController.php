@@ -16,8 +16,10 @@ class ConversationController extends Controller
         if ($request->ajax()) {
             $user_id = Auth::user()->id;
             if (auth()->user()->role == 1) {
-                $data = Conversation::join('users', 'users.id', '=', 'conversations.user_id')
-                    ->select('conversations.id as conv_id', 'conversations.tiket_status', 'users.id', 'users.name', 'users.user_image')
+                $data = Conversation::join('users', 'users.nip', '=', 'conversations.nip')
+                    ->join('m_pegawai', 'm_pegawai.nipbaru', '=', 'conversations.nip')
+                    ->join('m_unitkerja', 'm_unitkerja.id', '=' ,'m_pegawai.fkunitkerja')
+                    ->select('conversations.id as conv_id', 'conversations.tiket_status', 'users.nip', 'users.name', 'users.user_image', 'm_unitkerja.nama')
                     ->orderBy('conversations.created_at', 'DESC')
                     ->get();
                 //  dd($conversations);
@@ -32,7 +34,7 @@ class ConversationController extends Controller
             } else {
                 $data = Conversation::join('users', 'users.id', '=', 'conversations.user_id')
                     ->join('topics', 'topics.id', '=', 'conversations.topic_id')
-                    ->select('conversations.id as conv_id', 'conversations.tiket_status', 'conversations.user_id', 'conversations.topic_id', 'topics.topic_name', 'conversations.nip', 'users.id', 'users.name', 'users.user_image',)
+                    ->select('conversations.id as conv_id', 'conversations.tiket_status', 'conversations.user_id', 'conversations.topic_id', 'topics.topic_name', 'conversations.nip', 'users.id', 'users.name', 'users.user_image', 'users.email')
                     ->where('conversations.nip', auth()->user()->nip)
                     ->orderBy('conversations.created_at', 'DESC')
                     ->get();
@@ -61,7 +63,77 @@ class ConversationController extends Controller
                     'name' => $u->name,
                     'user_image' => $u->user_image,
                     'last_chat' => substr($last_chat->body, 0, 30),
-                    'last_chat_time' => $last_chat->created_at->diffForHumans(),
+                    'last_chat_time' => $last_chat->created_at->format('H:i A'),
+                    'last_chat_from' => $last_chat->user_id,
+                ];
+            }
+
+            return response()->json([
+                'status' => 'success',
+                'data' => $conversations,
+            ]);
+        }
+    }
+
+    // search by nip or nama pegawai
+    public function search_by_nip_or_name(Request $request)
+    {
+        $keyword =  $request->keyword;
+        
+        if ($request->ajax()) {
+            $user_id = Auth::user()->id;
+            if (auth()->user()->role == 1) {
+                $data = Conversation::join('users', 'users.nip', '=', 'conversations.nip')
+                    ->join('m_pegawai', 'm_pegawai.nipbaru', '=', 'conversations.nip')
+                    ->join('m_unitkerja', 'm_unitkerja.id', '=' ,'m_pegawai.fkunitkerja')
+                    ->select('conversations.id as conv_id', 'conversations.tiket_status', 'users.nip', 'users.name', 'users.user_image', 'm_unitkerja.nama')
+                    ->where('users.name','LIKE','%'.$keyword."%")
+                    ->orderBy('conversations.created_at', 'DESC')
+                    ->get();
+                //  dd($conversations);
+            } else if (auth()->user()->role == 2) {
+                $data = Conversation::join('users', 'users.nip', '=', 'conversations.nip')
+                    ->join('m_pegawai', 'm_pegawai.nipbaru', '=', 'conversations.nip')
+                    ->join('m_unitkerja', 'm_unitkerja.id', '=' ,'m_pegawai.fkunitkerja')
+                    ->select('conversations.id as conv_id', 'conversations.tiket_status', 'conversations.user_id', 'users.id', 'users.name', 'users.user_image', 'users.nip', 'm_unitkerja.nama')
+                    ->where('conversations.user_id', auth()->user()->id)
+                    ->where('users.name','LIKE','%'.$keyword."%")
+                    ->orderBy('conversations.created_at', 'DESC')
+                    ->get();
+            } else {
+                $data = Conversation::join('users', 'users.id', '=', 'conversations.user_id')
+                    ->join('topics', 'topics.id', '=', 'conversations.topic_id')
+                    ->select('conversations.id as conv_id', 'conversations.tiket_status', 'conversations.user_id', 'conversations.topic_id', 'topics.topic_name', 'conversations.nip', 'users.id', 'users.name', 'users.user_image','users.email')
+                    ->where('conversations.nip', auth()->user()->nip)
+                    ->where('users.name','LIKE','%'.$keyword."%")
+                    ->orderBy('conversations.created_at', 'DESC')
+                    ->get();
+            }
+
+            $conversations = array();
+            foreach ($data as $u) {
+                $last_chat = Message::where('conv_id', $u->conv_id)
+                    ->orderBy('messages.id', 'DESC')
+                    ->first();
+                    $ajg = '';
+                    if(auth()->user()->role == 3){
+                        $ajg = $u->topic_name;
+                    } else {
+                        $ajg = $u->nama;
+                    }
+
+                $conversations[] = [
+                    'conv_id' => $u->conv_id,
+                    'tiket_status' => $u->tiket_status,
+                    'user_id' => $u->user_id,
+                    'topic_id' => $u->topic_id,
+                    'topic_name' => $ajg,
+                    'nip' => $u->nip,
+                    'admin_id' => $u->id,
+                    'name' => $u->name,
+                    'user_image' => $u->user_image,
+                    'last_chat' => substr($last_chat->body, 0, 30),
+                    'last_chat_time' => $last_chat->created_at->format('H:i A'),
                     'last_chat_from' => $last_chat->user_id,
                 ];
             }
@@ -164,10 +236,11 @@ class ConversationController extends Controller
                 ->select(['conversations.*', 'users.name', 'topics.topic_name', 'm_pegawai.nama'])
                 ->get();
         } else {
-            $daftarKonsul = Conversation::join('topics', 'topics.id', '=', 'conversations.topic_id')
-                ->join('users', 'users.id', '=', 'conversations.user_id')
+            $daftarKonsul = Conversation::join('users', 'users.id', '=' ,'conversations.user_id')
+                ->join('topics', 'topics.id' , '=' ,'conversations.topic_id')
+                ->join('m_pegawai', 'm_pegawai.nipbaru', '=', 'conversations.nip')
                 ->where('conversations.user_id', auth()->user()->id)
-                ->select(['conversations.*', 'users.name', 'topics.topic_name'])
+                ->select(['conversations.*' , 'users.name', 'topics.topic_name', 'm_pegawai.nama'])
                 ->get();
         }
         // dd($daftarKonsul);
@@ -188,5 +261,31 @@ class ConversationController extends Controller
         $rangkuman->saran = $request->input('saran');
         $rangkuman->update();
         return redirect('/daftarKonsul');
+    }
+
+
+    // 
+    public function ajax_get_conv_by_id(Request $request)
+    {
+        if ($request->ajax()) {
+            $id = $request->id;
+
+            if(auth()->user()->role == 3){
+                $conv = Conversation::join('users', 'users.id', '=', 'conversations.user_id')
+                    ->select(['conversations.*', 'users.name', 'users.nip as nip_baru', 'users.user_image'])
+                    ->where('conversations.id', $id)
+                    ->first();   
+            } else {
+                $conv = Conversation::join('users', 'users.nip', '=', 'conversations.nip')
+                    ->select(['conversations.*', 'users.name', 'users.nip as nip_baru', 'users.user_image'])
+                    ->where('conversations.id', $id)
+                    ->first();
+            }
+            
+            return response()->json([
+                'status' => 'success',
+                'data' => $conv,
+            ]);
+        }
     }
 }

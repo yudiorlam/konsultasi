@@ -11,7 +11,7 @@ class CetakKonsultasiController extends Controller
 {
     public function index(){
         if(auth()->user()->role == 1){
-           $daftarCetak= Conversation::join('users', 'users.id', '=' ,'conversations.user_id')
+            $daftarCetak= Conversation::join('users', 'users.id', '=' ,'conversations.user_id')
             ->join('topics', 'topics.id' , '=' ,'conversations.topic_id')
             ->join('m_pegawai', 'm_pegawai.nipbaru', '=', 'conversations.nip')
             ->select(['conversations.*' , 'users.name', 'topics.topic_name', 'm_pegawai.nama'])
@@ -45,6 +45,52 @@ class CetakKonsultasiController extends Controller
         // dd($data);
 
 
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://api.eabsensi.luwutimurkab.go.id/public/api/pegawai/getbynip',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_SSL_VERIFYHOST=> false,
+            CURLOPT_SSL_VERIFYPEER=> false,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => 'nip=' . $data->nipbaru . '',
+            CURLOPT_HTTPHEADER => array(
+                'Content-Type: application/x-www-form-urlencoded'
+            ),
+        ));
+
+        $response = curl_exec($curl);
+       
+        // if (curl_errno($curl)) {
+        //     $error_msg = curl_error($curl);
+        // }
+        // curl_close($curl);
+
+        // if (isset($error_msg)) {
+        //     echo $error_msg;
+        // }
+        // die();
+
+        // curl_close($curl);
+        //dd(json_decode($response)->data->namajabatan);
+
+        // $url="https://api.eabsensi.luwutimurkab.go.id/public/api/pegawai/getbynip";
+        // $data=array("nip" => "198504182009021004");
+        
+        // $curl = curl_init();
+        // curl_setopt($curl, CURLOPT_URL, $url);
+        // curl_setopt($curl, CURLOPT_POST, 1);
+        // curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+        // curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        // $response = curl_exec($curl);
+        // var_dump($response); die();
+
+
         //echo Carbon::now()->format('l, d F Y H:i');
         // Sabtu, 04 Maret 2017 07:38
         // dd($data);
@@ -62,6 +108,7 @@ class CetakKonsultasiController extends Controller
         $templateProcessor->setValue('nipbaru',htmlspecialchars($data->nipbaru));
         $templateProcessor->setValue('jabatan',htmlspecialchars($data->jabatan));
         $templateProcessor->setValue('instansi',htmlspecialchars($data->instansi));
+        $templateProcessor->setValue('namajabatan',htmlspecialchars(json_decode($response)->data->namajabatan));
         
          //var_dump($data['fileKartuKuning']);die();
         

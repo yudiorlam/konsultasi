@@ -39,12 +39,8 @@
                                         {{ auth()->user()->name }}
                                     </div>
                                     <div>
-                                        <span class="font-weight-bold text-muted font-size-sm">
-                                            @if (auth()->user()->role == 3)
-                                                {{ auth()->user()->nip }}
-                                            @else
-                                                {{ auth()->user()->email }}
-                                            @endif
+                                        <span class="font-weight-bold text-muted font-size-sm">                                
+                                            {{ auth()->user()->nip }}
                                         </span>
                                     </div>
                                 </div>
@@ -74,7 +70,7 @@
                                             </span>
                                         </span>
                                     </div>
-                                    <input type="text" class="form-control py-4 h-auto" placeholder="Nama Pegawai" />
+                                    <input type="text" name="search" class="form-control py-4 h-auto" id="search" placeholder="Nama Pegawai" />
                                 </div>
 
                                 <div class="scroll scroll-pull mt-3" id="conversations">
@@ -87,21 +83,54 @@
                     <div class="flex-row-fluid ml-lg-8" id="kt_chat_content">
                         <div class="card card-custom">
                             <div class="card-header align-items-center px-4 py-3">
+
                                 <div class="text-left flex-grow-1">
+
+                                    {{-- janagn dihapus anjing --}}
                                     <button type="button" class="btn btn-clean btn-sm btn-icon btn-icon-md d-lg-none" id="kt_app_chat_toggle">
-                                        <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo1\dist/../src/media/svg/icons\Communication\Chat4.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                <rect x="0" y="0" width="24" height="24"/>
-                                                <path d="M21.9999843,15.009808 L22.0249378,15 L22.0249378,19.5857864 C22.0249378,20.1380712 21.5772226,20.5857864 21.0249378,20.5857864 C20.7597213,20.5857864 20.5053674,20.4804296 20.317831,20.2928932 L18.0249378,18 L5,18 C3.34314575,18 2,16.6568542 2,15 L2,6 C2,4.34314575 3.34314575,3 5,3 L19,3 C20.6568542,3 22,4.34314575 22,6 L22,15 C22,15.0032706 21.9999948,15.0065399 21.9999843,15.009808 Z M6.16794971,10.5547002 C7.67758127,12.8191475 9.64566871,14 12,14 C14.3543313,14 16.3224187,12.8191475 17.8320503,10.5547002 C18.1384028,10.0951715 18.0142289,9.47430216 17.5547002,9.16794971 C17.0951715,8.86159725 16.4743022,8.98577112 16.1679497,9.4452998 C15.0109146,11.1808525 13.6456687,12 12,12 C10.3543313,12 8.9890854,11.1808525 7.83205029,9.4452998 C7.52569784,8.98577112 6.90482849,8.86159725 6.4452998,9.16794971 C5.98577112,9.47430216 5.86159725,10.0951715 6.16794971,10.5547002 Z" fill="#000000"/>
-                                            </g>
-                                        </svg><!--end::Svg Icon--></span>
+                                        <span class="svg-icon svg-icon-lg">
+                                            <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Adress-book2.svg-->
+                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                    <rect x="0" y="0" width="24" height="24" />
+                                                    <path d="M18,2 L20,2 C21.6568542,2 23,3.34314575 23,5 L23,19 C23,20.6568542 21.6568542,22 20,22 L18,22 L18,2 Z" fill="#000000" opacity="0.3" />
+                                                    <path d="M5,2 L17,2 C18.6568542,2 20,3.34314575 20,5 L20,19 C20,20.6568542 18.6568542,22 17,22 L5,22 C4.44771525,22 4,21.5522847 4,21 L4,3 C4,2.44771525 4.44771525,2 5,2 Z M12,11 C13.1045695,11 14,10.1045695 14,9 C14,7.8954305 13.1045695,7 12,7 C10.8954305,7 10,7.8954305 10,9 C10,10.1045695 10.8954305,11 12,11 Z M7.00036205,16.4995035 C6.98863236,16.6619875 7.26484009,17 7.4041679,17 C11.463736,17 14.5228466,17 16.5815,17 C16.9988413,17 17.0053266,16.6221713 16.9988413,16.5 C16.8360465,13.4332455 14.6506758,12 11.9907452,12 C9.36772908,12 7.21569918,13.5165724 7.00036205,16.4995035 Z" fill="#000000" />
+                                                </g>
+                                            </svg>
+                                            <!--end::Svg Icon-->
+                                        </span>
                                     </button>
+
+                                    <div class="dropdown dropdown-inline">
+
+                                        <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <img src="" height="40px" id="receiver_image" alt="" style="border-radius: 100%">
+                                        </a>
+                                        {{-- <div class="dropdown-menu p-0 m-0 dropdown-menu-left dropdown-menu-md">
+                                            <!--begin::Navigation-->
+                                            <ul class="navi navi-hover py-5">
+                                                <li class="navi-item">
+                                                    <a href="#" class="navi-link">
+                                                        <span class="navi-icon">
+                                                            <i class="flaticon2-drop"></i>
+                                                        </span>
+                                                        <span class="navi-text">New</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                            <!--end::Navigation-->
+                                        </div> --}}
+                                    </div>
+                                    <!--end::Dropdown Menu-->
                                 </div>
+
                                 <div class="text-center flex-grow-1">
-                                    <div class="text-dark-75 font-weight-bold font-size-h5" id="receiver_name"></div>
                                     <div>
-                                        {{-- <span class="label label-sm label-dot label-success"></span>
-                                <span class="font-weight-bold text-muted font-size-sm">Active</span> --}}
+                                        <div class="text-dark-75 font-weight-bold font-size-h5" id="receiver_name"></div>
+                                        <div>
+                                            {{-- <span class="label label-sm label-dot label-success"></span>--}}
+                                            <span class="font-weight-bold text-muted font-size-sm" id="receiver_nip"></span> 
+                                        </div>
                                     </div>
                                 </div>
 
@@ -162,7 +191,7 @@
 
                             </div>
                             <div class="card-body">
-                                <div class="scroll scroll-pull" data-mobile-height="350">
+                                <div class="scroll scroll-pull" id="scroll-messages" data-mobile-height="350">
                                     <div class="messages">
 
                                         <div class="body-chat">
@@ -170,6 +199,89 @@
                                                 <img src="{{ asset('img/phone-animasi.png') }}" alt="#" width="50%"
                                                     draggable="false">
                                             </div>
+
+                                            {{-- <div class="mb-2 d-flex flex-column align-items-end">
+                                                <i class="fas fa-caret-right mt-2 text-light text-right" style="position: absolute;font-size: 18pt"></i>
+                                                <div class="m-0 mr-2 rounded bg-light text-dark-50 font-weight-bold font-size-lg text-right max-w-400px">
+                                                    <div style="width: 100%;" class="bg-light-primary rounded px-2 py-0">
+                                                        <small style="font-size: 8pt">12:12 PM</small> 
+                                                        <i class="la la-check-double text-right text-info" style="font-size: 8pt"></i>
+                                                    </div>
+                                                    <div class="p-2 m-0">
+                                                        Discover what students who viewed Learn Figma - UI/UX Design. Essential Training also viewed
+                                                    </div>
+                                                    <div style="width: 100%;" class="bg-light-primary rounded px-2 py-0">
+                                                        <small style="font-size: 8pt">12:12 PM</small> 
+                                                        <i class="la la-check-double text-right text-info" style="font-size: 8pt"></i>
+                                                    </div>
+                                                </div>
+                                            </div> --}}
+
+                                            {{-- <div class="d-flex mb-2 flex-column align-items-end">
+                                                <i class="fas fa-caret-right mt-2 text-light text-right" style="position: absolute;font-size: 18pt"></i>
+                                                <div class="m-0 mr-2 rounded bg-light text-dark-50 font-weight-bold font-size-lg text-right max-w-400px">
+                                                    <div class="p-2 m-0">
+                                                        Discover what students who vialso viewed
+                                                    </div>
+                                                    <div style="width: 100%;" class="bg-light-primary rounded px-2">
+                                                       <small style="font-size: 8pt">12:12 PM</small> 
+                                                        <i class="la la-check-double text-right text-info" style="font-size: 8pt"></i>
+                                                    </div>
+                                                </div>
+                                            </div> --}}
+
+                                            {{-- <div class="mb-2 d-flex flex-column align-items-start">
+                                                <i class="fas fa-caret-left mt-2 text-light-success text-left" style="position: absolute;font-size: 18pt"></i>
+                                                <div class="m-0 ml-2 rounded bg-light-success text-dark-50 font-weight-bold font-size-lg text-right max-w-400px">
+                                                    <div class="p-2 m-0">
+                                                        Discover what students who viewed Learn Figma - UI/UX Design. Essential Training also viewed
+                                                    </div>
+                                                    <div style="width: 100%;" class="bg-light rounded px-2 py-0">
+                                                        <small style="font-size: 8pt">12:12 PM</small> 
+                                                        <i class="la la-check-double text-right text-info" style="font-size: 8pt"></i>
+                                                    </div>
+                                                </div>
+                                            </div> --}}
+
+                                            {{-- <div class="mb-5 align-items-start">
+                                                <div class="row mt-2 rounded bg-light-success text-dark-50 font-weight-bold font-size-lg text-left max-w-400px">
+                                                    <div class="col-12 rounded p-3 bg-light text-dark-50 font-weight-bold font-size-lg text-left">
+                                                        <div class="row ml-2 mr-2">
+                                                            <div class="col-1"><i class="far fa-file-pdf text-primary" style="font-size: 18pt"></i></div>
+                                                            <div class="col-10"><a href="">Install the latest PowerShell...</td></a></div>
+                                                            <div class="col-1"><a href=""><i class="flaticon-download"></i></a></div>
+                                                        </div>
+                                                    </div>
+                                                   <div class="row ml-5 mr-2"><div class="col-12"> <small class="">120 kb - Pdf</small></div></div>
+                                                </div>
+                                            </div> --}}
+
+                                            {{-- <div class="row rounded bg-light-success text-dark-50 font-weight-bold font-size-lg text-left max-w-400px">
+                                                <div class="col-12 bg-light">
+                                                    <div class="row pl-5">
+                                                        <div class="col-6">
+                                                            <small>12:12 PM</small>
+                                                        </div>
+                                                        <div class="col-6 text-right">
+                                                            <small>Anda</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 p-3 bg-light text-dark-50 font-weight-bold font-size-lg text-left">
+                                                    <div class="row ml-2 mr-2">
+                                                        <div class="col-1"><i class="far fa-file-pdf text-primary" style="font-size: 18pt"></i></div>
+                                                        <div class="col-10"><a href="">Install the latest PowerShell...</td></a></div>
+                                                        <div class="col-1"><a href=""><i class="flaticon-download"></i></a></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="row pl-5 pr-2 justify-content-center">
+                                                        <div class="col-6"><small class="">120 kb - Pdf</small></div>
+                                                        <div class="col-6 text-right"><i class="la la-check-double text-right text-info"></i></div>
+                                                    </div>
+                                                </div>
+                                            </div> --}}
+
                                         </div>
 
                                     </div>
@@ -189,10 +301,10 @@
 
                                         <div class="d-flex align-items-center justify-content-between mt-5">
                                             <div class="mr-3">
-                                                <a href="#" onclick="uploadAttachment('image')" class="btn btn-clean btn-icon btn-md mr-1">
+                                                <a href="#" onclick="uploadAttachment('image')" class="btn btn-clean btn-icon btn-md mr-1 btn-attachment">
                                                     <i class="flaticon2-photograph icon-lg"></i>
                                                 </a>
-                                                <a href="#" onclick="uploadAttachment('pdf')" class="btn btn-clean btn-icon btn-md">
+                                                <a href="#" onclick="uploadAttachment('pdf')" class="btn btn-clean btn-icon btn-md btn-attachment">
                                                     <i class="flaticon2-file icon-lg"></i>
                                                 </a>
                                             </div>
@@ -271,6 +383,80 @@
     <script src="{{ asset('') }}/js/pages/crud/file-upload/dropzonejs.js"></script>
 
     <script>
+        $('#search').on('keyup', function(){
+            search();
+        });
+
+        function search(){
+            var keyword = $('#search').val();
+
+            $.ajax({
+                url: "{{ url('/search_by_nip_or_name') }}",
+                type: 'post',
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    'keyword': keyword
+                },
+                dataType: 'json',
+                beforeSend: function() {
+                    $('#conversations').waitMe({
+                        effect: 'timer',
+                        text: "Loading...",
+                        color: '#000',
+                        bg: 'rgba(255,255,255,0.6)',
+                        maxSize: '',
+                        waitTime: -1,
+                        textPos: 'vertical',
+                        fontSize: '',
+                        source: '',
+                        onClose: function() {}
+                    });
+                },
+                success: function(response) {
+                    $('#conversations').html('');
+                    $.each(response.data, function(index, value) {
+                        var tiket_status = '';
+                        
+                        if(value.tiket_status == 2){
+                            var tiket_status = '<button class="btn btn-danger btn-sm p-0">Sesi telah berakhir...</button>';
+                        }
+
+                        if(value.last_chat_from == {{ auth()->user()->id }}){
+                            last_chat = '<i class="la la-check-double"></i> ' + value.last_chat;
+                        } else {
+                            last_chat = value.last_chat;
+                        }
+
+                        $('#conversations').append('<div class="d-flex align-items-center justify-content-between mb-5">\
+                            <div class="d-flex align-items-center">\
+                                <div class="symbol symbol-circle symbol-50 mr-3">\
+                                    <img alt="Pic" src="{{ asset('storage') }}/' + value.user_image + '" />\
+                                </div>\
+                                <div class="d-flex flex-column">\
+                                    <a href="javascript:void(0)" onclick="showChat('+ value.conv_id +')" class="text-dark-75 text-hover-primary font-weight-bold font-size-lg">'+ value.name + " (" + value.topic_name + ")" +'</a>\
+                                    <span class="text-muted font-weight-bold font-size-sm" id="last_chat">'+ last_chat +'</span>\
+                                    '+ tiket_status +'\
+                                </div>\
+                            </div>\
+                            <div class="d-flex flex-column align-items-end">\
+                                <span class="text-muted font-weight-bold font-size-sm" style="font-size:7pt">'+ value.last_chat_time +'</span>\
+                            </div>\
+                        </div>');
+                    });
+
+                    $('body').waitMe("hide");
+
+                }
+            });
+        }
+    </script>
+
+
+
+    <script>
+        $('.btn-attachment').addClass('disabled');
+        $('#tombol-send').addClass('disabled');
+
         $('#upload').on("change",function() {
             var file = $('#upload')[0].files[0].name;
             $('.tes').text(file);
@@ -348,18 +534,27 @@
                     });
                 },
                 success: function(response) {
-                    $('#uploadImageModal').modal('hide');
-                    $('#attachmentForm')[0].reset();
-                    $('#imageResult').attr('src', '');
-
                     $.LoadingOverlay("hide");
-                    Swal.fire(
-                        'Sukses',
-                        'Gambar berhasil terkirim.',
-                        'success'
-                    );
 
-                    fetch_chat(id);
+                    if(response.status == 'error'){
+                        Swal.fire(
+                            'Gagal',
+                            response.message,
+                            'error'
+                        );
+                    } else {
+                        $('#uploadImageModal').modal('hide');
+                        $('#attachmentForm')[0].reset();
+                        $('#imageResult').attr('src', '');
+
+                        Swal.fire(
+                            'Sukses',
+                            'Berhasil mengirim.',
+                            'success'
+                        );
+
+                        fetch_chat(id);
+                    }
                 }
             });
 
@@ -397,7 +592,7 @@
                                     <img alt="Pic" src="{{ asset('storage') }}/' + value.user_image + '" />\
                                 </div>\
                                 <div class="d-flex flex-column">\
-                                    <a href="javascript:void(0)" onclick="showChat('+ value.conv_id + ')" class="text-dark-75 text-hover-primary font-weight-bold font-size-lg">'+ value.name + " (" + value.topic_name + ")" +'</a>\
+                                    <a href="javascript:void(0)" onclick="showChat('+ value.conv_id +')" class="text-dark-75 text-hover-primary font-weight-bold font-size-lg">'+ value.name + " (" + value.topic_name + ")" +'</a>\
                                     <span class="text-muted font-weight-bold font-size-sm" id="last_chat">'+ last_chat +'</span>\
                                     '+ tiket_status +'\
                                 </div>\
@@ -506,8 +701,30 @@
         var interval;
 
         function showChat(id, name) {
+            console.log(id);
+            $('.btn-attachment').removeClass('disabled');
+            $('#tombol-send').removeClass('disabled');
+
+            $.ajax({
+                url: "{{ url('/ajax_get_conv_by_id') }}",
+                type: 'post',
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    'id': id,
+                },
+                dataType: 'json',
+                success: function(response) {
+                    var image = "{{ asset('storage') }}/"+ response.data.user_image +""
+
+                    console.log(image);
+
+                    $("#receiver_image").attr("src", image);
+                    $('#receiver_name').html(response.data.name);
+                    $('#receiver_nip').html(response.data.nip_baru);
+                }
+            });
+
             $('#btn-edit-status-tiket').show();
-            $('#receiver_name').html(name);
             fetch_chat(id);
 
             clearInterval(interval);
@@ -584,9 +801,9 @@
                         $.each(response.chats, function(index, value) {
                             // is read
                             if (value.is_read == 1) {
-                                is_read = '<i class="icon-xl la la-check-double"></i>';
+                                is_read = '<i class="la la-check-double" style="font-size: 8pt"></i>';
                             } else {
-                                is_read = '<i class="icon-xl la la-check-double text-primary"></i>';
+                                is_read = '<i class="la la-check-double text-info" style="font-size: 8pt"></i>';
                             }
 
                             // is attachment
@@ -603,35 +820,81 @@
                                     '" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-dialog-centered modal-lg" role="document"><div class="modal-content"><img width="100%" src="{{ asset('storage') }}' +
                                     '/' + value.attachment + '"></div></div></div>';
                                 } else {
-                                    attachment = '<div class="d-flex flex-column mb-5 align-items-end">\
-                                <div class="d-flex align-items-center">\
-                                    <div class="mt-2 mb-2 rounded p-5 bg-light-primary text-dark-50 font-weight-bold font-size-lg text-right max-w-400px">\
-                                        <a href="#" class="btn btn-clean btn-icon btn-md mr-1"><i class="flaticon2-photograph icon-lg"></i></a>  Selamat siang, silahkan pilih topik pembahasan.\
-                                    </div>\
-                                </div>';
+                                    attachment = '<div class="row mt-2 mr-1 rounded bg-light-success text-dark-50 font-weight-bold font-size-lg text-left max-w-400px">\
+                                                    <div class="col-12 bg-light text-dark-50 font-weight-bold font-size-lg text-left">\
+                                                        <div class="row mr-2">\
+                                                            <div class="col-1"><i class="far fa-file-pdf text-primary" style="font-size: 18pt"></i></div>\
+                                                            <div class="col-10"><a href="{{ url("download-attachment") }}/' + value.message_id + '">' + value.attachment.substring(11) + '</td></a></div>\
+                                                        </div>\
+                                                    </div>\
+                                                </div>';
                                 }
                                 
                             } else {
                                 attachment = '';
                             }
 
-                            if (value.user_id == {{ auth()->user()->id }}) {
-                                pesan =
-                                    '<div class="d-flex flex-column mb-5 align-items-end"><div class="d-flex align-items-center"><div><span class="text-muted font-size-sm">' +
-                                    value.created_at +
-                                    '</span> <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">Anda</a> </div> <div class="symbol symbol-circle symbol-40 ml-3"><img alt="Pic" src="{{ asset('storage') }}' +
-                                    '/' + value.user_image + '" /></div> </div>' + attachment +
-                                    '<div class="mt-2 rounded px-3 bg-light-primary text-dark-50 font-weight-bold font-size-lg text-right max-w-400px">' +
-                                    value.body + ' ' + is_read + '</div></div>';
+                            if(value.attachment != 0) {
+                                body = attachment;
                             } else {
-                                pesan =
-                                    '<div class="d-flex flex-column mb-5 align-items-start"> <div class="d-flex align-items-center">  <div class="symbol symbol-circle symbol-40 mr-3"> <img alt="Pic" src="{{ asset('storage') }}' +
-                                    '/' + value.user_image +
-                                    '" /> </div><div><a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">' +
-                                    value.name + '</a> ' + value.created_at + '</span></div></div> ' +
-                                    attachment +
-                                    ' <div class="mt-2 rounded px-3 bg-light-success text-dark-50 font-weight-bold font-size-lg text-left max-w-400px">' +
-                                    is_read + ' ' + value.body + '</div> </div>';
+                                body = value.body;   
+                            }
+
+                            var is_admin = '<div></div>';
+
+                            if (value.user_id == {{ auth()->user()->id }}) {
+                                // pesan =
+                                //     '<div class="d-flex flex-column mb-5 align-items-end"><div class="d-flex align-items-center"><div><span class="text-muted font-size-sm">' +
+                                //     value.created_at +
+                                //     '</span> <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">Anda</a> </div> <div class="symbol symbol-circle symbol-40 ml-3"><img alt="Pic" src="{{ asset('storage') }}' +
+                                //     '/' + value.user_image + '" /></div> </div>' + attachment +
+                                //     '<div class="mt-2 rounded px-3 bg-light-primary text-dark-50 font-weight-bold font-size-lg text-right max-w-400px">' +
+                                //     value.body + ' ' + is_read + '</div></div>';
+
+                                if({{ auth()->user()->role }} == 1){
+                                    is_admin = '<div style="width: 100%;" class="bg-light-primary rounded px-2 py-0">\
+                                                    <small style="font-size: 8pt">' + value.name + '</small> \
+                                                </div>';
+                                }
+                                
+                                pesan = '<div class="mb-2 d-flex flex-column align-items-end">\
+                                            <i class="fas fa-caret-right mt-2 text-light text-right" style="position: absolute;font-size: 18pt"></i>\
+                                            <div class="m-0 mr-2 rounded bg-light text-dark-50 font-weight-bold text-right max-w-400px">\
+                                                ' + is_admin + '\
+                                                <div class="p-2 px-4 m-0"> ' + body + ' </div>\
+                                                <div style="width: 100%;" class="bg-light-primary rounded px-2 py-0">\
+                                                    <small style="font-size: 7pt">' + value.created_at + '</small> \
+                                                    ' + is_read + '\
+                                                </div>\
+                                            </div>\
+                                        </div>';
+                            } else {
+
+                                    is_admin = '<div style="width: 100%;" class="bg-light-primary rounded px-2 py-0">\
+                                                    <small style="font-size: 8pt">' + value.name + '</small> \
+                                                </div>';
+                                
+
+                                pesan = '<div class="mb-2 d-flex flex-column align-items-start">\
+                                            <i class="fas fa-caret-left mt-2 text-light-success text-left" style="position: absolute;font-size: 18pt"></i>\
+                                            <div class="m-0 ml-2 rounded bg-light-success text-dark-50 font-weight-bold font-size-lg text-left max-w-400px">\
+                                                ' + is_admin + '\
+                                                <div class="p-2 px-4 m-0">' + body + '</div>\
+                                                <div style="width: 100%;" class="bg-light rounded px-2 py-0">\
+                                                    ' + is_read + '\
+                                                    <small style="font-size: 8pt">' + value.created_at +'</small> \
+                                                </div>\
+                                            </div>\
+                                        </div>';
+                                            
+                                // pesan =
+                                //     '<div class="d-flex flex-column mb-5 align-items-start"> <div class="d-flex align-items-center">  <div class="symbol symbol-circle symbol-40 mr-3"> <img alt="Pic" src="{{ asset('storage') }}' +
+                                //     '/' + value.user_image +
+                                //     '" /> </div><div><a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">' +
+                                //     value.name + '</a> ' + value.created_at + '</span></div></div> ' +
+                                //     attachment +
+                                //     ' <div class="mt-2 rounded px-3 bg-light-success text-dark-50 font-weight-bold font-size-lg text-left max-w-400px">' +
+                                //     is_read + ' ' + value.body + '</div> </div>';
                             }
 
                             $('.body-chat').append(pesan);
@@ -650,12 +913,17 @@
                     }
                 }
             });
-            $(".scroll-pull").animate({
+
+            // var ajg = $('.scroll-pull').height();
+            // console.log(ajg);
+
+            $("#scroll-messages").animate({
                 scrollTop: $(document).height() + 10000
             }, 1000);
         }
 
         $(function() {
+
             $("#ajaxFormSend").on('submit', function(e) {
                 e.preventDefault();
                 var id = $('#id').val();

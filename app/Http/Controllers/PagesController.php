@@ -20,8 +20,29 @@ class PagesController extends Controller
                 ->groupBy('conversations.topic_id')
                 ->whereMonth('conversations.created_at', Carbon::now())
                 ->get();
+
+                $keuangan = Conversation::where('topic_id', 37)
+                ->whereMonth('created_at' ,Carbon::now())
+                ->count();
+                $kegiatanFisik = Conversation::where('topic_id', 38)
+                ->whereMonth('created_at' ,Carbon::now())
+                ->count();
+                $kepegawaian = Conversation::where('topic_id', 39)
+                ->whereMonth('created_at' ,Carbon::now())
+                ->count();
+                $dll = Conversation::where('topic_id', 39)
+                ->whereMonth('created_at' ,Carbon::now())
+                ->count();
+                $total = Conversation::whereMonth('created_at' ,Carbon::now())->count();
+                $status1 = Conversation::where('tiket_status', 1)
+                ->whereDay('created_at', Carbon::now())
+                ->count();
+                $status2 = Conversation::where('tiket_status', 2)
+                ->whereDay('created_at', Carbon::now())
+                ->count();
+                
         
-        return view('admin.dashboard2', compact('donat', 'page_title', 'page_description'));
+        return view('admin.dashboard2', compact('donat', 'page_title', 'page_description', 'keuangan', 'kegiatanFisik', 'kepegawaian', 'dll', 'total', 'status1', 'status2'));
     }
 
 
@@ -49,13 +70,32 @@ class PagesController extends Controller
                 'name' => $b->name,
                 'steps' => $b->steps,
                 'pictureSettings' => [
-                    'src' => 'https://www.amcharts.com/wp-content/uploads/2019/04/monica.jpg', 
+                    'src' => asset('storage'). "/" .$b->pictureSettings, 
                 ],
             ];
         }
                 
         return response()->json($batangans);
     }
+
+
+    public function line(){
+        $line = DB::table('conversations')
+                ->select(DB::raw('count(*) as value'), 'conversations.created_at')
+                ->groupBy('conversations.created_at')
+                ->whereMonth('conversations.created_at', Carbon::now())
+                ->get();
+
+        foreach ($line as $b) {
+            $lines[] = [
+                'date' => Carbon::parse($b->created_at)->format('d/m/Y'),
+                'value' => $b->value,
+            ];
+        }
+                
+        return response()->json($lines);
+    }
+
 
     /**
      * Demo methods below
@@ -156,4 +196,6 @@ class PagesController extends Controller
     {
         return view('layout.partials.extras._quick_search_result');
     }
+
+
 }

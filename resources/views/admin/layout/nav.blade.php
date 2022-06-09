@@ -2,6 +2,7 @@
     <div id="kt_aside_menu" class="aside-menu my-4" data-menu-vertical="1" data-menu-scroll="1"
         data-menu-dropdown-timeout="500">
         <ul class="menu-nav">
+            @can('super_admin')
             <li class="menu-item menu-item-active" aria-haspopup="true">
                 <a href="{{ url('/dashboard') }}" class="menu-link">
                     <span class="svg-icon menu-icon">
@@ -21,6 +22,8 @@
                     <span class="menu-text">Dashboard</span>
                 </a>
             </li>
+
+            @endcan 
             <li class="menu-section">
                 <h4 class="menu-text">Layout</h4>
                 <i class="menu-icon ki ki-bold-more-hor icon-md"></i>

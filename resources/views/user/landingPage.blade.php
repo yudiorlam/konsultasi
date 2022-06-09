@@ -2,20 +2,18 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>OPPOSITE-SLIDER</title>
+        <title>PERIKSA KI'</title>
         <meta name="description" content=""/>
 
         <link rel="stylesheet" type="text/css" href="{{ asset('') }}css/landing.css" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     </head>
-
     <body>
-
         <div class="wrapper">
-           <div class="container">
+            <div class="container">
 
-               <div class="slideshow">
+                <div class="slideshow">
 
                     <div class="slideshow-left">
 
@@ -93,10 +91,10 @@
                         </div>                          
                     </div> --}}
 
-               </div>
+                </div>
 
-           </div>
-       </div>
+            </div>
+        </div>
 
         <script type="text/javascript" src="{{ asset('') }}js/landing.js"></script>
     </body>

@@ -63,6 +63,8 @@ Route::middleware(['super_admin'])->group(
         Route::get('/grafik-donat', [PagesController::class, 'donat']);
         Route::get('/grafik-batangan', [PagesController::class, 'batangan']);
 
+        Route::get('/grafik-line', [PagesController::class, 'line']);
+
 
         // 
         Route::get('/delete_all_pegawai', [PegawaiSyncController::class, 'delete_all_pegawai']);
@@ -101,6 +103,16 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/profile', [ProfileController::class, 'index']);
     Route::post('/update-profile', [ProfileController::class, 'update']);
+
+
+    // ajg
+    Route::get('/download-attachment/{id}', [MessageController::class, 'download_attachment']);
+
+    // 
+    Route::post('/ajax_get_conv_by_id', [ConversationController::class, 'ajax_get_conv_by_id']);
+
+    // ds
+    Route::post('/search_by_nip_or_name', [ConversationController::class, 'search_by_nip_or_name']);
 });
 
 
