@@ -47,7 +47,7 @@
 	<body id="kt_body" class="header-fixed header-mobile-fixed subheader-enabled subheader-fixed aside-enabled aside-fixed aside-minimize-hoverable page-loading">
 		<div id="kt_header_mobile" class="header-mobile align-items-center header-mobile-fixed">
 			<a href="index.html">
-				<img alt="Logo" src="{{ asset ('') }}img/periksaki.png" />
+				<img alt="Logo" src="{{ asset ('') }}img/periksaki2.png" />
 			</a>
 			<div class="d-flex align-items-center">
 				<button class="btn p-0 burger-icon burger-icon-left" id="kt_aside_mobile_toggle">
