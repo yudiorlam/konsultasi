@@ -164,7 +164,7 @@ class ConversationController extends Controller
 
                 $time = Carbon::now()->hour;
 
-                if ($time > 8 and $time < 11) {
+                if ($time > 8 and $time < 16) {
                     // buat room
                     $user_topik = DB::select(
                         "
