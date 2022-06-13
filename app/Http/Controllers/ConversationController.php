@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class ConversationController extends Controller
 {
@@ -160,47 +161,57 @@ class ConversationController extends Controller
                     'message' => $message,
                 ]);
             } else {
-                // buat room
-                $user_topik = DB::select(
-                    "
-                SELECT user_id as uid,
-                    (
-                        SELECT COUNT(user_id)
-                        FROM conversations
-                        WHERE conversations.user_id = uid 
-                    ) AS tot 
-                    FROM user_topics WHERE  topic_id = '" . $request->topic_id . "' AND status = 0 ORDER BY tot ASC LIMIT 1"
-                );
 
-                $status = 'success';
-                $message = '';
+                $time = Carbon::now()->hour;
 
-                $save = Conversation::create([
-                    'topic_id' => $request->topic_id,
-                    'user_id' => $user_topik[0]->uid,
-                    'nip' => auth()->user()->nip,
-                    'tiket_status' => '1',
-                ]);
+                if ($time > 8 and $time < 11) {
+                    // buat room
+                    $user_topik = DB::select(
+                        "
+                    SELECT user_id as uid,
+                        (
+                            SELECT COUNT(user_id)
+                            FROM conversations
+                            WHERE conversations.user_id = uid 
+                        ) AS tot 
+                        FROM user_topics WHERE  topic_id = '" . $request->topic_id . "' AND status = 0 ORDER BY tot ASC LIMIT 1"
+                    );
 
-                $admin = User::findOrFail($user_topik[0]->uid);
-                Message::create([
-                    'conv_id' => $save->id,
-                    'user_id' => $user_topik[0]->uid,
-                    'attachment' =>  '0',
-                    'body' => 'Hai, <strong>' . auth()->user()->name. '</strong>, perkenalkan nama saya ' . $admin->name . '. Sekarang anda sudah bisa memulai konsultasi..',
-                ]);
+                    $status = 'success';
+                    $message = '';
 
-                if ($save) {
-                    $admin = User::findOrFail($user_topik[0]->uid);
-                    return response()->json([
-                        'status' => 'success',
-                        'data' => $save,
-                        'nama_admin' => $admin->name,
+                    $save = Conversation::create([
+                        'topic_id' => $request->topic_id,
+                        'user_id' => $user_topik[0]->uid,
+                        'nip' => auth()->user()->nip,
+                        'tiket_status' => '1',
                     ]);
+
+                    $admin = User::findOrFail($user_topik[0]->uid);
+                    Message::create([
+                        'conv_id' => $save->id,
+                        'user_id' => $user_topik[0]->uid,
+                        'attachment' =>  '0',
+                        'body' => 'Hai, <strong>' . auth()->user()->name. '</strong>, perkenalkan nama saya ' . $admin->name . '. Sekarang anda sudah bisa memulai konsultasi..',
+                    ]);
+
+                    if ($save) {
+                        $admin = User::findOrFail($user_topik[0]->uid);
+                        return response()->json([
+                            'status' => 'success',
+                            'data' => $save,
+                            'nama_admin' => $admin->name,
+                        ]);
+                    } else {
+                        return response()->json([
+                            'status' => 'error',
+                            'message' => 'Gagal menyimpan'
+                        ]);
+                    }
                 } else {
                     return response()->json([
                         'status' => 'error',
-                        'message' => 'Gagal menyimpan'
+                        'message' => 'Anda tidak bisa melakukan konsultasi diluar jam kerja yaitu dari pukul 08:00 sampai 16:00!'
                     ]);
                 }
             }

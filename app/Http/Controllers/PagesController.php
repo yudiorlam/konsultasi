@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Conversation;
+use App\Models\User_topic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -40,9 +41,11 @@ class PagesController extends Controller
                 $status2 = Conversation::where('tiket_status', 2)
                 ->whereDay('created_at', Carbon::now())
                 ->count();
+
+                $users = User_topic::whereDay('status' , 0)->count();
                 
         
-        return view('admin.dashboard2', compact('donat', 'page_title', 'page_description', 'keuangan', 'kegiatanFisik', 'kepegawaian', 'dll', 'total', 'status1', 'status2'));
+        return view('admin.dashboard2', compact('donat', 'page_title', 'page_description', 'keuangan', 'kegiatanFisik', 'kepegawaian', 'dll', 'total', 'status1', 'status2', 'users'));
     }
 
 

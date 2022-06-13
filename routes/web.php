@@ -113,6 +113,10 @@ Route::middleware(['auth'])->group(function () {
 
     // ds
     Route::post('/search_by_nip_or_name', [ConversationController::class, 'search_by_nip_or_name']);
+
+    // croppie
+    Route::get('image-crop', [ProfileController::class, "imageCrop"]);
+    Route::post('image-crop', [ProfileController::class, "imageCropPost"])->name("imageCrop");
 });
 
 
